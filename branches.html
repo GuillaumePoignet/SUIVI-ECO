@@ -14,6 +14,7 @@
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
 <script src="assets/commun.js"></script>
 <script src="assets/ui.js"></script>
+<script src="assets/ratios.js"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -43,6 +44,10 @@ pageRubrique({
       {fichier:'emploi',motif:'emploi_total',et:'Emploi total'},
       {fichier:'capacites',motif:'taux_utilisation',et:'Capacit\u00e9s utilis\u00e9es'}
     ]},
+    {type:'ratio',titre:'Le taux de marge des branches',
+     quoi:'L\u2019exc\u00e9dent brut d\u2019exploitation rapport\u00e9 \u00e0 la valeur ajout\u00e9e : ce qui reste \u00e0 la branche une fois les salaires et les imp\u00f4ts de production pay\u00e9s. Le d\u00e9p\u00f4t ne grave pas ce rapport \u2014 grav\u00e9, il deviendrait faux d\u00e8s la premi\u00e8re r\u00e9vision de son num\u00e9rateur \u2014 la page le calcule.',
+     num:{fichier:'tes',grandeur:'excedent_brut'},den:{fichier:'tes',grandeur:'valeur_ajoutee'},
+     libelle:'Taux de marge, ensemble des branches'},
     {type:'classement',fichier:'comptes',prefMotif:'valeur_ajout',
      titre:'Le poids de chaque branche',
      quoi:'Les branches class\u00e9es pour la grandeur choisie, \u00e0 l\u2019ann\u00e9e choisie. La part est un simple rapport \u00e0 la somme des branches affich\u00e9es.'},
