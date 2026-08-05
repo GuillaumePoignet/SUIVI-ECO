@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Notes &amp; &eacute;tudes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/carte.js"></script>
+<script src="assets/tableau.js"></script>
+<script>
+pageRubrique({
+  id:'notes',
+  titre:'Notes & \u00e9tudes',
+  sous:'Ce que le socle a produit : les notes dat\u00e9es, l\u2019\u00e9tude fondatrice, et les documents qui disent comment le d\u00e9p\u00f4t est fait et ce qu\u2019il vaut.',
+  fichiers:{
+    conjoncture:'ECO/notes/2026-08-04_CONJONCTURE.md',
+    dependances:'ECO/notes/2026-08-04_DEPENDANCES.md',
+    premiere:'ECO/notes/2026-07-31_VUE-GLOBALE_M1-essai.md',
+    etude:'ECO/etudes/2026-08-04_ETUDE-RESSOURCES.md',
+    plan:'ECO/savoir/PLAN.md',
+    conventions:'ECO/savoir/CONVENTIONS_SERIES.md',
+    inventaire:'ECO/savoir/INVENTAIRE.md',
+    sources:'ECO/sources/SOURCES.md',
+    audit:'ECO/savoir/AUDIT.md',
+    rafraichissement:'ECO/savoir/RAFRAICHISSEMENT.md',
+    nomenclature:'ECO/savoir/NOMENCLATURE.md',
+    catalogue:'ECO/savoir/CATALOGUE.md',
+    journal:'ECO/journal/JOURNAL.md',
+    besoin:'ECO/cadrage/2026-07-31_BESOIN.md'
+  },
+  panneaux:[
+    {type:'document',fichier:'conjoncture',ouvert:true,titre:'La conjoncture fran\u00e7aise',
+     lien:'Note dat\u00e9e du 4 ao\u00fbt 2026',
+     quoi:'L\u2019\u00e9tat de l\u2019\u00e9conomie fran\u00e7aise appuy\u00e9 sur le socle complet, chaque chiffre portant la date de son dernier point.'},
+    {type:'document',fichier:'dependances',titre:'Les d\u00e9pendances strat\u00e9giques',
+     lien:'Note dat\u00e9e du 4 ao\u00fbt 2026',
+     quoi:'Ce que donnent les huit briques du chantier g\u00e9opolitique une fois crois\u00e9es.'},
+    {type:'document',fichier:'etude',titre:'L\u2019\u00e9tude fondatrice des ressources',
+     lien:'\u00c9tude du 4 ao\u00fbt 2026, cinq fois r\u00e9vis\u00e9e',
+     quoi:'Douze fonctions qu\u2019un \u00c9tat doit assurer, vingt-neuf familles de produits \u00e0 suivre, et les cinq crit\u00e8res de d\u00e9pendance. C\u2019est le document qui a fix\u00e9 ce que M8b devait mesurer.'},
+    {type:'document',fichier:'premiere',titre:'La premi\u00e8re vue globale',
+     lien:'Essai du 31 juillet 2026',
+     quoi:'Le premier \u00e9tat dat\u00e9, \u00e9crit quand le d\u00e9p\u00f4t ne portait que le module des agr\u00e9gats.'},
+    {type:'document',fichier:'besoin',titre:'Le besoin d\u2019origine',
+     lien:'Cadrage du 31 juillet 2026',
+     quoi:'Ce qui a \u00e9t\u00e9 demand\u00e9 au d\u00e9part, grav\u00e9 mot pour mot.'},
+    {type:'document',fichier:'plan',titre:'Le plan des modules',
+     lien:'Ce que chaque module poss\u00e8de, et ce qui manque encore',
+     quoi:'La grille en neuf modules, la r\u00e8gle du propri\u00e9taire unique, et les trous nomm\u00e9s.'},
+    {type:'document',fichier:'conventions',titre:'Les conventions de s\u00e9ries',
+     lien:'Comment les fichiers sont faits',
+     quoi:'Format long, tables de codes, codes de p\u00e9riode, et les contr\u00f4les de raccordement obligatoires.'},
+    {type:'document',fichier:'inventaire',titre:'L\u2019inventaire du d\u00e9p\u00f4t',
+     lien:'Les 95 fichiers, module par module',
+     quoi:'Avec l\u2019avertissement qui le clôt : le nombre de lignes mesure un volume, pas une valeur.'},
+    {type:'document',fichier:'sources',titre:'Les sources',
+     lien:'Les quatorze producteurs utilis\u00e9s',
+     quoi:'Le chemin exact de chacun, les pi\u00e8ges d\u2019appel connus et les voies ferm\u00e9es test\u00e9es.'},
+    {type:'document',fichier:'audit',titre:'L\u2019audit de forme',
+     lien:'Ce que la passe de v\u00e9rification a trouv\u00e9',
+     quoi:'Sources manquantes, contr\u00f4les absents, et les tables dont la cl\u00e9 r\u00e9elle est le couple code-niveau.'},
+    {type:'document',fichier:'rafraichissement',titre:'Ce qui vieillit',
+     lien:'Trois vitesses de p\u00e9remption',
+     quoi:'Les fichiers volatils \u00e0 ré\u00e9xtraire avant toute note dat\u00e9e, avec leur point d\u2019acc\u00e8s.'},
+    {type:'document',fichier:'nomenclature',titre:'Les nomenclatures',
+     lien:'Les grilles de classement retenues',quoi:''},
+    {type:'document',fichier:'catalogue',titre:'Le catalogue',
+     lien:'La carte compl\u00e8te des fichiers',quoi:'Mis \u00e0 jour \u00e0 chaque \u00e9criture : c\u2019est le plan du d\u00e9p\u00f4t.'},
+    {type:'document',fichier:'journal',titre:'Le journal de bord',
+     lien:'Les s\u00e9ances dat\u00e9es, du 30 juillet \u00e0 aujourd\u2019hui',
+     quoi:'Le d\u00e9cid\u00e9, le grav\u00e9, le report\u00e9 et les pi\u00e8ges appris \u2014 y compris les erreurs commises et corrig\u00e9es.'}
+  ],
+  reserves:[
+    'Ces documents sont affich\u00e9s tels qu\u2019ils sont grav\u00e9s au d\u00e9p\u00f4t : la page ne les r\u00e9sume pas et n\u2019en change pas un mot.',
+    'Le rendu est volontairement simple ; pour la mise en forme exacte, le fichier fait foi.',
+    'Les notes sont dat\u00e9es et ne sont pas remises \u00e0 jour : un chiffre y est vrai \u00e0 sa date, pas aujourd\u2019hui.'
+  ]
+});
+</script>
+</body>
+</html>
