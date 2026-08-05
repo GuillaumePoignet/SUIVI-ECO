@@ -16,7 +16,7 @@ function grilleYc(svg,y0,y1,Y,gL,W,gR){
   for(let v=Math.ceil(y0/pas)*pas;v<=y1+1e-9;v+=pas){
     const zero=Math.abs(v)<1e-9;
     svg.appendChild(el('line',{x1:gL,x2:W-gR,y1:Y(v),y2:Y(v),stroke:zero?'#CBD2DE':'var(--ligne2)','stroke-width':1}));
-    const t=el('text',{x:gL-10,y:Y(v)+4,'text-anchor':'end','font-size':13,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    const t=el('text',{x:gL-10,y:Y(v)+4,'text-anchor':'end','font-size':13,fill:'var(--muet)','font-family':'Public Sans'});
     t.textContent=nfAuto(v);svg.appendChild(t);
   }
 }
@@ -24,7 +24,7 @@ function grilleXc(svg,x0,x1,X,H,gB){
   const et=Math.max(1,x1-x0);let pas=1;
   for(const p of [1,2,5,10,20,25,50]){if(et/p<=9){pas=p;break;}}
   for(let v=Math.ceil(x0/pas)*pas;v<=x1+1e-9;v+=pas){
-    const t=el('text',{x:X(v),y:H-11,'text-anchor':'middle','font-size':13,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    const t=el('text',{x:X(v),y:H-11,'text-anchor':'middle','font-size':13,fill:'var(--muet)','font-family':'Public Sans'});
     t.textContent=v;svg.appendChild(t);
   }
 }
@@ -62,6 +62,19 @@ function composantCourbe(host){
     expVal.innerHTML='<b>'+ech(f.court)+'</b>'+(f.exact?' ('+ech(f.exact)+')':'')+(ctx.lib?' \u00b7 '+ech(ctx.lib):'');
   }
   slider.addEventListener('input',majPin);
+  function libelleAxes(){
+    /* Un graphe sans axes nommes se lit de travers : on ecrit l'unite a gauche
+       et ce que porte l'axe du temps en bas. */
+    const u=String(ctx.u||'').toLowerCase();
+    let uy=ctx.uniteY|| (/pct|%/.test(u)?'en %':(/meur|millions d/.test(u)?'en millions d\u2019euros':
+      (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u||'')))));
+    if(uy){
+      const ty=el('text',{x:14,y:gT+8,'font-size':12,fill:'var(--muet)','font-weight':500,transform:'rotate(-90 14 '+(gT+8)+')','text-anchor':'end'});
+      ty.textContent=uy;svg.appendChild(ty);
+    }
+    const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12,fill:'var(--muet)','font-weight':500});
+    tx.textContent=ctx.uniteX||'ann\u00e9e';svg.appendChild(tx);
+  }
   function dessiner(){
     svg.innerHTML='';tip.hidden=true;pinL=null;pinC=null;
     if(pts.length<2){
@@ -117,6 +130,7 @@ function composantCourbe(host){
     zone.addEventListener('touchmove',e=>montrer(idxDe(e)),{passive:true});
     zone.addEventListener('mouseleave',()=>{regle.setAttribute('visibility','hidden');tip.hidden=true;});
     svg.appendChild(zone);
+    libelleAxes();
     majPin();
   }
   return {maj(nouv,c){pts=nouv||[];ctx=c||{};slider.max=Math.max(0,pts.length-1);slider.value=slider.max;meta.textContent=ctx.meta||'';dessiner();}};
