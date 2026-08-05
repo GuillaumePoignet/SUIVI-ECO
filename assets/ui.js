@@ -148,7 +148,7 @@ function pCartes(zone,cfg,D){
   for(const pref of cfg.prefs){
     const F=D[pref.fichier];
     if(!F||F.serie.type!=='serie')continue;
-    const r=carteValeur(F.serie,D.axeFor(pref.fichier),(pref.motif||'').toLowerCase());
+    const r=carteValeur(F.serie,D.axeFor(pref.fichier),(pref.motif||'').toLowerCase(),pref.code);
     if(!r)continue;
     const f=fmtU(r.v,r.u);
     let ch='';
