@@ -30,28 +30,30 @@ pageRubrique({
   axes:{fbcf:'axesA21'},
   panneaux:[
     {type:'cartes',prefs:[
-      {fichier:'dette',motif:'dette',et:'Dette publique'},
-      {fichier:'patrimoine',motif:'patrimoine',et:'Patrimoine national'},
+      {fichier:'dette',motif:'dette_brute_maastricht',et:'Dette publique brute'},
+      {fichier:'patrimoine',motif:'patrimoine_net_national',et:'Patrimoine national'},
       {fichier:'fbcf',motif:'formation',et:'Investissement (FBCF)'},
-      {fichier:'credit',motif:'encours',et:'Cr\u00e9dits en cours'}
+      {fichier:'credit',motif:'credits_menages',et:'Cr\u00e9dits aux m\u00e9nages'}
     ]},
-    {type:'classement',fichier:'patrimoine',prefMotif:'patrimoine',
+    {type:'classement',fichier:'patrimoine',prefMotif:'patrimoine_net',
      titre:'Le patrimoine par secteur',
-     quoi:'Qui d\u00e9tient quoi \u2014 m\u00e9nages, entreprises, administrations \u2014 \u00e0 l\u2019ann\u00e9e choisie. La part est un simple rapport \u00e0 la somme des secteurs affich\u00e9s.'},
-    {type:'classement',fichier:'fbcf',prefMotif:'',
+     quoi:'Qui d\u00e9tient quoi \u00e0 l\u2019ann\u00e9e choisie. Attention : les secteurs sont emboît\u00e9s \u2014 l\u2019\u00e9conomie nationale contient les m\u00e9nages, les entreprises et les administrations \u2014 donc la part n\u2019a de sens qu\u2019entre postes de m\u00eame rang.'},
+    {type:'classement',fichier:'fbcf',prefMotif:'formation',
      titre:'L\u2019investissement par branche',
      quoi:'La formation brute de capital fixe, branche par branche, \u00e0 l\u2019ann\u00e9e choisie.'},
-    {type:'explorer',fichier:'dette',prefMotif:'dette',
+    {type:'explorer',fichier:'dette',prefMotif:'dette_brute_maastricht',
      titre:'La dette publique',
-     quoi:'Niveau et d\u00e9compositions du fichier de la dette, de 1978 \u00e0 2024.'},
-    {type:'explorer',fichier:'credit',prefMotif:'encours',
+     quoi:'Niveau, part du produit int\u00e9rieur brut et d\u00e9compositions du fichier de la dette, de 1978 \u00e0 2024.'},
+    {type:'explorer',fichier:'credit',prefMotif:'credits_menages',
      titre:'Les cr\u00e9dits, mois par mois',
-     quoi:'Les encours de cr\u00e9dit du fichier mensuel, depuis 1997 : choisis la grandeur et la s\u00e9rie.'},
+     quoi:'Les encours de cr\u00e9dit du fichier mensuel, depuis 1997 : m\u00e9nages, habitat, entreprises, administrations.'},
     {type:'explorer',fichier:'capfi',prefMotif:'',
      titre:'Capacit\u00e9 ou besoin de financement',
      quoi:'Qui pr\u00eate et qui emprunte, secteur par secteur, depuis 1949, tel que le fichier le porte.'}
   ],
   reserves:[
+    'Les codes de secteur du patrimoine et de la dette sont emboît\u00e9s : S13 contient S1311, qui contient lui-m\u00eame S13111. Les additionner compterait plusieurs fois les m\u00eames euros \u2014 les cartes retiennent donc un seul poste et le nomment.',
+    'Le point 2025 de la dette est absent du fichier : la source publiait une baisse de 210 milliards en un an, invraisemblable et non expliqu\u00e9e, et le d\u00e9p\u00f4t a pr\u00e9f\u00e9r\u00e9 ne pas la graver.',
     'La d\u00e9coupe en branches de l\u2019investissement suit la table A21 du d\u00e9p\u00f4t, qui appartient au module des branches : elle est r\u00e9f\u00e9renc\u00e9e ici sans duplication.'
   ]
 });
