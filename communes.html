@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Communes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/carte.js"></script>
+<script src="assets/tableau.js"></script>
+<script>
+pageRubrique({
+  id:'communes',
+  titre:'Les communes',
+  sous:'Les 34 875 communes de France : population, m\u00e9nages, densit\u00e9 et rattachement. C\u2019est la maille la plus fine du socle, et la plus lourde \u2014 la page met quelques secondes \u00e0 charger.',
+  fichiers:{
+    liste:'ECO/series/M3_COMMUNES_2026.csv',
+    densite:'ECO/series/M3_DENSITE.csv',
+    pop:'ECO/series/M3_POPULATION_COMMUNES_2023.csv',
+    men:'ECO/series/M3_MENAGES_COMMUNES_2023.csv',
+    menTerr:'ECO/series/M3_MENAGES_TAILLE_TERRITOIRES_2023.csv',
+    tailles:'ECO/series/M3_TAILLES_MENAGES.csv'
+  },
+  axes:{pop:'liste',men:'liste',menTerr:{code2:'tailles'}},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'pop',motif:'population',code:'FHM',et:'Population, France hors Mayotte'},
+      {fichier:'men',motif:'menages',code:'FHM',et:'M\u00e9nages'}
+    ]},
+    {type:'classement',fichier:'pop',prefMotif:'population',
+     titre:'Les communes les plus peupl\u00e9es',
+     quoi:'Le classement au recensement de 2023. Les quarante premi\u00e8res sont affich\u00e9es ; la part rapporte chaque commune \u00e0 la somme des lignes hors ensemble.'},
+    {type:'classement',fichier:'men',prefMotif:'menages',
+     titre:'Les communes par nombre de m\u00e9nages',
+     quoi:'M\u00eame recensement, m\u00eame maille : le nombre de m\u00e9nages plut\u00f4t que d\u2019habitants.'},
+    {type:'tableau',fichier:'liste',page:80,
+     titre:'La liste des communes',
+     quoi:'Les 34 875 communes au 1er janvier 2026, avec leur d\u00e9partement, leur r\u00e9gion et leur degr\u00e9 de densit\u00e9 aux deux mailles. Cherche un nom ou un code ; clique une colonne pour trier.'},
+    {type:'tableau',fichier:'densite',
+     titre:'La grille de densit\u00e9',
+     quoi:'Ce que veulent dire les degr\u00e9s de densit\u00e9 port\u00e9s par la liste des communes.'},
+    {type:'explorer',fichier:'menTerr',prefMotif:'',
+     titre:'La taille des m\u00e9nages, par territoire',
+     quoi:'La r\u00e9partition des m\u00e9nages selon le nombre d\u2019occupants, aux niveaux national, r\u00e9gional et d\u00e9partemental.'}
+  ],
+  reserves:[
+    'Mayotte est hors source : son dernier recensement g\u00e9n\u00e9ral date de 2017, et le total national de cette page est donc la France hors Mayotte.',
+    'Les communes ne sont pas cartographi\u00e9es : un fond communal p\u00e8se plusieurs m\u00e9ga-octets, et la page pr\u00e9f\u00e8re le classement et la recherche \u00e0 une carte illisible sur t\u00e9l\u00e9phone.',
+    'L\u2019exploitation du recensement diff\u00e8re d\u2019un fichier \u00e0 l\u2019autre \u2014 compl\u00e9mentaire ici, principale ailleurs \u2014 ce qui explique des \u00e9carts de l\u2019ordre de 0,2 point sur les parts.'
+  ]
+});
+</script>
+</body>
+</html>
