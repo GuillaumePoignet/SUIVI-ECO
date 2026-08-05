@@ -25,7 +25,9 @@ pageRubrique({
     fbcf:'ECO/series/M7_FBCF_A21_1949-2025.csv',
     axesA21:'ECO/series/M2_BRANCHES_A21.csv',
     credit:'ECO/series/M7_CREDIT_ENCOURS_MENSUEL_1997-2026.csv',
-    capfi:'ECO/series/M7_CAPACITE_FINANCEMENT_1949-2024.csv'
+    capfi:'ECO/series/M7_CAPACITE_FINANCEMENT_1949-2024.csv',
+    financiers:'ECO/series/M7_COMPTES_FINANCIERS_1996-2025.csv',
+    bce:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv'
   },
   axes:{fbcf:'axesA21'},
   panneaux:[
@@ -47,6 +49,12 @@ pageRubrique({
     {type:'explorer',fichier:'credit',prefMotif:'credits_menages',
      titre:'Les cr\u00e9dits, mois par mois',
      quoi:'Les encours de cr\u00e9dit du fichier mensuel, depuis 1997 : m\u00e9nages, habitat, entreprises, administrations.'},
+    {type:'explorer',fichier:'financiers',prefMotif:'',
+     titre:'Les comptes financiers',
+     quoi:'Encours d\u2019actifs et de passifs, flux et patrimoine financier net, par secteur et par instrument, de 1996 \u00e0 2025.'},
+    {type:'explorer',fichier:'bce',prefMotif:'',
+     titre:'Les taux de la Banque centrale europ\u00e9enne',
+     quoi:'Les trois taux directeurs en fin de mois, depuis 1999.'},
     {type:'explorer',fichier:'capfi',prefMotif:'',
      titre:'Capacit\u00e9 ou besoin de financement',
      quoi:'Qui pr\u00eate et qui emprunte, secteur par secteur, depuis 1949, tel que le fichier le porte.'}
