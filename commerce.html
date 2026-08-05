@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Commerce ext&eacute;rieur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/carte.js"></script>
+<script src="assets/fonds/monde.js"></script>
+<script>
+pageRubrique({
+  id:'commerce',
+  titre:'Commerce ext\u00e9rieur',
+  sous:'Ce que la France vend et ach\u00e8te, pays par pays et produit par produit, marchandises et services \u2014 la carte est jointe par le code \u00e0 deux lettres que la source europ\u00e9enne porte elle-m\u00eame.',
+  fichiers:{
+    axesPays:'ECO/series/M5_PAYS.csv',
+    axesHs2:'ECO/series/M2_PRODUITS_HS2.csv',
+    echanges:'ECO/series/M5_ECHANGES_PAYS_1988-2025.csv',
+    services:'ECO/series/M5_SERVICES_PAYS_2010-2025.csv',
+    produits:'ECO/series/M5_ECHANGES_PRODUITS_HS2_1988-2025.csv'
+  },
+  axes:{echanges:'axesPays',services:'axesPays',produits:'axesHs2'},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'echanges',motif:'exportations',code:'WORLD',et:'Exportations de marchandises'},
+      {fichier:'echanges',motif:'importations',code:'WORLD',et:'Importations de marchandises'},
+      {fichier:'services',motif:'services_exportes',code:'WRL_REST',et:'Services export\u00e9s'},
+      {fichier:'services',motif:'services_solde',code:'WRL_REST',et:'Solde des services'}
+    ]},
+    {type:'carte',fichier:'echanges',fond:'FOND_MONDE',cle:'a2',prefMotif:'exportations',
+     titre:'La carte des partenaires',
+     quoi:'Exportations ou importations de marchandises par pays, depuis 1988. Les agr\u00e9gats \u2014 monde, Union europ\u00e9enne, zones \u2014 n\u2019ont pas de contour et sont list\u00e9s sous la carte.'},
+    {type:'carte',fichier:'services',fond:'FOND_MONDE',cle:'a2',prefMotif:'services_solde',
+     titre:'Les services, pays par pays',
+     quoi:'Services export\u00e9s, import\u00e9s et solde depuis 2010. Sur le solde, l\u2019\u00e9chelle est centr\u00e9e sur z\u00e9ro : le rouge marque un d\u00e9ficit.'},
+    {type:'classement',fichier:'echanges',prefMotif:'exportations',
+     titre:'Les grands partenaires',
+     quoi:'Les pays class\u00e9s pour le flux choisi, \u00e0 l\u2019ann\u00e9e choisie. Attention : la liste m\u00eale pays et agr\u00e9gats, dont le total monde, et la part additionne donc des p\u00e9rim\u00e8tres qui se recouvrent.'},
+    {type:'classement',fichier:'produits',prefMotif:'exportations',
+     titre:'Les grands produits',
+     quoi:'Les 97 chapitres du syst\u00e8me harmonis\u00e9, class\u00e9s \u00e0 l\u2019ann\u00e9e choisie.'},
+    {type:'explorer',fichier:'echanges',prefMotif:'exportations',
+     titre:'Trajectoire d\u2019un partenaire',
+     quoi:'Choisis un pays et un flux : la courbe remonte \u00e0 1988.'},
+    {type:'explorer',fichier:'services',prefMotif:'services_solde',
+     titre:'Trajectoire des services',
+     quoi:'Les m\u00eames s\u00e9ries pour les services, depuis 2010.'},
+    {type:'explorer',fichier:'produits',prefMotif:'importations',
+     titre:'Trajectoire d\u2019un produit',
+     quoi:'Exportations et importations par chapitre de produit, depuis 1988.'}
+  ],
+  reserves:[
+    'Le fond de carte est le Natural Earth au 110e millioni\u00e8me : il ne porte pas les micro-\u00c9tats ni la plupart des territoires ultramarins, et il ignore trois entit\u00e9s sans code ISO3 stable \u2014 Kosovo, Somaliland, Chypre du Nord. Environ 170 des 275 codes du fichier trouvent un contour ; les autres sont nomm\u00e9s sous la carte.',
+    'La somme des pays ne refait pas le total monde des services : il manque le non allou\u00e9 de la balance des paiements, environ 4,7 % des exportations en 2024. L\u2019en-t\u00eate du fichier interdit de reconstituer le monde en sommant les pays.',
+    'Les \u00e9changes de marchandises viennent de la source europ\u00e9enne corrig\u00e9e et ne se raccordent pas aux biens des comptes nationaux : l\u2019\u00e9cart \u00e9tait de 61,6 milliards d\u2019euros sur les exportations de 2024, et il est suivi, pas gomm\u00e9.',
+    'Les chapitres du syst\u00e8me harmonis\u00e9 ne s\u2019agr\u00e8gent pas vers les branches : l\u2019un classe par nature du bien, l\u2019autre par branche productrice.',
+    'Dans le fichier des services, le total mondial porte le code WRL_REST, dont le libell\u00e9 dit \u00ab reste du monde \u00bb : sa valeur est bien le total publi\u00e9, 372 019 millions d\u2019euros export\u00e9s en 2024. La carte-chiffre vise ce poste, la carte color\u00e9e ne montre que les pays.'
+  ]
+});
+</script>
+</body>
+</html>
