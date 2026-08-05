@@ -25,7 +25,7 @@ function pTable(zone,cfg,D){
     num[j]=t>0&&n/t>0.8;
   });
   const outils=document.createElement('div');outils.className='filtres';
-  outils.innerHTML='<label>Rechercher<input type="search" placeholder="un mot, un code\u2026" style="font:500 12.5px Inter,sans-serif;padding:7px 10px;border:1px solid var(--ligne);border-radius:9px;min-width:190px"></label>';
+  outils.innerHTML='<label>Rechercher<input type="search" placeholder="un mot, un code\u2026" style="font:500 12.5px Public Sans,sans-serif;padding:7px 10px;border:1px solid var(--ligne);border-radius:9px;min-width:190px"></label>';
   sh.corps.appendChild(outils);
   const q=outils.querySelector('input');
   const hote=document.createElement('div');hote.style.overflowX='auto';sh.corps.appendChild(hote);
@@ -51,7 +51,7 @@ function pTable(zone,cfg,D){
     let h='<table style="border-collapse:collapse;width:100%;font-size:12.5px"><thead><tr>';
     cols.forEach(function(c,j){
       h+='<th data-j="'+j+'" style="text-align:'+(num[j]?'right':'left')+';padding:7px 10px;border-bottom:1px solid var(--ligne);'+
-         'white-space:nowrap;cursor:pointer;font:600 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muet)">'+
+         'white-space:nowrap;cursor:pointer;font:600 11px Public Sans,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muet)">'+
          ech(pretty(c))+(tri===j?(sens>0?' \u2191':' \u2193'):'')+'</th>';
     });
     h+='</tr></thead><tbody>';
@@ -61,7 +61,7 @@ function pTable(zone,cfg,D){
         const v=x[idx[j]];
         const aff=num[j]&&nombreOuTexte(v)!=null?nfAuto(nombreOuTexte(v)):(v==null||v===''?'\u2014':v);
         h+='<td style="text-align:'+(num[j]?'right':'left')+';padding:6px 10px;border-bottom:1px solid var(--ligne2);'+
-           (num[j]?'font-family:IBM Plex Mono,monospace;white-space:nowrap':'')+'">'+ech(aff)+'</td>';
+           (num[j]?'font-family:Public Sans,sans-serif;white-space:nowrap':'')+'">'+ech(aff)+'</td>';
       });
       h+='</tr>';
     }
@@ -94,7 +94,7 @@ function markdownSimple(md){
   function finTable(){if(dansTable){h+='</tbody></table>';dansTable=false;}}
   function enligne(t){
     return ech(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*]+?)\*/g,'$1<i>$2</i>')
-                 .replace(/`(.+?)`/g,'<code style="font-family:IBM Plex Mono,monospace;font-size:.92em">$1</code>');
+                 .replace(/`(.+?)`/g,'<code style="font-family:Public Sans,sans-serif;font-size:.92em">$1</code>');
   }
   for(let i=0;i<L.length;i++){
     const l=L[i];
@@ -107,7 +107,7 @@ function markdownSimple(md){
     }
     finTable();
     const m=l.match(/^(#{1,4})\s+(.*)$/);
-    if(m){finListe();const n=Math.min(m[1].length+1,4);h+='<h'+n+' style="font-family:Space Grotesk,sans-serif;margin:16px 0 6px;font-size:'+(21-n*2)+'px">'+enligne(m[2])+'</h'+n+'>';continue;}
+    if(m){finListe();const n=Math.min(m[1].length+1,4);h+='<h'+n+' style="font-family:Public Sans,sans-serif;margin:16px 0 6px;font-size:'+(21-n*2)+'px">'+enligne(m[2])+'</h'+n+'>';continue;}
     if(/^\s*[-*]\s+/.test(l)){if(!dansListe){h+='<ul style="margin:8px 0;padding-left:20px;color:var(--texte)">';dansListe=true;}
       h+='<li style="margin-bottom:5px">'+enligne(l.replace(/^\s*[-*]\s+/,''))+'</li>';continue;}
     finListe();
