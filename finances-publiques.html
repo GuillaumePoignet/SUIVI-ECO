@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Finances publiques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+pageRubrique({
+  id:'finances',
+  titre:'Finances publiques',
+  sous:'Recettes, d\u00e9penses, d\u00e9ficit et grands imp\u00f4ts des administrations publiques \u2014 \u00c9tat, collectivit\u00e9s, S\u00e9curit\u00e9 sociale \u2014 lus tels quels dans les fichiers du socle.',
+  fichiers:{
+    compte:'ECO/series/M6_COMPTE_APU_1949-2025.csv',
+    sousSecteurs:'ECO/series/M6_APU_SOUS_SECTEURS_1959-2025.csv',
+    impots:'ECO/series/M6_IMPOTS_APU_1949-2024.csv',
+    flechage:'ECO/series/M6_FLECHAGE_RECETTES_1959-2025.csv'
+  },
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'compte',motif:'depense',et:'D\u00e9penses publiques'},
+      {fichier:'compte',motif:'recette',et:'Recettes publiques'},
+      {fichier:'compte',motif:'besoin',et:'D\u00e9ficit / besoin de financement'},
+      {fichier:'impots',motif:'',et:'Imp\u00f4ts et cotisations'}
+    ]},
+    {type:'classement',fichier:'impots',prefMotif:'',
+     titre:'Les grands imp\u00f4ts',
+     quoi:'Chaque imp\u00f4t ou cotisation class\u00e9 \u00e0 l\u2019ann\u00e9e choisie, tel que le fichier le d\u00e9compose. La part est un simple rapport \u00e0 la somme des lignes affich\u00e9es.'},
+    {type:'classement',fichier:'sousSecteurs',prefMotif:'depense',
+     titre:'\u00c9tat, collectivit\u00e9s, S\u00e9curit\u00e9 sociale',
+     quoi:'Le partage entre sous-secteurs des administrations pour la grandeur choisie, \u00e0 l\u2019ann\u00e9e choisie.'},
+    {type:'explorer',fichier:'compte',prefMotif:'depense',
+     titre:'Le compte des administrations',
+     quoi:'D\u00e9penses, recettes et solde dans le temps, depuis 1949 : choisis la grandeur et la vue.'},
+    {type:'explorer',fichier:'flechage',prefMotif:'',
+     titre:'O\u00f9 vont les recettes',
+     quoi:'Le fl\u00e9chage des recettes publiques tel que le fichier le d\u00e9crit, depuis 1959.'}
+  ],
+  reserves:[
+    '\u00ab Administrations publiques \u00bb couvre l\u2019\u00c9tat, les organismes divers, les collectivit\u00e9s locales et la S\u00e9curit\u00e9 sociale, selon la d\u00e9coupe propre aux fichiers du d\u00e9p\u00f4t.'
+  ]
+});
+</script>
+</body>
+</html>
