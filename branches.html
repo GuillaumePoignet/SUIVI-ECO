@@ -18,7 +18,7 @@
 pageRubrique({
   id:'branches',
   titre:'Production par branche',
-  sous:'Qui produit quoi : production, valeur ajout\u00e9e, emplois, salaires et \u00e9changes, en dix-sept branches. Chaque chiffre est lu tel quel dans les fichiers du socle et garde sa source, sa date et son mill\u00e9sime.',
+  sous:'Qui produit quoi : production, valeur ajout\u00e9e, emplois et \u00e9changes, en dix-sept branches. Chaque chiffre est lu tel quel dans les fichiers du socle et garde sa source, sa date et son mill\u00e9sime.',
   fichiers:{
     axes:'ECO/series/M2_BRANCHES_A17.csv',
     comptes:'ECO/series/M2_COMPTES_BRANCHES_A17_VUES_1949-2025.csv',
@@ -31,8 +31,8 @@ pageRubrique({
     {type:'cartes',prefs:[
       {fichier:'comptes',motif:'valeur_ajout',et:'Valeur ajout\u00e9e'},
       {fichier:'comptes',motif:'production',et:'Production'},
-      {fichier:'emploi',motif:'emploi',et:'Emploi'},
-      {fichier:'capacites',motif:'',et:'Capacit\u00e9s utilis\u00e9es'}
+      {fichier:'emploi',motif:'emploi_total',et:'Emploi total'},
+      {fichier:'capacites',motif:'taux_utilisation',et:'Capacit\u00e9s utilis\u00e9es'}
     ]},
     {type:'classement',fichier:'comptes',prefMotif:'valeur_ajout',
      titre:'Le poids de chaque branche',
@@ -40,10 +40,10 @@ pageRubrique({
     {type:'explorer',fichier:'comptes',prefMotif:'valeur_ajout',
      titre:'Trajectoires des branches',
      quoi:'La courbe suit le fichier des comptes de branches : choisis la grandeur, la branche et la vue.'},
-    {type:'explorer',fichier:'emploi',prefMotif:'emploi',
+    {type:'explorer',fichier:'emploi',prefMotif:'emploi_total',
      titre:'L\u2019emploi par branche',
      quoi:'Les s\u00e9ries d\u2019emploi du fichier d\u00e9di\u00e9, branche par branche.'},
-    {type:'explorer',fichier:'capacites',prefMotif:'',
+    {type:'explorer',fichier:'capacites',prefMotif:'taux_utilisation',
      titre:'Capacit\u00e9s de production utilis\u00e9es',
      quoi:'Le taux d\u2019utilisation des capacit\u00e9s dans l\u2019industrie, au trimestre, depuis 1976.'},
     {type:'explorer',fichier:'echanges',prefMotif:'export',
@@ -52,7 +52,8 @@ pageRubrique({
   ],
   reserves:[
     'La page lit la d\u00e9coupe en 17 branches ; les fichiers en 38 et 88 branches sont au d\u00e9p\u00f4t et viendront dans une vue d\u00e9taill\u00e9e.',
-    'Le taux d\u2019utilisation des capacit\u00e9s ne couvre que l\u2019industrie manufacturi\u00e8re et ses grandes branches, comme le fichier source.'
+    'Le taux d\u2019utilisation des capacit\u00e9s ne couvre que l\u2019industrie manufacturi\u00e8re et ses grandes branches, comme le fichier source ; la carte en montre un seul poste, nomm\u00e9 sous le chiffre, car des taux ne s\u2019additionnent pas.',
+    'Les volumes aux prix cha\u00een\u00e9s ne s\u2019additionnent pas : sur la vue en volume, aucune somme de branches ne ferme, et c\u2019est une propri\u00e9t\u00e9 du cha\u00eenage, pas une anomalie.'
   ]
 });
 </script>
