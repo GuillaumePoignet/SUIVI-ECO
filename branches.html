@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Production par branche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+pageRubrique({
+  id:'branches',
+  titre:'Production par branche',
+  sous:'Qui produit quoi : production, valeur ajout\u00e9e, emplois, salaires et \u00e9changes, en dix-sept branches. Chaque chiffre est lu tel quel dans les fichiers du socle et garde sa source, sa date et son mill\u00e9sime.',
+  fichiers:{
+    axes:'ECO/series/M2_BRANCHES_A17.csv',
+    comptes:'ECO/series/M2_COMPTES_BRANCHES_A17_VUES_1949-2025.csv',
+    emploi:'ECO/series/M2_EMPLOI_BRANCHES_A17_1949-2025.csv',
+    capacites:'ECO/series/M2_CAPACITES_A17_1976-2026.csv',
+    echanges:'ECO/series/M2_ECHANGES_PRODUITS_A17_1949-2025.csv'
+  },
+  axes:{comptes:'axes',emploi:'axes',capacites:'axes',echanges:'axes'},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'comptes',motif:'valeur_ajout',et:'Valeur ajout\u00e9e'},
+      {fichier:'comptes',motif:'production',et:'Production'},
+      {fichier:'emploi',motif:'emploi',et:'Emploi'},
+      {fichier:'capacites',motif:'',et:'Capacit\u00e9s utilis\u00e9es'}
+    ]},
+    {type:'classement',fichier:'comptes',prefMotif:'valeur_ajout',
+     titre:'Le poids de chaque branche',
+     quoi:'Les branches class\u00e9es pour la grandeur choisie, \u00e0 l\u2019ann\u00e9e choisie. La part est un simple rapport \u00e0 la somme des branches affich\u00e9es.'},
+    {type:'explorer',fichier:'comptes',prefMotif:'valeur_ajout',
+     titre:'Trajectoires des branches',
+     quoi:'La courbe suit le fichier des comptes de branches : choisis la grandeur, la branche et la vue.'},
+    {type:'explorer',fichier:'emploi',prefMotif:'emploi',
+     titre:'L\u2019emploi par branche',
+     quoi:'Les s\u00e9ries d\u2019emploi du fichier d\u00e9di\u00e9, branche par branche.'},
+    {type:'explorer',fichier:'capacites',prefMotif:'',
+     titre:'Capacit\u00e9s de production utilis\u00e9es',
+     quoi:'Le taux d\u2019utilisation des capacit\u00e9s dans l\u2019industrie, au trimestre, depuis 1976.'},
+    {type:'explorer',fichier:'echanges',prefMotif:'export',
+     titre:'\u00c9changes par produit',
+     quoi:'Exportations, importations et solde par produit, tels que le fichier des \u00e9changes les porte.'}
+  ],
+  reserves:[
+    'La page lit la d\u00e9coupe en 17 branches ; les fichiers en 38 et 88 branches sont au d\u00e9p\u00f4t et viendront dans une vue d\u00e9taill\u00e9e.',
+    'Le taux d\u2019utilisation des capacit\u00e9s ne couvre que l\u2019industrie manufacturi\u00e8re et ses grandes branches, comme le fichier source.'
+  ]
+});
+</script>
+</body>
+</html>
