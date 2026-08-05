@@ -11,16 +11,16 @@ const DEPOT='GuillaumePoignet/DEPOT-AGENT-ECO';
 const AUJ=new Date().toISOString().slice(0,10);
 const NAV=[
   ['vue-densemble','Vue d\u2019ensemble','vue-densemble.html'],
-  ['branches','Production par branche','branches.html'],
-  ['population','Population & territoire','population.html'],
+  ['branches','Branches','branches.html'],
+  ['population','Population','population.html'],
   ['communes','Communes','communes.html'],
   ['menages','M\u00e9nages','menages.html'],
-  ['commerce','Commerce ext\u00e9rieur','commerce.html'],
-  ['finances','Finances publiques','finances-publiques.html'],
-  ['capital','Capital & patrimoine','capital.html'],
+  ['commerce','Commerce','commerce.html'],
+  ['finances','Finances','finances-publiques.html'],
+  ['capital','Capital','capital.html'],
   ['dependances','D\u00e9pendances','dependances.html'],
   ['monde','Monde','monde.html'],
-  ['notes','Notes & \u00e9tudes','notes.html']
+  ['notes','Notes','notes.html']
 ];
 
 /* ---------- outils ---------- */
