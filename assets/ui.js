@@ -307,11 +307,12 @@ function rendreReserves(config){
   $('piedInfos').textContent='Lecture directe du d\u00e9p\u00f4t priv\u00e9 GuillaumePoignet/DEPOT-AGENT-ECO \u00b7 '+Object.keys(config.fichiers).length+' fichiers \u00b7 chaque chiffre garde sa source, sa date et son mill\u00e9sime';
 }
 function majHeures(){
-  let t='Grav\u00e9 au d\u00e9p\u00f4t : '+(heureGravure?(dfPlein.format(heureGravure)+' \u00e0 '+fHM(heureGravure)):'\u2014');
-  t+=' \u00b7 page relue \u00e0 '+(heureLecture?fHM(heureLecture):'\u2014');
-  t+=' \u00b7 relecture automatique toutes les 30 min';
-  if(echecLecture)t+=' \u00b7 la derni\u00e8re relecture a \u00e9chou\u00e9, nouvel essai dans 30 min';
-  $('heures').textContent=t;
+  const g=heureGravure?(dfPlein.format(heureGravure)+' \u00e0 '+fHM(heureGravure)):'date inconnue';
+  const vieux=heureGravure?((Date.now()-heureGravure.getTime())>7*864e5):false;
+  let t='<span class="pt'+(vieux?' vieux':'')+'"></span>Donn\u00e9es grav\u00e9es le <b>'+ech(g)+'</b>';
+  if(heureLecture)t+=' \u00b7 relues \u00e0 '+fHM(heureLecture);
+  if(echecLecture)t+=' \u00b7 derni\u00e8re relecture en \u00e9chec';
+  $('heures').innerHTML=t;
 }
 
 /* ---------- demarrage ---------- */
