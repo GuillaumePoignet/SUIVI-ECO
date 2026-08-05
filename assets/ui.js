@@ -251,9 +251,13 @@ function pExplorer(zone,cfg,D){
   const choix=defautChoix(s,axe,(cfg.prefMotif||'').toLowerCase());
   const filt=document.createElement('div');filt.className='filtres';sh.corps.appendChild(filt);
   const cc=composantCourbe(sh.corps);
+  /* Une serie de deux siecles ecrase les vingt dernieres annees. On ouvre donc
+     sur la plage utile, en laissant le choix de tout voir. */
+  let depuis=cfg.debut||null;
   function majTout(){
     const rows=filtrer(s,choix);
     const st=serieTemps(rows);
+    if(depuis)st.pts=st.pts.filter(p=>p.x>=depuis);
     const u=uniteDe(rows);
     const bits=[];
     if(choix.grandeur)bits.push(pretty(choix.grandeur));
@@ -264,6 +268,21 @@ function pExplorer(zone,cfg,D){
   for(const f of s.facettes){
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
+  }
+  if(cfg.plages!==false){
+    const an=new Date().getFullYear();
+    const opts=[['10 derni\u00e8res ann\u00e9es',an-10],['20 derni\u00e8res ann\u00e9es',an-20],
+                ['depuis 1990',1990],['depuis 1950',1950],['tout l\u2019historique',null]];
+    const lab=document.createElement('label');
+    lab.appendChild(document.createTextNode('P\u00e9riode affich\u00e9e'));
+    const sel=document.createElement('select');
+    opts.forEach(function(o,i){
+      const e=document.createElement('option');e.value=i;e.textContent=o[0];
+      if(o[1]===depuis)e.selected=true;
+      sel.appendChild(e);
+    });
+    sel.addEventListener('change',()=>{depuis=opts[+sel.value][1];majTout();});
+    lab.appendChild(sel);filt.appendChild(lab);
   }
   majTout();
 }
@@ -363,6 +382,7 @@ function pageRubrique(config){
       else if(p.type==='tableau'&&typeof pTable==='function')pTable(zone,p,D);
       else if(p.type==='document'&&typeof pDoc==='function')pDoc(zone,p,D);
       else if(p.type==='ratio'&&typeof pRatio==='function')pRatio(zone,p,D);
+      else if(p.type==='texte')pTexte(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
@@ -413,4 +433,23 @@ function pageRubrique(config){
   });
   if(cleActuelle())demarrer();
   else $('auth').hidden=false;
+}
+
+/* Un panneau qui n'affiche aucune donnee : il explique. Une page de chiffres
+   sans definitions se lit mal, et les definitions valent d'etre ecrites une
+   fois pour toutes plutot que devinees. */
+function pTexte(zone,cfg,D){
+  const sec=document.createElement('section');sec.className='panneau';
+  let h='<div class="pan-tete"><div><h2>'+ech(cfg.titre)+'</h2></div></div>';
+  if(cfg.chapeau)h+='<p class="note" style="font-size:15px;max-width:74ch">'+ech(cfg.chapeau)+'</p>';
+  if(cfg.definitions&&cfg.definitions.length){
+    h+='<dl style="margin:14px 0 0;max-width:74ch">';
+    for(const d of cfg.definitions)
+      h+='<dt style="font-weight:700;color:var(--accent);margin-top:14px;font-size:15px">'+ech(d[0])+'</dt>'+
+         '<dd style="margin:4px 0 0;color:var(--texte);font-size:15px;line-height:1.6">'+ech(d[1])+'</dd>';
+    h+='</dl>';
+  }
+  if(cfg.paragraphes)for(const p of cfg.paragraphes)
+    h+='<p style="margin:14px 0 0;color:var(--texte);font-size:15px;line-height:1.65;max-width:74ch">'+ech(p)+'</p>';
+  sec.innerHTML=h;zone.appendChild(sec);
 }
