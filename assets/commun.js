@@ -87,12 +87,17 @@ function parseLong(txt){
   const iV=head.indexOf('valeur');
   let iT=head.indexOf('annee');if(iT<0)iT=head.indexOf('periode');
   if(iV<0||iT<0)return {type:'table',head,rows};
-  const catsAll=[];head.forEach((h,i)=>{if(i!==iT&&i!==iV)catsAll.push(h);});
+  /* Fichiers infra-annuels : l'annee et la periode forment ensemble le temps.
+     Les traiter separement ferait du mois un filtre, et la page s'ouvrirait sur
+     un mois quelconque au lieu du dernier point connu. */
+  const iP=(head.indexOf('annee')>=0)?head.indexOf('periode'):-1;
+  const catsAll=[];head.forEach((h,i)=>{if(i!==iT&&i!==iV&&i!==iP)catsAll.push(h);});
   const vals={},seen={};for(const cc of catsAll){vals[cc]=[];seen[cc]={};}
   const libInterne={};const obs=[];
   for(const r of rows){
-    const t=r[iT],x=periodeX(t),v=num(r[iV]);const co={};
-    head.forEach((h,i)=>{if(i!==iT&&i!==iV)co[h]=r[i];});
+    const t=(iP>=0&&r[iP])?(r[iT]+'-'+r[iP]):r[iT];
+    const x=periodeX(t),v=num(r[iV]);const co={};
+    head.forEach((h,i)=>{if(i!==iT&&i!==iV&&i!==iP)co[h]=r[i];});
     if(co.libelle!=null&&co.code!=null&&!(co.code in libInterne))libInterne[co.code]=co.libelle;
     obs.push({t,x,v,c:co});
     for(const cc of catsAll){const vv=co[cc];if(!seen[cc][vv]){seen[cc][vv]=1;vals[cc].push(vv);}}
@@ -134,28 +139,42 @@ function defautChoix(s,axe,motif){
   return ch;
 }
 /* Valeur d'une carte : une observation reelle du fichier, jamais un agregat
-   fabrique. Si aucun code d'ensemble n'est reconnu, le premier code du fichier
-   est retenu ET nomme dans la carte, pour qu'on ne le lise pas comme un total. */
-function carteValeur(s,axe,motif){
-  const ch={};let gMatched=false;
+   fabrique. Les axes de codes retiennent l'ensemble quand il existe, sinon le
+   poste demande par la page, sinon le premier poste qui porte des valeurs - et
+   il est toujours nomme sous le chiffre. */
+function estCodeFacette(f){return f==='code'||/^code\d+$/.test(f);}
+function carteValeur(s,axe,motif,codeVoulu){
+  const uneGrandeur=!s.vals.grandeur||s.vals.grandeur.length<2;
+  const ch={};let gMatched=uneGrandeur;
   for(const f of s.facettes){
     const vs=s.vals[f];
-    if(f==='grandeur'){const m=motif?vs.find(g=>String(g).toLowerCase().indexOf(motif)>=0):null;gMatched=!!m;ch[f]=m||vs[0];}
+    if(f==='grandeur'){const m=motif?vs.find(g=>String(g).toLowerCase().indexOf(motif)>=0):null;gMatched=!!m||uneGrandeur;ch[f]=m||vs[0];}
     else if(f==='vue')ch[f]=vs.indexOf('brut')>=0?'brut':vs[0];
-    else ch[f]=vs[0];
+    else ch[f]=null;
   }
-  let codeNote='';
-  if(s.facettes.indexOf('code')>=0){
-    const vs=s.vals.code;
-    const tot=vs.find(cc=>estTotal(cc,libCode(s,axe,cc)));
-    ch.code=tot||vs[0];
-    codeNote=libCode(s,axe,ch.code);
-    if(!tot&&vs.length>1)codeNote+=' (1 des '+vs.length+' postes)';
+  const notes=[];
+  for(const f of s.facettes){
+    if(f==='grandeur'||f==='vue')continue;
+    const vs=s.vals[f];
+    let choisi=null;
+    if(estCodeFacette(f)){
+      if(codeVoulu&&vs.indexOf(codeVoulu)>=0)choisi=codeVoulu;
+      if(!choisi)choisi=vs.find(cc=>estTotal(cc,libCode(s,axe,cc)))||null;
+    }
+    if(!choisi){
+      for(const v of vs){
+        ch[f]=v;
+        if(filtrer(s,ch).some(o=>o.v!=null&&!isNaN(o.x))){choisi=v;break;}
+      }
+      if(!choisi)choisi=vs[0];
+    }
+    ch[f]=choisi;
+    if(vs.length>1)notes.push(libCode(s,axe,choisi));
   }
   const g=ch.grandeur||(s.vals.grandeur?s.vals.grandeur[0]:'');
   const rows=filtrer(s,ch);
   const pts=serieTemps(rows).pts;
   if(!pts.length)return null;
   const der=pts[pts.length-1],av=pts.length>1?pts[pts.length-2]:null;
-  return {g,gMatched,t:der.t,v:der.v,prevT:av?av.t:null,prevV:av?av.v:null,u:uniteDe(rows),codeNote};
+  return {g,gMatched,t:der.t,v:der.v,prevT:av?av.t:null,prevV:av?av.v:null,u:uniteDe(rows),codeNote:notes.join(' \u00b7 ')};
 }
