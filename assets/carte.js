@@ -5,8 +5,8 @@
    Les entites du fond sans donnee restent grises, les codes de donnee sans
    contour sont listes sous la carte. */
 
-const PAL_SEQ=['#DCE3FA','#B4C3F2','#8199E4','#4E6CD6','#2A4BD7'];
-const PAL_DIV=['#B42318','#E4948B','#EDEFF4','#8199E4','#2A4BD7'];
+const PAL_SEQ=['#DDE1EF','#B0B9DA','#7E8BC4','#4E5D9E','#26346B'];
+const PAL_DIV=['#A8231B','#DE9A94','#EDEFF4','#7E8BC4','#26346B'];
 
 function bornesQuantiles(vals,n){
   const v=vals.slice().sort((a,b)=>a-b),b=[];
@@ -38,7 +38,7 @@ function cheminDe(e,pr){
 }
 function composantCarte(host,fond,cle){
   const bloc=document.createElement('div');
-  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 960 560" role="img"></svg><div class="tip" hidden></div></div>'+
+  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 600" role="img"></svg><div class="tip" hidden></div></div>'+
     '<div class="explore"><label>P\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1"><span class="exp-an"></span><div class="exp-val"></div></div>'+
     '<p class="metaC"></p>';
   host.appendChild(bloc);
