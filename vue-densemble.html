@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --fond:#F6F7FB; --carte:#FFFFFF; --encre:#0F172A; --texte:#475467; --muet:#98A2B3;
-  --ligne:#E7EAF0; --ligne2:#EEF1F6;
-  --accent:#2A4BD7; --accent2:#7C9BFF;
+  --fond:#EFF2FA; --carte:#FFFFFF; --encre:#161A2E; --texte:#454C66; --muet:#858BA3;
+  --ligne:#D9DFEE; --ligne2:#E9EDF7;
+  --accent:#26346B; --accent2:#5C6CB8;
   --vert:#0E9F6E; --vertfonce:#0B7A55; --rouge:#D92D20;
   --teal:#0D9488; --violet:#7C3AED; --ardoise:#64748B;
   --nuit:#0F172A; --nuittexte:#E2E8F0;
@@ -43,7 +43,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 .lienbtn{color:var(--texte);font-size:12.5px;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 
 /* barre haute */
-.haut{position:sticky;top:0;z-index:30;background:rgba(246,247,251,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.haut{position:sticky;top:0;z-index:30;background:rgba(239,242,250,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
 .haut-in{flex-wrap:wrap;max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
 .marque{display:flex;align-items:center;gap:9px;font:600 14px "Public Sans",sans-serif;white-space:nowrap;color:inherit;text-decoration:none}
 .marque .pastille{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block}
@@ -62,14 +62,14 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 .heures{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muet);margin:10px 0 0}
 
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin:18px 0 8px}
-.stat{background:var(--carte);border:1px solid var(--ligne);border-radius:16px;padding:14px 15px 12px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s;animation:pop .45s ease both}
+.stat{background:var(--carte);border:1px solid var(--ligne);border-top:3px solid var(--accent);border-radius:6px;padding:14px 15px 12px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s;animation:pop .45s ease both}
 .stat:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.07)}
 .stats .stat:nth-child(2){animation-delay:.04s}.stats .stat:nth-child(3){animation-delay:.08s}
 .stats .stat:nth-child(4){animation-delay:.12s}.stats .stat:nth-child(5){animation-delay:.16s}
 .stats .stat:nth-child(6){animation-delay:.2s}.stats .stat:nth-child(7){animation-delay:.24s}
 .stats .stat:nth-child(8){animation-delay:.28s}
 @keyframes pop{from{opacity:0;transform:translateY(8px)}}
-.stat .et{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muet);font-weight:600}
+.stat .et{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);font-weight:700;line-height:1.35}
 .stat .rang{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:5px}
 .stat .va{font:600 22px "Public Sans",sans-serif;letter-spacing:-.01em;font-feature-settings:'tnum'}
 .chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F2F4F7;color:var(--texte);white-space:nowrap}
@@ -81,7 +81,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 
 .panneau{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:20px 20px 16px;margin-top:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .pan-tete{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px}
-.pan-tete h2{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.pan-tete h2{font-size:19px;font-weight:600;letter-spacing:-.01em;padding-left:14px;border-left:4px solid var(--accent);line-height:1.25}
 .pan-tete p{color:var(--texte);font-size:13px;margin:5px 0 0;max-width:72ch}
 .seg{display:inline-flex;background:#EEF1F6;border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
 .seg button{border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--texte);transition:background .12s}
@@ -181,7 +181,7 @@ footer{margin-top:30px}
 
 <div class="cadre">
   <section class="hero">
-    <p class="eyebrow">TABLEAU DE BORD &middot; LECTURE DIRECTE DU D&Eacute;P&Ocirc;T PRIV&Eacute;</p>
+    
     <h1>Vue d&rsquo;ensemble</h1>
     <p class="sous">La richesse produite, le loyer de l&rsquo;argent, les prix et la valeur de l&rsquo;euro. Chaque chiffre est lu tel quel dans un fichier du socle et garde sa source, sa date et son mill&eacute;sime &mdash; rien n&rsquo;est recalcul&eacute; en silence.</p>
     <p class="heures" id="heures"></p>
