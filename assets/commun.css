@@ -13,7 +13,7 @@
 [hidden]{display:none !important}
 html,body{margin:0;padding:0}
 body{background:var(--fond);color:var(--encre);font:400 16px/1.55 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-.mono{font-family:"IBM Plex Mono",monospace}
+.mono{font-variant-numeric:tabular-nums}
 h1,h2{font-family:"Public Sans",sans-serif;margin:0;letter-spacing:-.015em}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -25,7 +25,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .carteAuth .expli{color:var(--texte);font-size:13.5px;margin:0 0 18px}
 .carteAuth label{display:block;font-weight:600;font-size:12.5px;margin-bottom:6px}
 .rangCle{display:flex;gap:8px;align-items:center}
-#cle{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--ligne);border-radius:10px;font:500 13px "IBM Plex Mono",monospace;background:#fff;color:var(--encre)}
+#cle{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--ligne);border-radius:10px;font:500 13px "Public Sans",sans-serif;background:#fff;color:var(--encre)}
 .case{display:flex;gap:8px;align-items:center;color:var(--texte);font-size:13px;margin:12px 0 16px;font-weight:400}
 .case input{accent-color:var(--accent)}
 .btnPlein{display:block;width:100%;background:var(--accent);color:#fff;border-radius:10px;padding:11px;font-weight:600}
@@ -47,7 +47,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 
 .cadre{max-width:1180px;margin:0 auto;padding:26px 24px 64px}
 .hero{margin:6px 0 20px}
-.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin:0 0 8px}
+.eyebrow{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.14em;color:var(--accent);margin:0 0 8px}
 .hero h1{font-size:clamp(32px,4.4vw,48px);font-weight:700;letter-spacing:-.025em;color:var(--accent)}
 .hero .sous{color:var(--texte);margin:12px 0 0;font-size:17px;line-height:1.6;max-width:72ch}
 .heures{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--texte);margin:16px 0 0;background:var(--carte);border:1px solid var(--ligne);border-radius:999px;padding:6px 15px 6px 12px}
@@ -67,7 +67,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .chip{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F2F4F7;color:var(--texte);white-space:nowrap}
 .chip.vert{background:rgba(14,159,110,.12);color:var(--vertfonce)}
 .up{color:var(--vertfonce)} .down{color:#B42318}
-.stat .qd{font-size:12px;color:var(--muet);font-family:"IBM Plex Mono",monospace;margin-top:7px;line-height:1.5}
+.stat .qd{font-size:12px;color:var(--muet);font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;margin-top:7px;line-height:1.5}
 
 .panneau{background:var(--carte);border:1px solid var(--ligne);border-radius:6px;padding:26px 26px 22px;margin-top:20px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .pan-tete{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px}
@@ -81,7 +81,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .chartbox svg{width:100%;height:auto;display:block}
 .tip{position:absolute;top:10px;transform:translateX(-50%);background:var(--nuit);color:#F8FAFC;border-radius:10px;padding:8px 12px;font-size:12px;line-height:1.55;pointer-events:none;box-shadow:0 10px 28px rgba(15,23,42,.28);white-space:nowrap;z-index:5}
 .tip .t{font:600 11px "Public Sans",sans-serif;letter-spacing:.05em;color:#A5B4CB;margin-bottom:3px;text-transform:uppercase}
-.tip .r{display:flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:#CBD5E1}
+.tip .r{display:flex;align-items:center;gap:7px;font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:11.5px;color:#CBD5E1}
 .tip .r b{color:#fff;font-weight:500}
 .tip .d{width:7px;height:7px;border-radius:3px;display:inline-block;flex:none}
 .note{color:var(--texte);font-size:12.5px;margin:12px 2px 0}
@@ -89,20 +89,20 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
 .explore input[type=range]{flex:1;min-width:150px;accent-color:var(--accent);height:22px}
 .exp-an{font:700 16px "Public Sans",sans-serif;color:var(--accent);min-width:70px;text-align:center}
-.exp-val{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--encre);line-height:1.7;width:100%}
+.exp-val{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:14px;color:var(--encre);line-height:1.7;width:100%}
 .exp-val b{color:var(--accent);font-weight:500}
-.metaC{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muet);margin:8px 2px 0}
+.metaC{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:11px;color:var(--muet);margin:8px 2px 0}
 
 .cls{margin-top:12px}
 .clsRow{display:grid;grid-template-columns:28px minmax(160px,1.3fr) 2fr auto auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--ligne2);font-size:14px}
-.clsRow .rg{font-family:"IBM Plex Mono",monospace;color:var(--muet);text-align:right;font-size:11px}
+.clsRow .rg{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;color:var(--muet);text-align:right;font-size:11px}
 .clsRow .lb{font-weight:500;line-height:1.35}
-.clsRow .lb .cd{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muet);margin-left:6px}
+.clsRow .lb .cd{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--muet);margin-left:6px}
 .clsRow .barre{height:14px;background:#EDEFF4;border-radius:2px;overflow:hidden}
 .clsRow .barre i{display:block;height:100%;background:var(--accent);border-radius:2px}
-.clsRow .vl{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
-.clsRow .pt{font-family:"IBM Plex Mono",monospace;color:var(--muet);font-size:11px;white-space:nowrap}
-.clsTot{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--texte);margin:10px 0 0}
+.clsRow .vl{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.clsRow .pt{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;color:var(--muet);font-size:11px;white-space:nowrap}
+.clsTot{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:12px;color:var(--texte);margin:10px 0 0}
 
 details.src{margin-top:10px}
 details.src summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:12.5px}
