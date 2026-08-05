@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; M&eacute;nages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+pageRubrique({
+  id:'menages',
+  titre:'M\u00e9nages',
+  sous:'Les revenus, la consommation, l\u2019\u00e9pargne et le niveau de vie des m\u00e9nages, lus tels quels dans les fichiers du socle.',
+  fichiers:{
+    axesCoicop:'ECO/series/M4_FONCTIONS_COICOP.csv',
+    axesPcs:'ECO/series/M4_PCS.csv',
+    compte:'ECO/series/M4_COMPTE_MENAGES_1949-2024.csv',
+    conso:'ECO/series/M4_CONSO_MENAGES_COICOP_1949-2025.csv',
+    niveau:'ECO/series/M4_NIVEAU_VIE_1975-2024.csv',
+    niveauPcs:'ECO/series/M4_NIVEAU_VIE_PCS_1996-2024.csv'
+  },
+  axes:{conso:'axesCoicop',niveauPcs:'axesPcs'},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'compte',motif:'revenu',et:'Revenu des m\u00e9nages'},
+      {fichier:'compte',motif:'consommation',et:'Consommation'},
+      {fichier:'compte',motif:'epargne',et:'\u00c9pargne'},
+      {fichier:'niveau',motif:'vie',et:'Niveau de vie'}
+    ]},
+    {type:'classement',fichier:'conso',prefMotif:'',
+     titre:'Ce que les m\u00e9nages consomment',
+     quoi:'Les fonctions de consommation class\u00e9es \u00e0 l\u2019ann\u00e9e choisie, selon la nomenclature du d\u00e9p\u00f4t. La part est un simple rapport \u00e0 la somme des fonctions affich\u00e9es.'},
+    {type:'explorer',fichier:'compte',prefMotif:'revenu',
+     titre:'Le compte des m\u00e9nages',
+     quoi:'Revenus, d\u00e9penses et \u00e9pargne dans le temps : choisis la grandeur et la vue.'},
+    {type:'explorer',fichier:'niveau',prefMotif:'',
+     titre:'Niveau de vie et in\u00e9galit\u00e9s',
+     quoi:'M\u00e9diane, d\u00e9ciles et indicateurs, tels que le fichier du niveau de vie les porte, depuis 1975.'},
+    {type:'explorer',fichier:'niveauPcs',prefMotif:'',
+     titre:'Niveau de vie par cat\u00e9gorie sociale',
+     quoi:'Les m\u00eames indicateurs, d\u00e9coup\u00e9s par cat\u00e9gorie socioprofessionnelle depuis 1996.'}
+  ],
+  reserves:[
+    'Les d\u00e9coupes \u2014 fonctions de consommation, cat\u00e9gories sociales \u2014 suivent les tables d\u2019axes du d\u00e9p\u00f4t, visibles dans \u00ab Sources et contr\u00f4les \u00bb.'
+  ]
+});
+</script>
+</body>
+</html>
