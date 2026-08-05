@@ -16,7 +16,7 @@ function grilleYc(svg,y0,y1,Y,gL,W,gR){
   for(let v=Math.ceil(y0/pas)*pas;v<=y1+1e-9;v+=pas){
     const zero=Math.abs(v)<1e-9;
     svg.appendChild(el('line',{x1:gL,x2:W-gR,y1:Y(v),y2:Y(v),stroke:zero?'#CBD2DE':'var(--ligne2)','stroke-width':1}));
-    const t=el('text',{x:gL-8,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    const t=el('text',{x:gL-10,y:Y(v)+4,'text-anchor':'end','font-size':13,fill:'var(--muet)','font-family':'IBM Plex Mono'});
     t.textContent=nfAuto(v);svg.appendChild(t);
   }
 }
@@ -24,31 +24,31 @@ function grilleXc(svg,x0,x1,X,H,gB){
   const et=Math.max(1,x1-x0);let pas=1;
   for(const p of [1,2,5,10,20,25,50]){if(et/p<=9){pas=p;break;}}
   for(let v=Math.ceil(x0/pas)*pas;v<=x1+1e-9;v+=pas){
-    const t=el('text',{x:X(v),y:H-9,'text-anchor':'middle','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    const t=el('text',{x:X(v),y:H-11,'text-anchor':'middle','font-size':13,fill:'var(--muet)','font-family':'IBM Plex Mono'});
     t.textContent=v;svg.appendChild(t);
   }
 }
 function degrade(svg,id,couleur){
   const defs=el('defs',{}),g=el('linearGradient',{id,x1:0,y1:0,x2:0,y2:1});
-  const s1=el('stop',{offset:'0%','stop-color':couleur,'stop-opacity':0.16});
+  const s1=el('stop',{offset:'0%','stop-color':couleur,'stop-opacity':0.12});
   const s2=el('stop',{offset:'100%','stop-color':couleur,'stop-opacity':0});
   g.appendChild(s1);g.appendChild(s2);defs.appendChild(g);svg.appendChild(defs);
 }
 function etiquetteFin(svg,x,y,txt,couleur){
-  const t=el('text',{x:x-6,y:y-9,'text-anchor':'end','font-size':11.5,'font-weight':600,fill:couleur,'font-family':'Space Grotesk','paint-order':'stroke',stroke:'#fff','stroke-width':3});
+  const t=el('text',{x:x-8,y:y-12,'text-anchor':'end','font-size':14,'font-weight':700,fill:couleur,'font-family':'Public Sans','paint-order':'stroke',stroke:'#fff','stroke-width':4});
   t.textContent=txt;svg.appendChild(t);
 }
 
 /* ---------- composant courbe (svg + infobulle + curseur) ---------- */
 function composantCourbe(host){
   const bloc=document.createElement('div');
-  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 960 300" role="img"></svg><div class="tip" hidden></div></div>'+
+  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div></div>'+
     '<div class="explore"><label>Choisir une p\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1"><span class="exp-an"></span><div class="exp-val"></div></div>'+
     '<p class="metaC"></p>';
   host.appendChild(bloc);
   const box=bloc.querySelector('.chartbox'),svg=box.querySelector('svg'),tip=box.querySelector('.tip');
   const slider=bloc.querySelector('input'),expAn=bloc.querySelector('.exp-an'),expVal=bloc.querySelector('.exp-val'),meta=bloc.querySelector('.metaC');
-  const W=960,H=300,gL=72,gR=16,gT=16,gB=30;
+  const W=1000,H=400,gL=78,gR=20,gT=20,gB=38;
   let pts=[],ctx={},X=null,Y=null,pinL=null,pinC=null;
   function majPin(){
     if(!pinL)return;
@@ -85,9 +85,9 @@ function composantCourbe(host){
       const aire=d+'L'+X(x1).toFixed(1)+' '+Y(y0).toFixed(1)+'L'+X(x0).toFixed(1)+' '+Y(y0).toFixed(1)+'Z';
       svg.appendChild(el('path',{d:aire,fill:'url(#'+gid+')',stroke:'none'}));
     }
-    svg.appendChild(el('path',{d,fill:'none',stroke:'var(--accent)','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    svg.appendChild(el('path',{d,fill:'none',stroke:'var(--accent)','stroke-width':2.6,'stroke-linejoin':'round','stroke-linecap':'round'}));
     const der=pts[pts.length-1];
-    svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:3.4,fill:'var(--accent)'}));
+    svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:4.2,fill:'var(--accent)'}));
     etiquetteFin(svg,X(der.x),Y(der.v),fmtU(der.v,ctx.u).court,'var(--accent)');
     pinL=el('line',{y1:gT,y2:H-gB,stroke:'var(--accent)','stroke-width':1.4,opacity:.45,visibility:'hidden'});svg.appendChild(pinL);
     pinC=el('circle',{r:4.2,fill:'var(--accent)',stroke:'#fff','stroke-width':1.6,visibility:'hidden'});svg.appendChild(pinC);
