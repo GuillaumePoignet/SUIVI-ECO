@@ -383,6 +383,7 @@ function pageRubrique(config){
       else if(p.type==='document'&&typeof pDoc==='function')pDoc(zone,p,D);
       else if(p.type==='ratio'&&typeof pRatio==='function')pRatio(zone,p,D);
       else if(p.type==='texte')pTexte(zone,p,D);
+      else if(p.type==='colonne')pColonne(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
@@ -452,4 +453,38 @@ function pTexte(zone,cfg,D){
   if(cfg.paragraphes)for(const p of cfg.paragraphes)
     h+='<p style="margin:14px 0 0;color:var(--texte);font-size:15px;line-height:1.65;max-width:74ch">'+ech(p)+'</p>';
   sec.innerHTML=h;zone.appendChild(sec);
+}
+
+/* Certains fichiers du socle sont larges - une colonne par grandeur - au lieu
+   du format long : le PIB en est un. Ce panneau trace la colonne choisie. */
+function pColonne(zone,cfg,D){
+  const sh=panneauShell(zone,cfg.titre,cfg.quoi);
+  const F=D[cfg.fichier];
+  if(!F){sh.corps.innerHTML='<p class="note">Fichier absent.</p>';return;}
+  const c=corps(F.txt),h=c.head;
+  let iT=h.indexOf('annee');if(iT<0)iT=h.indexOf('periode');
+  if(iT<0){sh.corps.innerHTML='<p class="note">Ce fichier ne porte pas de colonne de temps.</p>';return;}
+  const cols=(cfg.colonnes||[]).filter(x=>h.indexOf(x.col)>=0);
+  if(!cols.length){sh.corps.innerHTML='<p class="note">Aucune des colonnes demand\u00e9es n\u2019existe dans ce fichier.</p>';return;}
+  const filt=document.createElement('div');filt.className='filtres';sh.corps.appendChild(filt);
+  const cc=composantCourbe(sh.corps);
+  let choix=0,depuis=cfg.debut||null;
+  function maj(){
+    const d=cols[choix],i=h.indexOf(d.col);
+    let pts=[];
+    for(const r of c.rows){
+      const v=num(r[i]),x=periodeX(r[iT]);
+      if(v!=null&&!isNaN(x))pts.push({t:r[iT],x:x,v:v});
+    }
+    pts.sort((a,b)=>a.x-b.x);
+    if(depuis)pts=pts.filter(p=>p.x>=depuis);
+    cc.maj(pts,{u:d.unite||'',lib:d.lib,uniteY:d.uniteY||d.unite||'',meta:d.note||''});
+  }
+  const sel=selecteur(filt,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0);
+  sel.addEventListener('change',()=>{choix=+sel.value;maj();});
+  const an=new Date().getFullYear();
+  const opts=[['10 derni\u00e8res ann\u00e9es',an-10],['20 derni\u00e8res ann\u00e9es',an-20],['depuis 1990',1990],['tout l\u2019historique',null]];
+  const sel2=selecteur(filt,'P\u00e9riode affich\u00e9e',opts.map((x,i)=>i),i=>opts[i][0],opts.findIndex(o=>o[1]===depuis));
+  sel2.addEventListener('change',()=>{depuis=opts[+sel2.value][1];maj();});
+  maj();
 }
