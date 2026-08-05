@@ -28,9 +28,13 @@ pageRubrique({
     souverains:'ECO/series/M8_TAUX_SOUVERAINS_MENSUEL_1962-2026.csv',
     familles:'ECO/series/M8_DEPENDANCES_FAMILLES_2024.csv',
     prix:'ECO/series/M8_PRIX_PRODUITS_BASE_1960-2025.csv',
-    axesProduits:'ECO/series/M8_PRODUITS_BASE.csv'
+    axesProduits:'ECO/series/M8_PRODUITS_BASE.csv',
+    axesRegions:'ECO/series/M8_REGIONS_EUROPE.csv',
+    pibEurope:'ECO/series/M8_PIB_REGIONAL_EUROPE_2020-2023.csv',
+    pibInfra:'ECO/series/M8_PIB_INFRANATIONAL_2021-2022.csv',
+    fret:'ECO/series/M8_PRIX_FRET_1988-2026.csv'
   },
-  axes:{conj:'axesPays',prix:'axesProduits'},
+  axes:{conj:'axesPays',prix:'axesProduits',pibEurope:'axesRegions',pibInfra:{code:'axesPays'}},
   panneaux:[
     {type:'cartes',prefs:[
       {fichier:'conj',motif:'croissance_pib_volume',code:'WLD',et:'Croissance mondiale'},
@@ -56,6 +60,15 @@ pageRubrique({
     {type:'explorer',fichier:'souverains',prefMotif:'',
      titre:'Les taux souverains \u00e0 dix ans',
      quoi:'Le rendement des emprunts d\u2019\u00c9tat \u00e0 dix ans, au mois, depuis 1962.'},
+    {type:'classement',fichier:'pibEurope',prefMotif:'',
+     titre:'Les r\u00e9gions europ\u00e9ennes',
+     quoi:'Produit int\u00e9rieur brut des 471 territoires du d\u00e9coupage NUTS, de 2020 \u00e0 2023, en euros.'},
+    {type:'explorer',fichier:'pibInfra',prefMotif:'',
+     titre:'La production infranationale hors Europe',
+     quoi:'Le PIB des r\u00e9gions de 46 pays en dollars \u00e0 parit\u00e9 de pouvoir d\u2019achat : ne se compare ni aux euros europ\u00e9ens ni aux dollars courants de la conjoncture.'},
+    {type:'explorer',fichier:'fret',prefMotif:'',
+     titre:'Le prix du transport',
+     quoi:'Trois indices de prix \u00e0 la production am\u00e9ricains \u2014 fret maritime au long cours, transport de marchandises, camionnage \u2014 au mois depuis 1988.'},
     {type:'explorer',fichier:'prix',prefMotif:'',
      titre:'Les prix des mati\u00e8res premi\u00e8res',
      quoi:'Soixante et onze produits de base en dollars, au mois, de 1960 \u00e0 2025.'}
@@ -65,6 +78,8 @@ pageRubrique({
     'Ne jamais sommer les pays pour refaire le monde : des pays sont sans donn\u00e9e, et l\u2019\u00e9cart \u00e9tait de 0,94 % en 2024. L\u2019agr\u00e9gat mondial publi\u00e9 existe dans le fichier, il faut le prendre lui.',
     'Le fond de carte au 110e millioni\u00e8me ignore les micro-\u00c9tats et trois entit\u00e9s sans code ISO3 stable ; 169 des 260 codes du fichier de conjoncture trouvent un contour, le reste \u00e9tant surtout des agr\u00e9gats, tous nomm\u00e9s sous la carte.',
     'Chaque banque centrale d\u00e9finit son taux directeur \u00e0 sa fa\u00e7on, et les s\u00e9ries longues portent des ruptures de d\u00e9finition ; les valeurs extr\u00eames ne sont pas des erreurs \u2014 103 484 % au Br\u00e9sil en 1989 est un taux d\u2019hyperinflation r\u00e9el.',
+    'Le prix du fret est un substitut nomm\u00e9 comme tel : ce sont des prix am\u00e9ricains \u00e0 la production, pas des taux spot mondiaux, les indices de r\u00e9f\u00e9rence \u00e9tant sous licence. Ils captent les grands cycles, pas le prix d\u2019une route pr\u00e9cise.',
+    'Trois codages de r\u00e9gions coexistent dans le d\u00e9p\u00f4t \u2014 l\u2019\u00cele-de-France est 11 pour l\u2019INSEE, FR10 pour Eurostat, FR1 pour l\u2019OCDE \u2014 et aucune correspondance n\u2019est grav\u00e9e : ne jamais joindre deux fichiers r\u00e9gionaux de sources diff\u00e9rentes.',
     'Le fichier des taux souverains m\u00eale trois producteurs aux conventions diff\u00e9rentes : les niveaux sont comparables, pas les centi\u00e8mes.'
   ]
 });
