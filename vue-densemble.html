@@ -7,7 +7,7 @@
 <title>&Eacute;conomie fran&ccedil;aise &mdash; Vue d&rsquo;ensemble</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --fond:#F6F7FB; --carte:#FFFFFF; --encre:#0F172A; --texte:#475467; --muet:#98A2B3;
@@ -20,9 +20,9 @@
 *{box-sizing:border-box}
 [hidden]{display:none !important}
 html,body{margin:0;padding:0}
-body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 .mono{font-family:"IBM Plex Mono",monospace}
-h1,h2{font-family:"Space Grotesk",sans-serif;margin:0}
+h1,h2{font-family:"Public Sans",sans-serif;margin:0}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
@@ -45,7 +45,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 /* barre haute */
 .haut{position:sticky;top:0;z-index:30;background:rgba(246,247,251,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
 .haut-in{flex-wrap:wrap;max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
-.marque{display:flex;align-items:center;gap:9px;font:600 14px "Space Grotesk",sans-serif;white-space:nowrap;color:inherit;text-decoration:none}
+.marque{display:flex;align-items:center;gap:9px;font:600 14px "Public Sans",sans-serif;white-space:nowrap;color:inherit;text-decoration:none}
 .marque .pastille{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block}
 .onglets{display:flex;gap:2px 4px;flex-wrap:wrap;row-gap:4px}
 .onglets::-webkit-scrollbar{display:none}
@@ -71,7 +71,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 @keyframes pop{from{opacity:0;transform:translateY(8px)}}
 .stat .et{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muet);font-weight:600}
 .stat .rang{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:5px}
-.stat .va{font:600 22px "Space Grotesk",sans-serif;letter-spacing:-.01em;font-feature-settings:'tnum'}
+.stat .va{font:600 22px "Public Sans",sans-serif;letter-spacing:-.01em;font-feature-settings:'tnum'}
 .chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F2F4F7;color:var(--texte);white-space:nowrap}
 .chip.vert{background:rgba(14,159,110,.12);color:var(--vertfonce)}
 .chip.rouge{background:rgba(217,45,32,.1);color:#B42318}
@@ -94,7 +94,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 .chartbox{position:relative;margin-top:10px}
 .chartbox svg{width:100%;height:auto;display:block}
 .tip{position:absolute;top:10px;transform:translateX(-50%);background:var(--nuit);color:#F8FAFC;border-radius:10px;padding:8px 12px;font-size:12px;line-height:1.55;pointer-events:none;box-shadow:0 10px 28px rgba(15,23,42,.28);white-space:nowrap;z-index:5}
-.tip .t{font:600 11px "Space Grotesk",sans-serif;letter-spacing:.05em;color:#A5B4CB;margin-bottom:3px;text-transform:uppercase}
+.tip .t{font:600 11px "Public Sans",sans-serif;letter-spacing:.05em;color:#A5B4CB;margin-bottom:3px;text-transform:uppercase}
 .tip .r{display:flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:#CBD5E1}
 .tip .r b{color:#fff;font-weight:500}
 .tip .d{width:7px;height:7px;border-radius:3px;display:inline-block;flex:none}
@@ -106,7 +106,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{o
 .explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
 .explore input[type=range]{flex:1;min-width:150px;accent-color:var(--accent);height:22px}
 .explore input[type=date]{font:500 13px "IBM Plex Mono",monospace;padding:6px 10px;border:1px solid var(--ligne);border-radius:8px;background:#fff;color:var(--encre);accent-color:var(--accent)}
-.exp-an{font:600 13px "Space Grotesk",sans-serif;color:var(--accent);min-width:44px;text-align:center}
+.exp-an{font:600 13px "Public Sans",sans-serif;color:var(--accent);min-width:44px;text-align:center}
 .exp-val{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--encre);line-height:1.7;width:100%}
 .exp-val b{color:var(--accent);font-weight:500}
 
@@ -125,7 +125,7 @@ details.src pre{font-family:"IBM Plex Mono",monospace;font-size:11px;line-height
 
 footer{margin-top:30px}
 .reserves{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:18px 20px}
-.reserves summary{cursor:pointer;font-weight:600;font-size:13.5px;font-family:"Space Grotesk",sans-serif}
+.reserves summary{cursor:pointer;font-weight:600;font-size:13.5px;font-family:"Public Sans",sans-serif}
 .reserves ul{color:var(--texte);font-size:13px;margin:12px 0 0;padding-left:20px}
 .reserves li{margin-bottom:7px}
 .petit{font-size:11.5px;color:var(--muet);margin-top:16px;text-align:center}
