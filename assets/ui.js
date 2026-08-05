@@ -277,7 +277,7 @@ function gabarit(config){
       '<div class="outilsH"><button class="btnH" id="btnRecharger">Recharger</button><button class="lienbtn" id="btnCle">Changer de cl\u00e9</button></div>'+
     '</div></header>'+
     '<div class="cadre">'+
-      '<section class="hero"><p class="eyebrow">TABLEAU DE BORD \u00b7 LECTURE DIRECTE DU D\u00c9P\u00d4T PRIV\u00c9</p>'+
+      '<section class="hero">'+
       '<h1>'+ech(config.titre)+'</h1><p class="sous">'+ech(config.sous||'')+'</p>'+
       '<p class="heures" id="heures"></p></section>'+
       '<div id="zone"></div>'+
