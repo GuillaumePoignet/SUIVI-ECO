@@ -13,11 +13,14 @@ const NAV=[
   ['vue-densemble','Vue d\u2019ensemble','vue-densemble.html'],
   ['branches','Production par branche','branches.html'],
   ['population','Population & territoire','population.html'],
+  ['communes','Communes','communes.html'],
   ['menages','M\u00e9nages','menages.html'],
   ['commerce','Commerce ext\u00e9rieur','commerce.html'],
   ['finances','Finances publiques','finances-publiques.html'],
   ['capital','Capital & patrimoine','capital.html'],
-  ['monde','Monde & d\u00e9pendances','monde.html']
+  ['dependances','D\u00e9pendances','dependances.html'],
+  ['monde','Monde','monde.html'],
+  ['notes','Notes & \u00e9tudes','notes.html']
 ];
 
 /* ---------- outils ---------- */
@@ -112,7 +115,22 @@ function axeDe(parsed){
   const m={};for(const r of rows)m[r[iC]]=r[iL];return m;
 }
 function estTotal(code,lib){return /^(TOT|TOTAL|ENS|_T)$/i.test(String(code))||/total|ensemble/i.test(String(lib||''));}
-function libCode(s,axe,code){return (axe&&axe[code])||(s.libInterne&&s.libInterne[code])||code;}
+/* Un axe peut etre une table unique (champ code) ou un jeu de tables, une par
+   champ - code, code2, code3 - quand le fichier croise plusieurs nomenclatures. */
+function axePour(axe,champ){
+  if(!axe)return null;
+  if(typeof axe==='object'&&(axe.code||axe.code2||axe.code3))return axe[champ||'code']||null;
+  return (champ&&champ!=='code')?null:axe;
+}
+function libCode(s,axe,code,champ){
+  const a=axePour(axe,champ);
+  return (a&&a[code])||(s.libInterne&&s.libInterne[code])||code;
+}
+function libFacette(s,axe,champ,v){
+  if(!/^code\d*$/.test(champ))return pretty(v);
+  const l=libCode(s,axe,v,champ);
+  return l===v?String(v):(l+' \u2014 '+v);
+}
 function filtrer(s,choix){
   return s.obs.filter(o=>{for(const k in choix){const v=choix[k];if(v==null)continue;if(o.c[k]!==v)return false;}return true;});
 }
