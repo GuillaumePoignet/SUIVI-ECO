@@ -116,35 +116,64 @@ function pCarte(zone,cfg,D){
   if(!F||F.serie.type!=='serie'||F.serie.facettes.indexOf('code')<0){
     sh.corps.innerHTML='<p class="note">Ce fichier ne porte pas d\u2019axe \u00ab code \u00bb \u00e0 cartographier.</p>';return;}
   const s=F.serie,axe=D.axeFor(cfg.fichier),cle=cfg.cle||'c';
-  const choix=defautChoix(s,axe,(cfg.prefMotif||'').toLowerCase());delete choix.code;
+  const dansFond={};for(const e of fond.e)dansFond[e[cle]]=1;
+  /* Choix par defaut : pour chaque facette autre que le code, retenir la valeur
+     qui colorie le plus de territoires - sinon un fichier a plusieurs niveaux
+     geographiques s'ouvre sur le mauvais et la carte reste vide. */
+  const choix={};
+  for(const f of s.facettes){
+    if(f==='code')continue;
+    const vs=s.vals[f];
+    if(f==='grandeur'&&cfg.prefMotif){
+      const m=vs.find(g=>String(g).toLowerCase().indexOf(String(cfg.prefMotif).toLowerCase())>=0);
+      if(m){choix[f]=m;continue;}
+    }
+    let best=vs[0],bestN=-1;
+    for(const v of vs){
+      const essai={};for(const k in choix)essai[k]=choix[k];essai[f]=v;
+      const vus={};let n=0;
+      for(const o of s.obs){
+        if(o.v==null||!dansFond[o.c.code])continue;
+        let ok=true;for(const k in essai)if(o.c[k]!==essai[k]){ok=false;break;}
+        if(ok&&!vus[o.c.code]){vus[o.c.code]=1;n++;}
+      }
+      if(n>bestN){bestN=n;best=v;}
+    }
+    choix[f]=best;
+  }
   const filt=document.createElement('div');filt.className='filtres';sh.corps.appendChild(filt);
   const c=composantCarte(sh.corps,fond,cle);
-  const dansFond={};for(const e of fond.e)dansFond[e[cle]]=1;
   let periodes=[];
   function majCarte(){
-    if(!periodes.length){c.dessiner({},'','');c.expAn.textContent='';return;}
+    if(!periodes.length){c.dessiner({},'','');c.expAn.textContent='';c.expVal.textContent='';return;}
     const per=periodes[+c.slider.value];c.expAn.textContent=per.t;
     const rows=filtrer(s,choix).filter(o=>o.t===per.t&&o.v!=null);
     const val={},hors=[];let unite='';
     for(const o of rows){
       const cd=o.c.code;unite=unite||o.c.unite||'';
       if(dansFond[cd])val[cd]=o.v;
-      else if(!estTotal(cd,libCode(s,axe,cd)))hors.push(libCode(s,axe,cd));
+      else if(hors.indexOf(libCode(s,axe,cd))<0)hors.push(libCode(s,axe,cd));
     }
     const lib=[choix.grandeur?pretty(choix.grandeur):'',per.t].filter(Boolean).join(' \u00b7 ');
     c.dessiner(val,unite,lib);
     const n=Object.keys(val).length;
     c.expVal.innerHTML='<b>'+n+'</b> territoires color\u00e9s'+(hors.length?' \u00b7 '+hors.length+' code(s) sans contour \u00e0 cette \u00e9chelle':'');
-    c.meta.textContent=hors.length?('Non cartographi\u00e9s, faute de contour dans le fond : '+hors.slice(0,24).join(', ')+(hors.length>24?', et '+(hors.length-24)+' autres.':'')):'';
+    c.meta.textContent=hors.length?('Non cartographi\u00e9s, faute de contour dans le fond : '+hors.slice(0,20).join(', ')+(hors.length>20?', et '+(hors.length-20)+' autres.':'')):'';
   }
   function majPeriodes(){
-    const set={},ps=[];
+    const cpt={},ord=[];
     for(const o of filtrer(s,choix)){
-      if(o.v==null||isNaN(o.x))continue;
-      if(!set[o.t]){set[o.t]=1;ps.push({t:o.t,x:o.x});}
+      if(o.v==null||isNaN(o.x)||!dansFond[o.c.code])continue;
+      if(!(o.t in cpt)){cpt[o.t]=0;ord.push({t:o.t,x:o.x});}
+      cpt[o.t]++;
     }
-    ps.sort((a,b)=>a.x-b.x);periodes=ps;
-    c.slider.max=Math.max(0,ps.length-1);c.slider.value=ps.length-1;
+    ord.sort((a,b)=>a.x-b.x);periodes=ord;
+    c.slider.max=Math.max(0,ord.length-1);
+    /* la periode la plus recente qui soit vraiment remplie : la derniere annee
+       d'un fichier est souvent partielle, et une carte trouee tromperait */
+    let plein=0;for(const p of ord)if(cpt[p.t]>plein)plein=cpt[p.t];
+    let i=ord.length-1;while(i>0&&cpt[ord[i].t]<plein*0.6)i--;
+    c.slider.value=i;
     majCarte();
   }
   for(const f of s.facettes){
