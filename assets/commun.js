@@ -3,7 +3,9 @@
    Lit le depot prive en mode brut, decouvre les colonnes des fichiers
    au format long (annee|periode ; ... ; valeur) et fournit filtres,
    series temporelles et valeurs de cartes, sans rien recalculer d'autre
-   que des sommes et rapports toujours etiquetes. */
+   que des rapports toujours etiquetes. Regle absolue : aucune somme de
+   codes n'est fabriquee, les nomenclatures du depot etant souvent
+   emboitees (S13 contient S1311) ou non additives (des taux). */
 
 const DEPOT='GuillaumePoignet/DEPOT-AGENT-ECO';
 const AUJ=new Date().toISOString().slice(0,10);
@@ -131,33 +133,28 @@ function defautChoix(s,axe,motif){
   }
   return ch;
 }
+/* Valeur d'une carte : une observation reelle du fichier, jamais un agregat
+   fabrique. Si aucun code d'ensemble n'est reconnu, le premier code du fichier
+   est retenu ET nomme dans la carte, pour qu'on ne le lise pas comme un total. */
 function carteValeur(s,axe,motif){
   const ch={};let gMatched=false;
   for(const f of s.facettes){
     const vs=s.vals[f];
     if(f==='grandeur'){const m=motif?vs.find(g=>String(g).toLowerCase().indexOf(motif)>=0):null;gMatched=!!m;ch[f]=m||vs[0];}
     else if(f==='vue')ch[f]=vs.indexOf('brut')>=0?'brut':vs[0];
-    else if(f==='code'){}
     else ch[f]=vs[0];
   }
   let codeNote='';
-  const aCode=s.facettes.indexOf('code')>=0;
-  if(aCode){
+  if(s.facettes.indexOf('code')>=0){
     const vs=s.vals.code;
     const tot=vs.find(cc=>estTotal(cc,libCode(s,axe,cc)));
-    if(tot){ch.code=tot;codeNote=libCode(s,axe,tot);}
-    else codeNote='somme des '+vs.length+' codes';
+    ch.code=tot||vs[0];
+    codeNote=libCode(s,axe,ch.code);
+    if(!tot&&vs.length>1)codeNote+=' (1 des '+vs.length+' postes)';
   }
   const g=ch.grandeur||(s.vals.grandeur?s.vals.grandeur[0]:'');
   const rows=filtrer(s,ch);
-  let pts;
-  if(aCode&&ch.code==null){
-    const agg={};
-    for(const o of rows){if(o.v==null||isNaN(o.x))continue;(agg[o.t]=agg[o.t]||{t:o.t,x:o.x,v:0}).v+=o.v;}
-    pts=Object.keys(agg).map(k=>agg[k]).sort((a,b)=>a.x-b.x);
-  }else{
-    pts=serieTemps(rows).pts;
-  }
+  const pts=serieTemps(rows).pts;
   if(!pts.length)return null;
   const der=pts[pts.length-1],av=pts.length>1?pts[pts.length-2]:null;
   return {g,gMatched,t:der.t,v:der.v,prevT:av?av.t:null,prevV:av?av.v:null,u:uniteDe(rows),codeNote};
