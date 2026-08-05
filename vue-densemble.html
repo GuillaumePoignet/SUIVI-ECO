@@ -307,7 +307,12 @@ function entete(txt){return lignes(txt).filter(l=>l.startsWith('#')).join('\n');
 function corps(txt){const L=lignes(txt).filter(l=>l&&!l.startsWith('#'));const head=L[0].split(';');return {head,rows:L.slice(1).map(l=>l.split(';'))};}
 
 /* ============ acces au depot ============ */
-function cleActuelle(){return localStorage.getItem('se_cle')||sessionStorage.getItem('se_cle')||'';}
+/* Une cle collee traine souvent un caractere invisible - espace insecable,
+   marque de direction, saut de ligne. Le navigateur refuse alors de construire
+   l'en-tete HTTP et renvoie une erreur incomprehensible. On ne garde donc que
+   l'ASCII imprimable, et on previent au moment de la saisie. */
+function nettoyerCle(s){return String(s||'').replace(/[^\x21-\x7E]/g,'');}
+function cleActuelle(){return nettoyerCle(localStorage.getItem('se_cle')||sessionStorage.getItem('se_cle')||'');}
 async function ghTexte(chemin){
   const r=await fetch('https://api.github.com/repos/'+DEPOT+'/contents/'+chemin+'?ref=main',
     {headers:{Authorization:'Bearer '+cleActuelle(),Accept:'application/vnd.github.raw'}});
@@ -838,7 +843,7 @@ $('formAuth').addEventListener('submit',async e=>{
   e.preventDefault();
   const v=$('cle').value.trim();
   if(!v) return;
-  ($('garder').checked?localStorage:sessionStorage).setItem('se_cle',v);
+  ($('garder').checked?localStorage:sessionStorage).setItem('se_cle',nettoyerCle(v));
   const b=$('btnLire');b.disabled=true;b.textContent='Lecture du d\u00e9p\u00f4t en cours';
   await demarrer();
   b.disabled=false;b.textContent='Lire le d\u00e9p\u00f4t';
