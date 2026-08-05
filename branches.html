@@ -24,9 +24,18 @@ pageRubrique({
     comptes:'ECO/series/M2_COMPTES_BRANCHES_A17_VUES_1949-2025.csv',
     emploi:'ECO/series/M2_EMPLOI_BRANCHES_A17_1949-2025.csv',
     capacites:'ECO/series/M2_CAPACITES_A17_1976-2026.csv',
-    echanges:'ECO/series/M2_ECHANGES_PRODUITS_A17_1949-2025.csv'
+    echanges:'ECO/series/M2_ECHANGES_PRODUITS_A17_1949-2025.csv',
+    axes38:'ECO/series/M2_BRANCHES_A38.csv',
+    axes88:'ECO/series/M2_BRANCHES_A88.csv',
+    axesBns:'ECO/series/M2_BRANCHES_BNS.csv',
+    tes:'ECO/series/M2_COMPTES_BRANCHES_A17_1949-2024.csv',
+    comptes38:'ECO/series/M2_COMPTES_BRANCHES_A38_1949-2025.csv',
+    comptes88:'ECO/series/M2_COMPTES_BRANCHES_A88_1999-2024.csv',
+    emploi38:'ECO/series/M2_EMPLOI_BRANCHES_A38_1949-2025.csv',
+    echanges38:'ECO/series/M2_ECHANGES_PRODUITS_A38_1949-2025.csv'
   },
-  axes:{comptes:'axes',emploi:'axes',capacites:'axes',echanges:'axes'},
+  axes:{comptes:'axes',emploi:'axes',capacites:'axes',echanges:'axes',
+        tes:'axes',comptes38:'axes38',emploi38:'axes38',echanges38:'axes38',comptes88:'axes88'},
   panneaux:[
     {type:'cartes',prefs:[
       {fichier:'comptes',motif:'valeur_ajout',et:'Valeur ajout\u00e9e'},
@@ -48,11 +57,29 @@ pageRubrique({
      quoi:'Le taux d\u2019utilisation des capacit\u00e9s dans l\u2019industrie, au trimestre, depuis 1976.'},
     {type:'explorer',fichier:'echanges',prefMotif:'export',
      titre:'\u00c9changes par produit',
-     quoi:'Exportations, importations et solde par produit, tels que le fichier des \u00e9changes les porte.'}
+     quoi:'Exportations, importations et solde par produit, tels que le fichier des \u00e9changes les porte.'},
+    {type:'classement',fichier:'comptes38',prefMotif:'valeur_ajout',
+     titre:'Le d\u00e9tail en 38 branches',
+     quoi:'La m\u00eame lecture, trois fois plus fine : 37 postes au lieu de 17.'},
+    {type:'explorer',fichier:'comptes38',prefMotif:'valeur_ajout',
+     titre:'Trajectoires en 38 branches',
+     quoi:'Production, consommations interm\u00e9diaires et valeur ajout\u00e9e au niveau interm\u00e9diaire, de 1949 \u00e0 2025.'},
+    {type:'explorer',fichier:'comptes88',prefMotif:'valeur_ajout',
+     titre:'Trajectoires en 88 branches',
+     quoi:'Le niveau le plus fin des comptes de branche, de 1999 \u00e0 2024.'},
+    {type:'explorer',fichier:'emploi38',prefMotif:'emploi_total',
+     titre:'L\u2019emploi en 38 branches',quoi:'Effectifs, dur\u00e9e du travail et heures travaill\u00e9es au niveau interm\u00e9diaire.'},
+    {type:'explorer',fichier:'echanges38',prefMotif:'export',
+     titre:'Les \u00e9changes en 38 produits',quoi:'Exportations et importations par produit au niveau interm\u00e9diaire.'},
+    {type:'explorer',fichier:'tes',prefMotif:'',
+     titre:'Le compte d\u2019exploitation des branches',
+     quoi:'R\u00e9mun\u00e9rations, imp\u00f4ts, subventions et exc\u00e9dent brut, tir\u00e9s du tableau des entr\u00e9es-sorties, de 1949 \u00e0 2024.'}
   ],
   reserves:[
     'La page lit la d\u00e9coupe en 17 branches ; les fichiers en 38 et 88 branches sont au d\u00e9p\u00f4t et viendront dans une vue d\u00e9taill\u00e9e.',
     'Le taux d\u2019utilisation des capacit\u00e9s ne couvre que l\u2019industrie manufacturi\u00e8re et ses grandes branches, comme le fichier source ; la carte en montre un seul poste, nomm\u00e9 sous le chiffre, car des taux ne s\u2019additionnent pas.',
+    'Le niveau en 88 branches s\u2019arr\u00eate en 2024 et ne remonte qu\u2019\u00e0 1999 : c\u2019est la couverture de la source, pas un choix de la page.',
+    'Deux fichiers portent le compte des branches : celui des trois vues fait foi en cas de divergence avec celui tir\u00e9 du tableau des entr\u00e9es-sorties, comme l\u2019en-t\u00eate du d\u00e9p\u00f4t le pr\u00e9cise.',
     'Les volumes aux prix cha\u00een\u00e9s ne s\u2019additionnent pas : sur la vue en volume, aucune somme de branches ne ferme, et c\u2019est une propri\u00e9t\u00e9 du cha\u00eenage, pas une anomalie.'
   ]
 });
