@@ -67,7 +67,12 @@ function fmtU(v,u){
 }
 
 /* ---------- acces au depot ---------- */
-function cleActuelle(){return localStorage.getItem('se_cle')||sessionStorage.getItem('se_cle')||'';}
+/* Une cle collee traine souvent un caractere invisible - espace insecable,
+   marque de direction, saut de ligne. Le navigateur refuse alors de construire
+   l'en-tete HTTP et renvoie une erreur incomprehensible. On ne garde donc que
+   l'ASCII imprimable, et on previent au moment de la saisie. */
+function nettoyerCle(s){return String(s||'').replace(/[^\x21-\x7E]/g,'');}
+function cleActuelle(){return nettoyerCle(localStorage.getItem('se_cle')||sessionStorage.getItem('se_cle')||'');}
 async function ghTexte(chemin){
   const r=await fetch('https://api.github.com/repos/'+DEPOT+'/contents/'+chemin+'?ref=main',
     {headers:{Authorization:'Bearer '+cleActuelle(),Accept:'application/vnd.github.raw'}});
