@@ -378,8 +378,14 @@ function pageRubrique(config){
   });
   $('formAuth').addEventListener('submit',async function(e){
     e.preventDefault();
-    const v=$('cle').value.trim();
+    const brut=$('cle').value.trim();
+    const v=nettoyerCle(brut);
     if(!v)return;
+    const err=$('erreurAuth');
+    if(v!==brut){
+      err.hidden=false;
+      err.textContent='La cl\u00e9 coll\u00e9e contenait '+(brut.length-v.length)+' caract\u00e8re(s) invisible(s), retir\u00e9(s) automatiquement. Si la lecture \u00e9choue, recopie la cl\u00e9 depuis GitHub sans passer par un traitement de texte.';
+    }
     ($('garder').checked?localStorage:sessionStorage).setItem('se_cle',v);
     const b=$('btnLire');b.disabled=true;b.textContent='Lecture du d\u00e9p\u00f4t en cours';
     await demarrer();
