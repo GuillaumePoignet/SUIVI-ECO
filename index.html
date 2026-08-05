@@ -8,36 +8,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
 <style>
-:root{--fond:#F4F5F8;--carte:#FFFFFF;--encre:#161A2E;--texte:#454C66;--muet:#858BA3;--ligne:#E1E4EC;--ligne2:#EDEFF4;--accent:#26346B;--accent2:#5C6CB8;--vertfonce:#0C5238}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-h1{font-family:"Public Sans",sans-serif;margin:0}
-a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:10px}
-@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
-.haut{position:sticky;top:0;z-index:30;background:rgba(246,247,251,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
-.haut-in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:22px}
-.marque{display:flex;align-items:center;gap:9px;font:600 14px "Public Sans",sans-serif;color:inherit;text-decoration:none}
-.marque .pastille{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block}
-.cadre{max-width:1180px;margin:0 auto;padding:30px 24px 64px}
-.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin:0 0 8px}
-.hero h1{font-size:clamp(28px,3.6vw,38px);font-weight:700;letter-spacing:-.015em}
-.hero .sous{color:var(--texte);margin:8px 0 0;font-size:14px;max-width:76ch}
-.rubs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:24px}
-.rub{display:block;background:var(--carte);border:1px solid var(--ligne);border-radius:6px;padding:20px 20px 17px;box-shadow:0 1px 2px rgba(16,24,40,.04);color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s;animation:pop .45s ease both}
-.rubs .rub:nth-child(2){animation-delay:.03s}.rubs .rub:nth-child(3){animation-delay:.06s}.rubs .rub:nth-child(4){animation-delay:.09s}
-.rubs .rub:nth-child(5){animation-delay:.12s}.rubs .rub:nth-child(6){animation-delay:.15s}.rubs .rub:nth-child(7){animation-delay:.18s}.rubs .rub:nth-child(8){animation-delay:.21s}
-@keyframes pop{from{opacity:0;transform:translateY(8px)}}
-a.rub:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.08);border-color:var(--accent2)}
-.rub h2{font:600 16.5px "Public Sans",sans-serif;margin:0 0 5px;letter-spacing:-.01em}
-.rub p{color:var(--texte);font-size:12.5px;margin:0 0 12px;line-height:1.55}
-.chip{font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;background:#F2F4F7;color:var(--muet)}
-.chip.vert{background:rgba(14,159,110,.12);color:var(--vertfonce)}
-.rub.off{opacity:.72}
-footer{margin-top:34px}
-.petit{font-size:11.5px;color:var(--muet);text-align:center;font-family:"IBM Plex Mono",monospace;line-height:1.7}
-@media (max-width:720px){.cadre{padding:20px 14px 48px}.haut-in{padding:10px 14px}}
+/* Seules regles propres a l accueil : la grille des rubriques. Tout le reste
+   vient de la charte commune, pour que l accueil ne derive jamais des pages. */
+.rubs{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px;margin-top:28px}
+.rub{display:block;background:var(--carte);border:1px solid var(--ligne);border-top:3px solid var(--accent);
+     border-radius:6px;padding:20px 20px 17px;color:inherit;text-decoration:none;
+     transition:transform .15s,box-shadow .15s;animation:pop .45s ease both}
+a.rub:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,26,46,.10)}
+.rub h2{font:700 18px "Public Sans",sans-serif;margin:0 0 7px;letter-spacing:-.012em;color:var(--accent)}
+.rub p{color:var(--texte);font-size:14.5px;margin:0 0 14px;line-height:1.55}
+.rubs .rub:nth-child(2){animation-delay:.03s}.rubs .rub:nth-child(3){animation-delay:.06s}
+.rubs .rub:nth-child(4){animation-delay:.09s}.rubs .rub:nth-child(5){animation-delay:.12s}
+.rubs .rub:nth-child(6){animation-delay:.15s}.rubs .rub:nth-child(7){animation-delay:.18s}
+.rubs .rub:nth-child(8){animation-delay:.21s}.rubs .rub:nth-child(9){animation-delay:.24s}
+.rubs .rub:nth-child(10){animation-delay:.27s}.rubs .rub:nth-child(11){animation-delay:.30s}
 </style>
 </head>
 <body>
@@ -46,16 +32,15 @@ footer{margin-top:34px}
 </div></header>
 <div class="cadre">
   <section class="hero">
-    <p class="eyebrow">SUIVI ECO &middot; LECTURE DIRECTE DU D&Eacute;P&Ocirc;T PRIV&Eacute;</p>
     <h1>L&rsquo;&eacute;conomie fran&ccedil;aise</h1>
-    <p class="sous">Onze rubriques pour lire le socle de donn&eacute;es : les huit sont en ligne, avec cartes, classements et courbes. Les donn&eacute;es restent dans le d&eacute;p&ocirc;t priv&eacute; ; il faut une cl&eacute; de lecture pour les afficher.</p>
+    <p class="sous">Onze rubriques pour lire le socle de donn&eacute;es : cartes, classements, courbes et notes. Les donn&eacute;es restent dans le d&eacute;p&ocirc;t priv&eacute; ; il faut une cl&eacute; de lecture pour les afficher.</p>
+  </section>
+  <section class="rubs">
     <a class="rub" href="notes.html">
       <h2>Notes &amp; &eacute;tudes</h2>
       <p>Les notes dat&eacute;es, l&rsquo;&eacute;tude fondatrice et le journal de bord.</p>
       <span class="chip vert">en ligne</span>
     </a>
-  </section>
-  <section class="rubs">
     <a class="rub" href="vue-densemble.html">
       <h2>Vue d&rsquo;ensemble</h2>
       <p>La richesse produite, le loyer de l&rsquo;argent, l&rsquo;inflation et la valeur de l&rsquo;euro, de 1800 &agrave; aujourd&rsquo;hui.</p>
