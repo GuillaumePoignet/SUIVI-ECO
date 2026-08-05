@@ -347,6 +347,7 @@ function pageRubrique(config){
       else if(p.type==='carte'&&typeof pCarte==='function')pCarte(zone,p,D);
       else if(p.type==='tableau'&&typeof pTable==='function')pTable(zone,p,D);
       else if(p.type==='document'&&typeof pDoc==='function')pDoc(zone,p,D);
+      else if(p.type==='ratio'&&typeof pRatio==='function')pRatio(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
