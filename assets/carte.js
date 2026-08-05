@@ -87,7 +87,7 @@ function composantCarte(host,fond,cle){
       const y=12+i*84;
       groupe.appendChild(el('rect',{x:10,y:y,width:100,height:76,fill:'#fff',stroke:'var(--ligne)',rx:8}));
       tracer(zones[z],projecteur(zones[z],14,y+16,92,56),'c');
-      const t=el('text',{x:60,y:y+12,'text-anchor':'middle','font-size':9.5,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+      const t=el('text',{x:60,y:y+12,'text-anchor':'middle','font-size':9.5,fill:'var(--muet)','font-family':'Public Sans'});
       t.textContent=zones[z][0].n;svg.appendChild(t);
     });
     // legende
@@ -96,11 +96,11 @@ function composantCarte(host,fond,cle){
     pal.forEach(function(c,i){
       lg.appendChild(el('rect',{x:lx+i*74,y:ly,width:70,height:11,fill:c,rx:2}));
       const b=i===0?'moins de '+nfAuto(bornes[0]):(i===pal.length-1?nfAuto(bornes[bornes.length-1])+' et plus':nfAuto(bornes[i-1])+' \u00e0 '+nfAuto(bornes[i]));
-      const t=el('text',{x:lx+i*74,y:ly+25,'font-size':10,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+      const t=el('text',{x:lx+i*74,y:ly+25,'font-size':10,fill:'var(--muet)','font-family':'Public Sans'});
       t.textContent=b;lg.appendChild(t);
     });
     lg.appendChild(el('rect',{x:lx+pal.length*74+14,y:ly,width:22,height:11,fill:'#EEF1F6',rx:2}));
-    const t2=el('text',{x:lx+pal.length*74+42,y:ly+10,'font-size':10,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    const t2=el('text',{x:lx+pal.length*74+42,y:ly+10,'font-size':10,fill:'var(--muet)','font-family':'Public Sans'});
     t2.textContent='sans donn\u00e9e';lg.appendChild(t2);
     const t3=el('text',{x:lx,y:ly-8,'font-size':11,fill:'var(--texte)'});
     t3.textContent=libelle+(div?' \u2014 \u00e9chelle centr\u00e9e sur z\u00e9ro':' \u2014 cinq classes de m\u00eame effectif');
