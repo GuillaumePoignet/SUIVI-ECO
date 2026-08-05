@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Monde &amp; d&eacute;pendances</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/carte.js"></script>
+<script src="assets/fonds/monde.js"></script>
+<script>
+pageRubrique({
+  id:'monde',
+  titre:'Monde & d\u00e9pendances',
+  sous:'La conjoncture de tous les pays et les d\u00e9pendances strat\u00e9giques de la France \u2014 la carte est jointe par le code ISO3 que le fond porte lui-m\u00eame.',
+  fichiers:{
+    axesPays:'ECO/series/M5_PAYS_ISO3.csv',
+    conj:'ECO/series/M8_CONJONCTURE_MONDE_2000-2025.csv',
+    directeurs:'ECO/series/M8_TAUX_DIRECTEURS_MENSUEL_1945-2026.csv',
+    souverains:'ECO/series/M8_TAUX_SOUVERAINS_MENSUEL_1962-2026.csv',
+    familles:'ECO/series/M8_DEPENDANCES_FAMILLES_2024.csv',
+    prix:'ECO/series/M8_PRIX_PRODUITS_BASE_1960-2025.csv',
+    axesProduits:'ECO/series/M8_PRODUITS_BASE.csv'
+  },
+  axes:{conj:'axesPays',prix:'axesProduits'},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'conj',motif:'croissance_pib_volume',code:'WLD',et:'Croissance mondiale'},
+      {fichier:'conj',motif:'inflation',code:'WLD',et:'Inflation mondiale'},
+      {fichier:'directeurs',motif:'taux_directeur',code:'XM',et:'Taux directeur, zone euro'},
+      {fichier:'souverains',motif:'taux_souverain',code:'FR',et:'Taux souverain fran\u00e7ais'}
+    ]},
+    {type:'carte',fichier:'conj',fond:'FOND_MONDE',cle:'c',prefMotif:'pib_par_habitant',
+     titre:'La carte de la conjoncture',
+     quoi:'Produit int\u00e9rieur brut, PIB par habitant, croissance, inflation et population, pour tous les pays, de 2000 \u00e0 2025. Sur la croissance, l\u2019\u00e9chelle est centr\u00e9e sur z\u00e9ro.'},
+    {type:'classement',fichier:'conj',prefMotif:'pib_courant',
+     titre:'Le classement des \u00e9conomies',
+     quoi:'Les pays class\u00e9s pour la grandeur choisie. Attention : la liste m\u00eale pays et agr\u00e9gats \u2014 monde, zones, groupes de revenu \u2014 dont les p\u00e9rim\u00e8tres se recouvrent.'},
+    {type:'classement',fichier:'familles',prefMotif:'importations',
+     titre:'Les d\u00e9pendances par famille de produits',
+     quoi:'Ce que la France importe par famille strat\u00e9gique en 2024, telle que le chantier g\u00e9opolitique les a d\u00e9coup\u00e9es.'},
+    {type:'explorer',fichier:'conj',prefMotif:'croissance_pib_volume',
+     titre:'Trajectoire d\u2019un pays',
+     quoi:'Choisis un pays et une grandeur : la s\u00e9rie couvre 2000 \u00e0 2025.'},
+    {type:'explorer',fichier:'directeurs',prefMotif:'',
+     titre:'Les taux directeurs',
+     quoi:'Le taux directeur de 49 banques centrales, au mois, depuis 1945.'},
+    {type:'explorer',fichier:'souverains',prefMotif:'',
+     titre:'Les taux souverains \u00e0 dix ans',
+     quoi:'Le rendement des emprunts d\u2019\u00c9tat \u00e0 dix ans, au mois, depuis 1962.'},
+    {type:'explorer',fichier:'prix',prefMotif:'',
+     titre:'Les prix des mati\u00e8res premi\u00e8res',
+     quoi:'Soixante et onze produits de base en dollars, au mois, de 1960 \u00e0 2025.'}
+  ],
+  reserves:[
+    'Les montants de ce module sont en DOLLARS et ne se comparent pas directement aux fichiers fran\u00e7ais en euros.',
+    'Ne jamais sommer les pays pour refaire le monde : des pays sont sans donn\u00e9e, et l\u2019\u00e9cart \u00e9tait de 0,94 % en 2024. L\u2019agr\u00e9gat mondial publi\u00e9 existe dans le fichier, il faut le prendre lui.',
+    'Le fond de carte au 110e millioni\u00e8me ignore les micro-\u00c9tats et trois entit\u00e9s sans code ISO3 stable ; 169 des 260 codes du fichier de conjoncture trouvent un contour, le reste \u00e9tant surtout des agr\u00e9gats, tous nomm\u00e9s sous la carte.',
+    'Chaque banque centrale d\u00e9finit son taux directeur \u00e0 sa fa\u00e7on, et les s\u00e9ries longues portent des ruptures de d\u00e9finition ; les valeurs extr\u00eames ne sont pas des erreurs \u2014 103 484 % au Br\u00e9sil en 1989 est un taux d\u2019hyperinflation r\u00e9el.',
+    'Le fichier des taux souverains m\u00eale trois producteurs aux conventions diff\u00e9rentes : les niveaux sont comparables, pas les centi\u00e8mes.'
+  ]
+});
+</script>
+</body>
+</html>
