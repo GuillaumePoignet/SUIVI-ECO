@@ -30,25 +30,27 @@ pageRubrique({
   axes:{conso:'axesCoicop',niveauPcs:'axesPcs'},
   panneaux:[
     {type:'cartes',prefs:[
-      {fichier:'compte',motif:'revenu',et:'Revenu des m\u00e9nages'},
-      {fichier:'compte',motif:'consommation',et:'Consommation'},
-      {fichier:'compte',motif:'epargne',et:'\u00c9pargne'},
-      {fichier:'niveau',motif:'vie',et:'Niveau de vie'}
+      {fichier:'compte',motif:'revenu_disponible_brut',et:'Revenu disponible brut'},
+      {fichier:'compte',motif:'depense_consommation',et:'Consommation'},
+      {fichier:'compte',motif:'epargne',et:'\u00c9pargne brute'},
+      {fichier:'niveau',motif:'niveau_vie_median',et:'Niveau de vie m\u00e9dian'}
     ]},
     {type:'classement',fichier:'conso',prefMotif:'',
      titre:'Ce que les m\u00e9nages consomment',
      quoi:'Les fonctions de consommation class\u00e9es \u00e0 l\u2019ann\u00e9e choisie, selon la nomenclature du d\u00e9p\u00f4t. La part est un simple rapport \u00e0 la somme des fonctions affich\u00e9es.'},
-    {type:'explorer',fichier:'compte',prefMotif:'revenu',
+    {type:'explorer',fichier:'compte',prefMotif:'revenu_disponible_brut',
      titre:'Le compte des m\u00e9nages',
-     quoi:'Revenus, d\u00e9penses et \u00e9pargne dans le temps : choisis la grandeur et la vue.'},
-    {type:'explorer',fichier:'niveau',prefMotif:'',
+     quoi:'Revenus, transferts, consommation et \u00e9pargne dans le temps : dix-sept grandeurs depuis 1949.'},
+    {type:'explorer',fichier:'niveau',prefMotif:'niveau_vie_median',
      titre:'Niveau de vie et in\u00e9galit\u00e9s',
-     quoi:'M\u00e9diane, d\u00e9ciles et indicateurs, tels que le fichier du niveau de vie les porte, depuis 1975.'},
-    {type:'explorer',fichier:'niveauPcs',prefMotif:'',
+     quoi:'M\u00e9diane, d\u00e9ciles, indice de Gini et taux de pauvret\u00e9, tels que le fichier les porte, depuis 1975.'},
+    {type:'explorer',fichier:'niveauPcs',prefMotif:'niveau_vie_median',
      titre:'Niveau de vie par cat\u00e9gorie sociale',
      quoi:'Les m\u00eames indicateurs, d\u00e9coup\u00e9s par cat\u00e9gorie socioprofessionnelle depuis 1996.'}
   ],
   reserves:[
+    'Le compte des m\u00e9nages et le niveau de vie ne couvrent pas le m\u00eame champ : le second porte sur la France m\u00e9tropolitaine et les personnes en m\u00e9nage ordinaire, et ne se compare donc pas au compte.',
+    'Les cinq cat\u00e9gories sociales ne se somment pas \u00e0 un ensemble : la source publie un agr\u00e9g\u00e9 suppl\u00e9mentaire dont la d\u00e9finition n\u2019a pas pu \u00eatre \u00e9tablie, et le d\u00e9p\u00f4t ne l\u2019a pas grav\u00e9.',
     'Les d\u00e9coupes \u2014 fonctions de consommation, cat\u00e9gories sociales \u2014 suivent les tables d\u2019axes du d\u00e9p\u00f4t, visibles dans \u00ab Sources et contr\u00f4les \u00bb.'
   ]
 });
