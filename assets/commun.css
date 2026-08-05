@@ -8,6 +8,9 @@
   --nuit:#0F172A; --nuittexte:#E2E8F0;
 }
 *{box-sizing:border-box}
+/* Sans cela, une regle display: sur un element masque bat l'attribut hidden
+   du navigateur, et l'ecran de cle reste affiche par-dessus la page. */
+[hidden]{display:none !important}
 html,body{margin:0;padding:0}
 body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 .mono{font-family:"IBM Plex Mono",monospace}
