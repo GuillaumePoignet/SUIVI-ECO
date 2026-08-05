@@ -14,6 +14,7 @@
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
 <script src="assets/commun.js"></script>
 <script src="assets/ui.js"></script>
+<script src="assets/ratios.js"></script>
 <script src="assets/carte.js"></script>
 <script src="assets/fonds/monde.js"></script>
 <script>
@@ -26,7 +27,9 @@ pageRubrique({
     axesHs2:'ECO/series/M2_PRODUITS_HS2.csv',
     echanges:'ECO/series/M5_ECHANGES_PAYS_1988-2025.csv',
     services:'ECO/series/M5_SERVICES_PAYS_2010-2025.csv',
-    produits:'ECO/series/M5_ECHANGES_PRODUITS_HS2_1988-2025.csv'
+    produits:'ECO/series/M5_ECHANGES_PRODUITS_HS2_1988-2025.csv',
+    comptes:'ECO/series/M2_ECHANGES_PRODUITS_A17_1949-2025.csv',
+    pib:'ECO/series/M1_PIB_FRANCE_1949-2025.csv'
   },
   axes:{echanges:'axesPays',services:'axesPays',produits:'axesHs2'},
   panneaux:[
@@ -42,6 +45,29 @@ pageRubrique({
     {type:'carte',fichier:'services',fond:'FOND_MONDE',cle:'a2',prefMotif:'services_solde',
      titre:'Les services, pays par pays',
      quoi:'Services export\u00e9s, import\u00e9s et solde depuis 2010. Sur le solde, l\u2019\u00e9chelle est centr\u00e9e sur z\u00e9ro : le rouge marque un d\u00e9ficit.'},
+    {type:'ratio',titre:'Le taux de couverture',
+     quoi:'Les exportations rapport\u00e9es aux importations de marchandises. Au-dessus de 100 %, la France vend plus qu\u2019elle n\u2019ach\u00e8te. Rapport calcul\u00e9 par la page, jamais grav\u00e9.',
+     num:{fichier:'echanges',grandeur:'exportations',code:'WORLD'},
+     den:{fichier:'echanges',grandeur:'importations',code:'WORLD'},
+     libelle:'Exportations / importations, marchandises'},
+    {type:'ratio',titre:'Ce que les exportations p\u00e8sent dans la richesse produite',
+     quoi:'Exportations de biens et services rapport\u00e9es au produit int\u00e9rieur brut. C\u2019est le rapport que la demande d\u2019origine r\u00e9clamait ; il n\u2019est pas grav\u00e9 au d\u00e9p\u00f4t, la page le calcule \u00e0 partir de deux fichiers.',
+     num:{fichier:'comptes',grandeur:'exportations'},
+     den:{fichier:'pib',colonne:'pib_courant_MEUR'},
+     formule:'exportations des comptes nationaux \u00f7 PIB courant de M1',
+     libelle:'Exportations rapport\u00e9es au PIB'},
+    {type:'ratio',titre:'Ce que les importations p\u00e8sent dans la richesse produite',
+     quoi:'M\u00eame lecture pour les importations.',
+     num:{fichier:'comptes',grandeur:'importations'},
+     den:{fichier:'pib',colonne:'pib_courant_MEUR'},
+     formule:'importations des comptes nationaux \u00f7 PIB courant de M1',
+     libelle:'Importations rapport\u00e9es au PIB'},
+    {type:'ratio',titre:'Le solde ext\u00e9rieur rapport\u00e9 au PIB',
+     quoi:'Exportations moins importations, rapport\u00e9es au produit int\u00e9rieur brut : la balance en points de PIB. N\u00e9gative depuis le d\u00e9but des ann\u00e9es 2000.',
+     num:{fichier:'comptes',grandeur:'exportations'},num2:{fichier:'comptes',grandeur:'importations'},operation:'moins',
+     den:{fichier:'pib',colonne:'pib_courant_MEUR'},
+     formule:'(exportations moins importations) \u00f7 PIB courant de M1',
+     libelle:'Balance en points de PIB'},
     {type:'classement',fichier:'echanges',prefMotif:'exportations',
      titre:'Les grands partenaires',
      quoi:'Les pays class\u00e9s pour le flux choisi, \u00e0 l\u2019ann\u00e9e choisie. Attention : la liste m\u00eale pays et agr\u00e9gats, dont le total monde, et la part additionne donc des p\u00e9rim\u00e8tres qui se recouvrent.'},
