@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Vue d&rsquo;ensemble</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#F6F7FB; --carte:#FFFFFF; --encre:#0F172A; --texte:#475467; --muet:#98A2B3;
+  --ligne:#E7EAF0; --ligne2:#EEF1F6;
+  --accent:#2A4BD7; --accent2:#7C9BFF;
+  --vert:#0E9F6E; --vertfonce:#0B7A55; --rouge:#D92D20;
+  --teal:#0D9488; --violet:#7C3AED; --ardoise:#64748B;
+  --nuit:#0F172A; --nuittexte:#E2E8F0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",monospace}
+h1,h2{font-family:"Space Grotesk",sans-serif;margin:0}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+
+/* ecran cle */
+.plein{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.carteAuth{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:32px 32px 26px;max-width:440px;width:100%;box-shadow:0 8px 30px rgba(16,24,40,.08)}
+.carteAuth h1{font-size:26px;margin:4px 0 10px;letter-spacing:-.01em}
+.carteAuth .expli{color:var(--texte);font-size:13.5px;margin:0 0 18px}
+.carteAuth label{display:block;font-weight:600;font-size:12.5px;margin-bottom:6px}
+.rangCle{display:flex;gap:8px;align-items:center}
+#cle{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--ligne);border-radius:10px;font:500 13px "IBM Plex Mono",monospace;background:#fff;color:var(--encre)}
+.case{display:flex;gap:8px;align-items:center;color:var(--texte);font-size:13px;margin:12px 0 16px;font-weight:400}
+.case input{accent-color:var(--accent)}
+.btnPlein{display:block;width:100%;background:var(--accent);color:#fff;border-radius:10px;padding:11px;font-weight:600}
+.btnPlein[disabled]{opacity:.6;cursor:default}
+.erreur{color:#B42318;font-size:13px;margin:12px 0 0}
+.lienbtn{color:var(--texte);font-size:12.5px;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+/* barre haute */
+.haut{position:sticky;top:0;z-index:30;background:rgba(246,247,251,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.haut-in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+.marque{display:flex;align-items:center;gap:9px;font:600 14px "Space Grotesk",sans-serif;white-space:nowrap;color:inherit;text-decoration:none}
+.marque .pastille{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block}
+.onglets{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.onglets::-webkit-scrollbar{display:none}
+.onglets a,.onglets span{font-size:13px;font-weight:500;color:var(--muet);padding:6px 11px;border-radius:999px;white-space:nowrap;text-decoration:none}
+.onglets .actif{background:var(--encre);color:#fff;font-weight:600}
+.outilsH{margin-left:auto;display:flex;gap:12px;align-items:center}
+.btnH{border:1px solid var(--ligne);background:#fff;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--texte)}
+
+.cadre{max-width:1180px;margin:0 auto;padding:26px 24px 64px}
+.hero{margin:6px 0 20px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin:0 0 8px}
+.hero h1{font-size:clamp(27px,3.4vw,36px);font-weight:700;letter-spacing:-.015em}
+.hero .sous{color:var(--texte);margin:8px 0 0;font-size:14px;max-width:76ch}
+.heures{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muet);margin:10px 0 0}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin:18px 0 8px}
+.stat{background:var(--carte);border:1px solid var(--ligne);border-radius:16px;padding:14px 15px 12px;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:transform .15s,box-shadow .15s;animation:pop .45s ease both}
+.stat:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.07)}
+.stats .stat:nth-child(2){animation-delay:.04s}.stats .stat:nth-child(3){animation-delay:.08s}
+.stats .stat:nth-child(4){animation-delay:.12s}.stats .stat:nth-child(5){animation-delay:.16s}
+.stats .stat:nth-child(6){animation-delay:.2s}.stats .stat:nth-child(7){animation-delay:.24s}
+.stats .stat:nth-child(8){animation-delay:.28s}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+.stat .et{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muet);font-weight:600}
+.stat .rang{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:5px}
+.stat .va{font:600 22px "Space Grotesk",sans-serif;letter-spacing:-.01em;font-feature-settings:'tnum'}
+.chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F2F4F7;color:var(--texte);white-space:nowrap}
+.chip.vert{background:rgba(14,159,110,.12);color:var(--vertfonce)}
+.chip.rouge{background:rgba(217,45,32,.1);color:#B42318}
+.up{color:var(--vertfonce)} .down{color:#B42318}
+.spk{width:100%;height:30px;margin-top:9px;display:block}
+.stat .qd{font-size:11px;color:var(--muet);font-family:"IBM Plex Mono",monospace;margin-top:7px;line-height:1.5}
+
+.panneau{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:20px 20px 16px;margin-top:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.pan-tete{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px}
+.pan-tete h2{font-size:19px;font-weight:600;letter-spacing:-.01em}
+.pan-tete p{color:var(--texte);font-size:13px;margin:5px 0 0;max-width:72ch}
+.seg{display:inline-flex;background:#EEF1F6;border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--texte);transition:background .12s}
+.seg button.actif{background:#fff;color:var(--encre);box-shadow:0 1px 2px rgba(15,23,42,.1)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
+.chips button{font-family:"IBM Plex Mono",monospace;font-size:12px;border:1px solid var(--ligne);border-radius:999px;padding:4px 11px;color:var(--texte);background:var(--carte);transition:all .12s}
+.chips button:hover{border-color:var(--muet)}
+.chips button.actif{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+
+.chartbox{position:relative;margin-top:10px}
+.chartbox svg{width:100%;height:auto;display:block}
+.tip{position:absolute;top:10px;transform:translateX(-50%);background:var(--nuit);color:#F8FAFC;border-radius:10px;padding:8px 12px;font-size:12px;line-height:1.55;pointer-events:none;box-shadow:0 10px 28px rgba(15,23,42,.28);white-space:nowrap;z-index:5}
+.tip .t{font:600 11px "Space Grotesk",sans-serif;letter-spacing:.05em;color:#A5B4CB;margin-bottom:3px;text-transform:uppercase}
+.tip .r{display:flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:#CBD5E1}
+.tip .r b{color:#fff;font-weight:500}
+.tip .d{width:7px;height:7px;border-radius:3px;display:inline-block;flex:none}
+
+.legende{display:flex;gap:16px;flex-wrap:wrap;margin:10px 2px 0;font-size:12px;color:var(--texte)}
+.legende i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.note{color:var(--texte);font-size:12.5px;margin:12px 2px 0}
+.explore{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;background:#F8F9FD;border:1px solid var(--ligne2);border-radius:12px}
+.explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
+.explore input[type=range]{flex:1;min-width:150px;accent-color:var(--accent);height:22px}
+.explore input[type=date]{font:500 13px "IBM Plex Mono",monospace;padding:6px 10px;border:1px solid var(--ligne);border-radius:8px;background:#fff;color:var(--encre);accent-color:var(--accent)}
+.exp-an{font:600 13px "Space Grotesk",sans-serif;color:var(--accent);min-width:44px;text-align:center}
+.exp-val{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--encre);line-height:1.7;width:100%}
+.exp-val b{color:var(--accent);font-weight:500}
+
+details.src{margin-top:14px}
+details.src summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:12.5px}
+details.src pre{font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;color:var(--nuittexte);background:var(--nuit);border-radius:12px;padding:14px 16px;overflow-x:auto;white-space:pre-wrap;margin:10px 0 4px}
+
+#tabDecisions{overflow-x:auto;margin-top:8px}
+#tabDecisions table{border-collapse:collapse;width:100%;font-size:13px}
+#tabDecisions th{text-align:right;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muet);font-weight:600;padding:8px 14px 8px 0;border-bottom:1px solid var(--ligne);white-space:nowrap}
+#tabDecisions th:first-child{text-align:left}
+#tabDecisions td{padding:8px 14px 8px 0;border-bottom:1px solid var(--ligne2);font-family:"IBM Plex Mono",monospace;white-space:nowrap;text-align:right;font-size:12.5px}
+#tabDecisions td.d{font-family:"Inter",sans-serif;text-align:left;font-weight:500}
+#tabDecisions tr:hover td{background:#F8FAFF}
+.fl{font-size:9px;margin-left:6px;color:var(--muet)}
+
+footer{margin-top:30px}
+.reserves{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:18px 20px}
+.reserves summary{cursor:pointer;font-weight:600;font-size:13.5px;font-family:"Space Grotesk",sans-serif}
+.reserves ul{color:var(--texte);font-size:13px;margin:12px 0 0;padding-left:20px}
+.reserves li{margin-bottom:7px}
+.petit{font-size:11.5px;color:var(--muet);margin-top:16px;text-align:center}
+@media (max-width: 720px){
+  .cadre{padding:18px 14px 48px}
+  .haut-in{padding:10px 14px;gap:12px}
+  .panneau{padding:14px 14px 12px}
+  .stat .va{font-size:19px}
+}
+</style>
+</head>
+<body>
+
+<div id="auth" class="plein" hidden>
+  <form id="formAuth" class="carteAuth">
+    <p class="eyebrow">SUIVI ECO</p>
+    <h1>&Eacute;conomie fran&ccedil;aise</h1>
+    <p class="expli">Cette page lit le d&eacute;p&ocirc;t priv&eacute; depuis ce navigateur ; la cl&eacute; ne sert qu&rsquo;&agrave; appeler GitHub. Colle une cl&eacute; d&rsquo;acc&egrave;s GitHub qui peut lire DEPOT-AGENT-ECO.</p>
+    <label for="cle">Cl&eacute; d&rsquo;acc&egrave;s GitHub</label>
+    <div class="rangCle">
+      <input id="cle" type="password" autocomplete="off" spellcheck="false">
+      <button type="button" id="voirCle" class="lienbtn">afficher</button>
+    </div>
+    <label class="case"><input type="checkbox" id="garder" checked> Garder la cl&eacute; dans ce navigateur</label>
+    <button type="submit" id="btnLire" class="btnPlein">Lire le d&eacute;p&ocirc;t</button>
+    <p id="erreurAuth" class="erreur" hidden></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+<header class="haut">
+  <div class="haut-in">
+    <a class="marque" href="index.html"><span class="pastille"></span>&Eacute;conomie fran&ccedil;aise</a>
+    <nav class="onglets" aria-label="Rubriques">
+      <a class="actif" href="vue-densemble.html">Vue d&rsquo;ensemble</a>
+      <span title="&agrave; venir">Production par branche</span>
+      <span title="&agrave; venir">Population &amp; territoire</span>
+      <span title="&agrave; venir">M&eacute;nages</span>
+      <span title="&agrave; venir">Commerce ext&eacute;rieur</span>
+      <span title="&agrave; venir">Finances publiques</span>
+      <span title="&agrave; venir">Capital &amp; patrimoine</span>
+      <span title="&agrave; venir">Monde &amp; d&eacute;pendances</span>
+    </nav>
+    <div class="outilsH">
+      <button class="btnH" id="btnRecharger">Recharger</button>
+      <button class="lienbtn" id="btnCle">Changer de cl&eacute;</button>
+    </div>
+  </div>
+</header>
+
+<div class="cadre">
+  <section class="hero">
+    <p class="eyebrow">TABLEAU DE BORD &middot; LECTURE DIRECTE DU D&Eacute;P&Ocirc;T PRIV&Eacute;</p>
+    <h1>Vue d&rsquo;ensemble</h1>
+    <p class="sous">La richesse produite, le loyer de l&rsquo;argent, les prix et la valeur de l&rsquo;euro. Chaque chiffre est lu tel quel dans un fichier du socle et garde sa source, sa date et son mill&eacute;sime &mdash; rien n&rsquo;est recalcul&eacute; en silence.</p>
+    <p class="heures" id="heures"></p>
+  </section>
+
+  <section class="stats" id="cartesEtat" aria-label="Dernier &eacute;tat"></section>
+
+  <section class="panneau">
+    <div class="pan-tete">
+      <div>
+        <h2>La richesse produite chaque ann&eacute;e</h2>
+        <p id="pibQuoi"></p>
+      </div>
+      <div class="seg" id="pibVues" role="group" aria-label="Vue du produit int&eacute;rieur brut"></div>
+    </div>
+    <div class="chartbox" id="boxPib">
+      <svg id="svgPib" viewBox="0 0 960 330" role="img" aria-label="Produit interieur brut de la France"></svg>
+      <div class="tip" hidden></div>
+    </div>
+    <div class="explore">
+      <label for="pibSlider">Choisir une ann&eacute;e</label>
+      <input type="range" id="pibSlider" min="1949" max="2025" step="1" value="2025">
+      <span class="exp-an" id="pibAn"></span>
+      <div class="exp-val" id="pibExp"></div>
+    </div>
+    <details class="src"><summary>Source et contr&ocirc;le &mdash; ECO/series/M1_PIB_FRANCE_1949-2025.csv</summary><pre id="entPib"></pre></details>
+  </section>
+
+  <section class="panneau">
+    <div class="pan-tete">
+      <div>
+        <h2>Deux si&egrave;cles de loyer de l&rsquo;argent</h2>
+        <p>L&rsquo;escompte de la Banque de France de 1800 &agrave; 1990, puis les trois taux directeurs de la Banque centrale europ&eacute;enne depuis 1999. Trois d&eacute;finitions diff&eacute;rentes, trac&eacute;es c&ocirc;te &agrave; c&ocirc;te et jamais raccord&eacute;es &mdash; le vide 1990&ndash;1999 est un trou de champ, pas un taux nul.</p>
+      </div>
+      <div class="seg" id="tauxPeriodes" role="group" aria-label="P&eacute;riode affich&eacute;e"></div>
+    </div>
+    <div class="chartbox" id="boxTaux">
+      <svg id="svgTaux" viewBox="0 0 960 330" role="img" aria-label="Taux d'escompte puis taux directeurs"></svg>
+      <div class="tip" hidden></div>
+    </div>
+    <div class="explore">
+      <label for="tauxDate">Choisir un jour</label>
+      <input type="date" id="tauxDate" min="1800-02-21">
+      <div class="exp-val" id="tauxExp"></div>
+    </div>
+    <div class="legende">
+      <span><i style="background:var(--ardoise)"></i>Escompte Banque de France</span>
+      <span><i style="background:var(--accent)"></i>Facilit&eacute; de d&eacute;p&ocirc;t BCE</span>
+      <span><i style="background:var(--teal)"></i>Refinancement</span>
+      <span><i style="background:var(--violet)"></i>Pr&ecirc;t marginal</span>
+    </div>
+    <details class="src"><summary>Sources et r&eacute;serves &mdash; ECO/series/M1_TAUX_ESCOMPTE_1800-1990.csv et M1_TAUX_BCE_DECISIONS.csv</summary><pre id="entTaux"></pre></details>
+  </section>
+
+  <section class="panneau">
+    <div class="pan-tete">
+      <div>
+        <h2>Ce que vaut l&rsquo;euro</h2>
+        <p>Moyenne annuelle des cours de r&eacute;f&eacute;rence de la BCE : combien d&rsquo;unit&eacute;s de devise pour un euro. Une courbe qui monte veut dire que l&rsquo;euro s&rsquo;appr&eacute;cie. Le point dor&eacute; est le dernier cours port&eacute; au d&eacute;p&ocirc;t, quand il existe.</p>
+      </div>
+    </div>
+    <div class="chips" id="fxChips" role="group" aria-label="Devise"></div>
+    <div class="chartbox" id="boxFx">
+      <svg id="svgFx" viewBox="0 0 960 290" role="img" aria-label="Taux de change annuel moyen de l'euro"></svg>
+      <div class="tip" hidden></div>
+    </div>
+    <div class="explore">
+      <label for="fxSlider">Choisir une ann&eacute;e</label>
+      <input type="range" id="fxSlider" min="1999" max="2025" step="1" value="2025">
+      <span class="exp-an" id="fxAn"></span>
+      <div class="exp-val" id="fxExp"></div>
+    </div>
+    <p class="note" id="fxNote"></p>
+    <details class="src"><summary>Source et contr&ocirc;le &mdash; ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv</summary><pre id="entFx"></pre></details>
+  </section>
+
+  <section class="panneau">
+    <div class="pan-tete">
+      <div>
+        <h2>Les derni&egrave;res d&eacute;cisions de la banque centrale</h2>
+        <p>Une ligne par date de d&eacute;cision de la BCE, taux en vigueur &agrave; compter de cette date. La fl&egrave;che marque le sens du mouvement par rapport &agrave; la d&eacute;cision pr&eacute;c&eacute;dente.</p>
+      </div>
+    </div>
+    <div id="tabDecisions"></div>
+  </section>
+
+  <footer>
+    <details class="reserves" open>
+      <summary>R&eacute;serves sur les donn&eacute;es</summary>
+      <ul id="listeReserves"></ul>
+    </details>
+    <p class="petit mono" id="piedInfos"></p>
+  </footer>
+</div>
+</div>
+
+<script>
+'use strict';
+const DEPOT='GuillaumePoignet/DEPOT-AGENT-ECO';
+const CHEMINS={
+  PIB:'ECO/series/M1_PIB_FRANCE_1949-2025.csv',
+  BCE:'ECO/series/M1_TAUX_BCE_DECISIONS.csv',
+  ESC:'ECO/series/M1_TAUX_ESCOMPTE_1800-1990.csv',
+  FXA:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv',
+  REC:'ECO/series/M1_TAUX_CHANGE_2026-07.csv'
+};
+const AUJ=new Date().toISOString().slice(0,10);
+
+/* ============ outils ============ */
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const nf0=new Intl.NumberFormat('fr-FR');
+const nf1=new Intl.NumberFormat('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const nf2=new Intl.NumberFormat('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const nf4=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:4});
+const fmtPct=v=>(v>=0?'+':'\u2212')+nf1.format(Math.abs(v))+' %';
+const DATE_OK=/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+const anneeFrac=iso=>{const p=iso.split('-').map(Number);return p[0]+((p[1]||1)-1)/12+((p[2]||1)-1)/365;};
+const dFR=iso=>iso.split('-').reverse().join('/');
+const MOIS=['janv.','f\u00e9vr.','mars','avr.','mai','juin','juil.','ao\u00fbt','sept.','oct.','nov.','d\u00e9c.'];
+const moisFR=p=>{const q=p.split('-');return MOIS[+q[1]-1]+' '+q[0];};
+const fHM=d=>String(d.getHours()).padStart(2,'0')+'h'+String(d.getMinutes()).padStart(2,'0');
+const dfPlein=new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'short',year:'numeric'});
+function lignes(txt){return txt.split(/\r?\n/);}
+function entete(txt){return lignes(txt).filter(l=>l.startsWith('#')).join('\n');}
+function corps(txt){const L=lignes(txt).filter(l=>l&&!l.startsWith('#'));const head=L[0].split(';');return {head,rows:L.slice(1).map(l=>l.split(';'))};}
+
+/* ============ acces au depot ============ */
+function cleActuelle(){return localStorage.getItem('se_cle')||sessionStorage.getItem('se_cle')||'';}
+async function ghTexte(chemin){
+  const r=await fetch('https://api.github.com/repos/'+DEPOT+'/contents/'+chemin+'?ref=main',
+    {headers:{Authorization:'Bearer '+cleActuelle(),Accept:'application/vnd.github.raw'}});
+  if(r.status===401||r.status===403) throw new Error('AUTH');
+  if(r.status===404) throw new Error('ABSENT:'+chemin);
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.text();
+}
+async function ghApi(suite){
+  const r=await fetch('https://api.github.com/repos/'+DEPOT+'/'+suite,
+    {headers:{Authorization:'Bearer '+cleActuelle(),Accept:'application/vnd.github+json'}});
+  if(r.status===401||r.status===403) throw new Error('AUTH');
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+
+/* ============ etat ============ */
+let CSVs=null, PIB=null, DEC=null, ESC=null, FX=null, REC=null;
+let M_DEP=null, M_REF=null, M_PRE=null, M_ESC=null, FX_SPOT={};
+let heureGravure=null, heureLecture=null, echecLecture=false, mnt=null;
+let pibVue='volume', pibMarqueur=null, pibAnnee=null, majPibPin=null;
+let tauxDebut=1800, tauxDatePin=null, majTauxPin=null;
+let fxSel='USD', fxMarqueur=null, fxAnnee=null, majFxPin=null;
+
+const rec=motif=>REC.find(r=>r.ind.indexOf(motif)>=0);
+
+async function chargerTout(){
+  const [a,b,c,d,e]=await Promise.all([ghTexte(CHEMINS.PIB),ghTexte(CHEMINS.BCE),ghTexte(CHEMINS.ESC),ghTexte(CHEMINS.FXA),ghTexte(CHEMINS.REC)]);
+  CSVs={PIB:a,BCE:b,ESC:c,FXA:d,REC:e};
+  try{
+    const cm=await ghApi('commits?path=ECO/series&per_page=1&sha=main');
+    heureGravure=(cm&&cm[0])?new Date(cm[0].commit.committer.date):null;
+  }catch(err){heureGravure=null;}
+  calculer();
+  heureLecture=new Date();echecLecture=false;
+}
+function marches(grandeur){
+  const src=DEC.filter(d=>d.g===grandeur);
+  const out=[];
+  for(let i=0;i<src.length;i++){
+    out.push({x0:anneeFrac(src[i].date),x1:i+1<src.length?anneeFrac(src[i+1].date):anneeFrac(AUJ),v:src[i].v,date:src[i].date});
+  }
+  return out;
+}
+function calculer(){
+  PIB=corps(CSVs.PIB).rows.map(r=>({an:+r[0],courant:+r[1],volume:+r[2],croiss:r[3]===''?null:+r[3],indice:+r[4],parHab:+r[5]}));
+  DEC=corps(CSVs.BCE).rows.map(r=>({date:r[0],g:r[1],v:+r[2]}));
+  const esc=corps(CSVs.ESC).rows, ok=[], ecartees=[];
+  for(const r of esc){const o={date:r[0],fin:r[1],taux:+r[2]};
+    if(DATE_OK.test(o.date)) ok.push(o); else ecartees.push(o);}
+  ESC={ok,ecartees};
+  const par={};
+  for(const r of corps(CSVs.FXA).rows){const c=r[1];(par[c]=par[c]||[]).push({an:+r[0],v:+r[5]});}
+  for(const c in par) par[c].sort((a,b)=>a.an-b.an);
+  FX=par;
+  REC=corps(CSVs.REC).rows.map(r=>({ind:r[0],periode:r[1],v:+r[2].replace(',','.'),unite:r[3],source:r[4],mill:r[6]}));
+  M_DEP=marches('taux_facilite_depot');M_REF=marches('taux_refinancement_principal');M_PRE=marches('taux_facilite_pret_marginal');
+  const s=ESC.ok, mesc=[];
+  for(let i=0;i<s.length;i++){
+    const fin=s[i].fin?anneeFrac(s[i].fin+'-01'):(i+1<s.length?anneeFrac(s[i+1].date):null);
+    mesc.push({x0:anneeFrac(s[i].date),x1:fin===null?anneeFrac(s[i].date):fin,v:s[i].taux,date:s[i].date});
+  }
+  M_ESC=mesc;
+  FX_SPOT={USD:rec('euro-dollar'),CNY:rec('euro-yuan')};
+}
+function tauxA(m,x){let v=null,d=null;for(const s of m){if(s.x0<=x&&x<s.x1){return {v:s.v,date:s.date};}if(s.x0<=x){v=s.v;d=s.date;}else break;}return v===null?null:{v,date:d};}
+
+/* ============ mini-courbes des cartes ============ */
+function sparkLigne(vals,couleur){
+  const mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),e=(mx-mn)||1;
+  let d='';vals.forEach((v,i)=>{d+=(i?'L':'M')+(i*100/(vals.length-1)).toFixed(1)+' '+(26-22*(v-mn)/e+1).toFixed(1);});
+  return '<svg class="spk" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"><path d="'+d+'" fill="none" stroke="'+couleur+'" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>';
+}
+function sparkBarres(vals){
+  const mn=Math.min(0,Math.min.apply(null,vals)),mx=Math.max(0,Math.max.apply(null,vals)),e=(mx-mn)||1;
+  const Y=v=>26-24*(v-mn)/e+1, lb=100/vals.length*0.62;
+  let h='';vals.forEach((v,i)=>{const x=i*100/vals.length+(100/vals.length-lb)/2;
+    h+='<rect x="'+x.toFixed(1)+'" y="'+Math.min(Y(0),Y(v)).toFixed(1)+'" width="'+lb.toFixed(1)+'" height="'+(Math.abs(Y(v)-Y(0))||0.6).toFixed(1)+'" fill="'+(v>=0?'var(--vert)':'var(--rouge)')+'" rx="0.6"/>';});
+  return '<svg class="spk" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">'+h+'</svg>';
+}
+function sparkMarches(seg,couleur){
+  const x0=seg[0].x0,x1=seg[seg.length-1].x1;
+  const vs=seg.map(s=>s.v),mn=Math.min.apply(null,vs),mx=Math.max.apply(null,vs),e=(mx-mn)||1;
+  const X=x=>(x-x0)*100/(x1-x0), Y=v=>26-22*(v-mn)/e+1;
+  let d='';seg.forEach((s,i)=>{d+=(i?'L':'M')+X(s.x0).toFixed(1)+' '+Y(s.v).toFixed(1)+'L'+X(s.x1).toFixed(1)+' '+Y(s.v).toFixed(1);});
+  return '<svg class="spk" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true"><path d="'+d+'" fill="none" stroke="'+couleur+'" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>';
+}
+
+/* ============ cartes du dernier etat ============ */
+function rendreCartesEtat(){
+  const p=PIB[PIB.length-1],p1=PIB[PIB.length-2];
+  const infls=REC.filter(r=>r.ind.indexOf('inflation')>=0).sort((a,b)=>a.periode<b.periode?-1:1);
+  const inflJ=infls[infls.length-1], inflAv=infls.length>1?infls[infls.length-2]:null;
+  const dep=rec('facilite de depot'),oat=rec("emprunt d'Etat"),usd=rec('euro-dollar');
+  const crE=rec('entreprises'),crH=rec('habitat');
+  const depAvant=M_DEP[M_DEP.length-2],depDer=M_DEP[M_DEP.length-1];
+  const usdDern=FX.USD[FX.USD.length-1];
+  const mPib=(entete(CSVs.PIB).match(/Millesime INSEE : ([^\n]+)/)||[])[1]||'voir en-t\u00eate';
+  const chip=(txt,cl)=>'<span class="chip'+(cl?' '+cl:'')+'">'+txt+'</span>';
+  const cartes=[
+    {et:'Richesse produite \u00b7 PIB '+p.an,va:nf1.format(p.courant/1000)+' Md\u20ac',
+     ch:chip(fmtPct(p.croiss)+' en volume',p.croiss>=0?'vert':'rouge'),
+     sp:sparkLigne(PIB.slice(-20).map(q=>q.volume),'var(--accent)'),
+     qd:nf0.format(p.courant)+' M\u20ac courants \u00b7 mill\u00e9sime INSEE '+mPib},
+    {et:'Croissance '+p.an,va:fmtPct(p.croiss),cl:p.croiss>=0?'up':'down',
+     ch:chip('apr\u00e8s '+fmtPct(p1.croiss)+' en '+p1.an),
+     sp:sparkBarres(PIB.slice(-15).map(q=>q.croiss)),
+     qd:'variation annuelle du volume \u00b7 INSEE'},
+    {et:'Inflation',va:nf1.format(inflJ.v)+' %',
+     ch:inflAv?chip((inflJ.v-inflAv.v>=0?'+':'\u2212')+nf1.format(Math.abs(inflJ.v-inflAv.v))+' pt vs '+moisFR(inflAv.periode)):'',
+     qd:'prix \u00e0 la consommation, sur un an \u00b7 '+moisFR(inflJ.periode)+' \u00b7 INSEE'+(String(inflJ.mill).indexOf('provisoire')>=0?', provisoire':'')},
+    {et:'Taux directeur \u00b7 d\u00e9p\u00f4t BCE',va:nf2.format(dep.v)+' %',
+     ch:chip((depDer.v-depAvant.v>=0?'+':'\u2212')+nf2.format(Math.abs(depDer.v-depAvant.v))+' pt le '+dFR(depDer.date)),
+     sp:sparkMarches(M_DEP.filter(s=>s.x1>=2022),'var(--accent)'),
+     qd:'en vigueur depuis le '+dFR(depDer.date)+' \u00b7 BCE'},
+    {et:'Emprunt d\u2019\u00c9tat \u00e0 10 ans',va:nf2.format(oat.v)+' %',
+     qd:'moyenne de '+moisFR(oat.periode)+' \u00b7 BCE'},
+    {et:'Cr\u00e9dit aux entreprises',va:nf2.format(crE.v)+' %',
+     qd:'nouveaux contrats, taux moyen \u00b7 '+moisFR(crE.periode)+' \u00b7 Banque de France'},
+    {et:'Cr\u00e9dit \u00e0 l\u2019habitat',va:nf2.format(crH.v)+' %',
+     qd:'nouveaux contrats des m\u00e9nages \u00b7 '+moisFR(crH.periode)+' \u00b7 Banque de France'},
+    {et:'Euro en dollars',va:nf4.format(usd.v)+' $',
+     ch:chip(fmtPct((usd.v/usdDern.v-1)*100)+' vs moy. '+usdDern.an),
+     sp:sparkLigne(FX.USD.filter(q=>q.an>=2010).map(q=>q.v),'var(--accent)'),
+     qd:'cours du '+dFR(usd.periode)+' \u00b7 BCE'}
+  ];
+  $('cartesEtat').innerHTML=cartes.map(c=>'<div class="stat"><div class="et">'+c.et+'</div>'+
+    '<div class="rang"><span class="va'+(c.cl?' '+c.cl:'')+'">'+c.va+'</span>'+(c.ch||'')+'</div>'+
+    (c.sp||'')+'<div class="qd">'+c.qd+'</div></div>').join('');
+}
+
+/* ============ moteur de trace ============ */
+function grilleY(svg,y0,y1,Y,gL,W,gR,dec){
+  const et=y1-y0;let pas=1;
+  for(const p of [0.25,0.5,1,2,2.5,5,10,20,25,50,100,200,250,500,1000,2000,2500,5000,10000,20000,25000,50000]) if(et/p<=7){pas=p;break;}
+  for(let v=Math.ceil(y0/pas)*pas;v<=y1+1e-9;v+=pas){
+    const zero=Math.abs(v)<1e-9;
+    svg.appendChild(el('line',{x1:gL,x2:W-gR,y1:Y(v),y2:Y(v),stroke:zero?'#CBD2DE':'var(--ligne2)','stroke-width':1}));
+    const t=el('text',{x:gL-8,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    t.textContent=dec?nf1.format(v):nf0.format(v);svg.appendChild(t);
+  }
+}
+function grilleX(svg,x0,x1,X,H,gB){
+  const et=x1-x0;let pas=1;
+  for(const p of [1,2,5,10,20,25,50]) if(et/p<=9){pas=p;break;}
+  for(let v=Math.ceil(x0/pas)*pas;v<=x1+1e-9;v+=pas){
+    const t=el('text',{x:X(v),y:H-9,'text-anchor':'middle','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    t.textContent=v;svg.appendChild(t);
+  }
+}
+function degrade(svg,id,couleur){
+  const defs=el('defs',{}),g=el('linearGradient',{id,x1:0,y1:0,x2:0,y2:1});
+  const s1=el('stop',{offset:'0%','stop-color':couleur,'stop-opacity':0.16});
+  const s2=el('stop',{offset:'100%','stop-color':couleur,'stop-opacity':0});
+  g.appendChild(s1);g.appendChild(s2);defs.appendChild(g);svg.appendChild(defs);
+}
+function etiquetteFin(svg,x,y,txt,couleur){
+  const t=el('text',{x:x-6,y:y-9,'text-anchor':'end','font-size':11.5,'font-weight':600,fill:couleur,'font-family':'Space Grotesk','paint-order':'stroke',stroke:'#fff','stroke-width':3});
+  t.textContent=txt;svg.appendChild(t);
+}
+function survol(boxId,svg,gL,gT,W,gR,H,gB,X,x0,x1,cb){
+  const box=$(boxId),tip=box.querySelector('.tip');
+  const regle=el('line',{x1:0,x2:0,y1:gT,y2:H-gB,stroke:'#B9C2D4','stroke-width':1,'stroke-dasharray':'3 3',visibility:'hidden'});
+  svg.appendChild(regle);
+  const zone=el('rect',{x:gL,y:gT,width:W-gL-gR,height:H-gT-gB,fill:'transparent'});
+  const xDe=e=>{const r=svg.getBoundingClientRect();const px=(e.touches&&e.touches.length)?e.touches[0].clientX:e.clientX;
+    return Math.max(x0,Math.min(x1,x0+((px-r.left)*(W/r.width)-gL)*(x1-x0)/(W-gL-gR)));};
+  const montrer=x=>{
+    const html=cb(x);
+    if(!html){regle.setAttribute('visibility','hidden');tip.hidden=true;return;}
+    regle.setAttribute('x1',X(x));regle.setAttribute('x2',X(x));regle.setAttribute('visibility','visible');
+    tip.innerHTML=html;tip.hidden=false;
+    const r=box.getBoundingClientRect();let px=X(x)/W*r.width;
+    const w=tip.offsetWidth;px=Math.max(w/2+4,Math.min(r.width-w/2-4,px));
+    tip.style.left=px+'px';
+  };
+  zone.addEventListener('mousemove',e=>montrer(xDe(e)));
+  zone.addEventListener('touchstart',e=>montrer(xDe(e)),{passive:true});
+  zone.addEventListener('touchmove',e=>montrer(xDe(e)),{passive:true});
+  zone.addEventListener('mouseleave',()=>{regle.setAttribute('visibility','hidden');tip.hidden=true;cb(null);});
+  svg.appendChild(zone);
+}
+const ligneTip=(c,l,v)=>'<div class="r"><span class="d" style="background:'+c+'"></span>'+l+'&nbsp;<b>'+v+'</b></div>';
+
+/* ============ panneau richesse produite ============ */
+const PIB_VUES=[
+  ['volume','Volume','Aux prix cha\u00een\u00e9s de 2020 : la production hors effet des prix. Courbe en milliards d\u2019euros ; le survol donne le montant exact en millions.'],
+  ['courant','Prix courants','Aux prix de chaque ann\u00e9e, tels que publi\u00e9s par l\u2019INSEE. Courbe en milliards d\u2019euros, survol en millions.'],
+  ['croissance','Croissance','Variation annuelle du volume, en pourcentage, telle que publi\u00e9e. Vert au-dessus de z\u00e9ro, rouge en dessous.'],
+  ['indice','Indice des prix','L\u2019\u00e9chelle des prix du produit int\u00e9rieur brut, base 100 en 2020, telle que publi\u00e9e par l\u2019INSEE.'],
+  ['parhab','Par habitant','Produit int\u00e9rieur brut courant rapport\u00e9 \u00e0 la population, en euros par habitant.']
+];
+function rendrePibVues(){
+  const c=$('pibVues');c.innerHTML='';
+  for(const [id,lib] of PIB_VUES){
+    const b=document.createElement('button');b.type='button';b.textContent=lib;
+    if(id===pibVue)b.classList.add('actif');
+    b.addEventListener('click',()=>{pibVue=id;rendrePib();});
+    c.appendChild(b);
+  }
+  $('pibQuoi').textContent=PIB_VUES.find(v=>v[0]===pibVue)[2];
+}
+function rendrePib(){
+  rendrePibVues();
+  const svg=$('svgPib');svg.innerHTML='';
+  const W=960,H=330,gL=64,gR=16,gT=16,gB=30;
+  const x0=PIB[0].an,x1=PIB[PIB.length-1].an;
+  const X=x=>gL+(x-x0)*(W-gL-gR)/(x1-x0);
+  const serie=PIB.map(p=>({an:p.an,v:pibVue==='volume'?p.volume/1000:pibVue==='courant'?p.courant/1000:pibVue==='croissance'?p.croiss:pibVue==='indice'?p.indice:p.parHab}));
+  const vals=serie.map(s=>s.v).filter(v=>v!=null);
+  let mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals);
+  if(pibVue==='croissance'){mn=Math.min(mn,0);mx=Math.max(mx,0);}else{mn=0;}
+  const pad=(mx-mn)*0.05||1;const y0=(pibVue==='croissance'?mn-pad:0),y1=mx+pad;
+  const Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
+  grilleY(svg,y0,y1,Y,gL,W,gR,pibVue==='croissance'||pibVue==='indice');
+  grilleX(svg,x0,x1,X,H,gB);
+  if(pibVue==='croissance'){
+    const lb=(W-gL-gR)/(x1-x0)*0.72;
+    for(const s of serie){if(s.v==null)continue;
+      svg.appendChild(el('rect',{x:X(s.an)-lb/2,y:Math.min(Y(0),Y(s.v)),width:lb,height:Math.abs(Y(s.v)-Y(0))||0.5,fill:s.v>=0?'var(--vert)':'var(--rouge)',rx:1.2}));}
+    pibMarqueur=null;
+  }else{
+    degrade(svg,'gradPib','#2A4BD7');
+    let d='',plume=false;
+    for(const s of serie){if(s.v==null){plume=false;continue;}d+=(plume?'L':'M')+X(s.an).toFixed(1)+' '+Y(s.v).toFixed(1);plume=true;}
+    const aire=d+'L'+X(serie[serie.length-1].an).toFixed(1)+' '+Y(y0).toFixed(1)+'L'+X(serie[0].an).toFixed(1)+' '+Y(y0).toFixed(1)+'Z';
+    svg.appendChild(el('path',{d:aire,fill:'url(#gradPib)',stroke:'none'}));
+    svg.appendChild(el('path',{d,fill:'none',stroke:'var(--accent)','stroke-width':2.1,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    const der=serie[serie.length-1];
+    svg.appendChild(el('circle',{cx:X(der.an),cy:Y(der.v),r:3.6,fill:'var(--accent)'}));
+    etiquetteFin(svg,X(der.an),Y(der.v),pibVue==='parhab'?nf0.format(Math.round(der.v))+' \u20ac':pibVue==='indice'?nf1.format(der.v):nf0.format(Math.round(der.v))+' Md\u20ac','var(--accent)');
+    pibMarqueur=el('circle',{r:4,fill:'#fff',stroke:'var(--accent)','stroke-width':2,visibility:'hidden'});
+    svg.appendChild(pibMarqueur);
+  }
+  const pinL=el('line',{y1:gT,y2:H-gB,stroke:'var(--accent)','stroke-width':1.4,opacity:.45});
+  svg.appendChild(pinL);
+  const pinC=(pibVue==='croissance')?null:el('circle',{r:4.2,fill:'var(--accent)',stroke:'#fff','stroke-width':1.6});
+  if(pinC)svg.appendChild(pinC);
+  majPibPin=function(){const x=X(pibAnnee);pinL.setAttribute('x1',x);pinL.setAttribute('x2',x);
+    if(pinC){const s=serie.find(q=>q.an===pibAnnee);
+      if(s&&s.v!=null){pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(s.v));pinC.setAttribute('visibility','visible');}
+      else pinC.setAttribute('visibility','hidden');}};
+  majPibPin();
+  survol('boxPib',svg,gL,gT,W,gR,H,gB,X,x0,x1,x=>{
+    if(x==null){if(pibMarqueur)pibMarqueur.setAttribute('visibility','hidden');return null;}
+    const an=Math.round(x);const p=PIB.find(q=>q.an===an);if(!p)return null;
+    if(pibMarqueur&&pibVue!=='croissance'){
+      const s=serie.find(q=>q.an===an);
+      pibMarqueur.setAttribute('cx',X(an));pibMarqueur.setAttribute('cy',Y(s.v));pibMarqueur.setAttribute('visibility','visible');
+    }
+    let corpsT;
+    if(pibVue==='croissance')corpsT=ligneTip(p.croiss==null?'var(--muet)':(p.croiss>=0?'var(--vert)':'var(--rouge)'),'croissance en volume',p.croiss==null?'non publi\u00e9e':fmtPct(p.croiss));
+    else if(pibVue==='parhab')corpsT=ligneTip('var(--accent)','par habitant',nf0.format(Math.round(p.parHab))+' \u20ac');
+    else if(pibVue==='indice')corpsT=ligneTip('var(--accent)','indice des prix',nf1.format(p.indice)+' (base 100 en 2020)');
+    else corpsT=ligneTip('var(--accent)',pibVue==='volume'?'volume':'prix courants',nf0.format(pibVue==='volume'?p.volume:p.courant)+' M\u20ac');
+    return '<div class="t">'+an+'</div>'+corpsT;
+  });
+  majPibExp();
+}
+function majPibExp(){
+  const p=PIB.find(q=>q.an===pibAnnee);
+  if(!p)return;
+  $('pibAn').textContent=pibAnnee;
+  $('pibExp').innerHTML='courant <b>'+nf0.format(p.courant)+' M\u20ac</b> \u00b7 volume <b>'+nf0.format(p.volume)+' M\u20ac</b> \u00b7 croissance <b>'+(p.croiss==null?'\u2014':fmtPct(p.croiss))+'</b> \u00b7 indice des prix <b>'+nf1.format(p.indice)+'</b> \u00b7 <b>'+nf0.format(Math.round(p.parHab))+' \u20ac</b> par habitant';
+  if(majPibPin)majPibPin();
+}
+
+/* ============ panneau deux siecles de taux ============ */
+const TAUX_PERIODES=[['Tout',1800],['1900\u2013',1900],['1945\u2013',1945],['1999\u2013',1999]];
+function rendreTauxPeriodes(){
+  const c=$('tauxPeriodes');c.innerHTML='';
+  for(const [lib,x] of TAUX_PERIODES){
+    const b=document.createElement('button');b.type='button';b.textContent=lib;
+    if(x===tauxDebut)b.classList.add('actif');
+    b.addEventListener('click',()=>{tauxDebut=x;rendreTaux();});
+    c.appendChild(b);
+  }
+}
+function traceMarches(svg,m,X,Y,x0,x1,couleur,w,op){
+  let d='';
+  for(const s of m){
+    if(s.x1<x0||s.x0>x1)continue;
+    const a=Math.max(s.x0,x0),b=Math.min(s.x1,x1);
+    d+='M'+X(a).toFixed(1)+' '+Y(s.v).toFixed(1)+'L'+X(b).toFixed(1)+' '+Y(s.v).toFixed(1);
+  }
+  svg.appendChild(el('path',{d,fill:'none',stroke:couleur,'stroke-width':w,opacity:op||1,'stroke-linecap':'butt'}));
+}
+function rendreTaux(){
+  rendreTauxPeriodes();
+  const svg=$('svgTaux');svg.innerHTML='';
+  const W=960,H=330,gL=52,gR=16,gT=16,gB=30;
+  const x0=tauxDebut,x1=anneeFrac(AUJ)+0.15;
+  const X=x=>gL+(x-x0)*(W-gL-gR)/(x1-x0);
+  const visibles=[];
+  for(const m of [M_ESC,M_DEP,M_REF,M_PRE])for(const s of m)if(s.x1>=x0)visibles.push(s.v);
+  let mn=Math.min.apply(null,visibles),mx=Math.max.apply(null,visibles);
+  mn=Math.min(mn,0);const pad=(mx-mn)*0.06||1;
+  const y0=mn-((mn<0)?pad:0),y1=mx+pad;
+  const Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
+  grilleY(svg,y0,y1,Y,gL,W,gR,true);
+  grilleX(svg,x0,x1,X,H,gB);
+  if(x0<1990&&x1>1999){
+    const t=el('text',{x:X(1994.5),y:gT+16,'text-anchor':'middle','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    t.textContent='hors champ';svg.appendChild(t);
+  }
+  traceMarches(svg,M_ESC,X,Y,x0,x1,'var(--ardoise)',1.4,0.75);
+  traceMarches(svg,M_PRE,X,Y,x0,x1,'var(--violet)',1.5,0.85);
+  traceMarches(svg,M_REF,X,Y,x0,x1,'var(--teal)',1.5,0.9);
+  traceMarches(svg,M_DEP,X,Y,x0,x1,'var(--accent)',2.3,1);
+  const derD=M_DEP[M_DEP.length-1];
+  etiquetteFin(svg,X(Math.min(derD.x1,x1))+4,Y(derD.v),nf2.format(derD.v)+' %','var(--accent)');
+  const pinT=el('line',{y1:gT,y2:H-gB,stroke:'var(--accent)','stroke-width':1.4,opacity:.45,visibility:'hidden'});
+  svg.appendChild(pinT);
+  majTauxPin=function(){const x=anneeFrac(tauxDatePin);
+    if(x<x0||x>x1){pinT.setAttribute('visibility','hidden');return;}
+    pinT.setAttribute('x1',X(x));pinT.setAttribute('x2',X(x));pinT.setAttribute('visibility','visible');};
+  majTauxPin();
+  survol('boxTaux',svg,gL,gT,W,gR,H,gB,X,x0,x1,x=>{
+    if(x==null)return null;
+    const an=Math.floor(x);
+    if(x<1990.1){const e=tauxA(M_ESC,x);
+      return '<div class="t">'+an+'</div>'+(e?ligneTip('var(--ardoise)','escompte',nf2.format(e.v)+' %')+'<div class="r" style="color:#8A97AC">d\u00e9cision du '+dFR(e.date)+'</div>':'');}
+    if(x<1999)return '<div class="t">'+an+'</div><div class="r" style="color:#8A97AC">hors champ des deux fichiers</div>';
+    const d=tauxA(M_DEP,x),r=tauxA(M_REF,x),p=tauxA(M_PRE,x);
+    return '<div class="t">'+an+'</div>'+
+      (d?ligneTip('var(--accent)','d\u00e9p\u00f4t',nf2.format(d.v)+' %'):'')+
+      (r?ligneTip('var(--teal)','refinancement',nf2.format(r.v)+' %'):'')+
+      (p?ligneTip('var(--violet)','pr\u00eat marginal',nf2.format(p.v)+' %'):'');
+  });
+  majTauxExp();
+}
+function majTauxExp(){
+  const iso=tauxDatePin,x=anneeFrac(iso),pa=iso.split('-').map(Number),out=$('tauxExp');
+  if(pa[0]<1990||(pa[0]===1990&&pa[1]===1)){
+    const e=tauxA(M_ESC,x);
+    out.innerHTML=e?('escompte <b>'+nf2.format(e.v)+' %</b> \u00b7 d\u00e9cision du '+dFR(e.date)):'avant le premier relev\u00e9 (21/02/1800)';
+  }else if(pa[0]<1999){
+    out.textContent='hors champ : escompte arr\u00eat\u00e9 en janvier 1990, taux BCE \u00e0 partir du 01/01/1999';
+  }else{
+    const d=tauxA(M_DEP,x),r=tauxA(M_REF,x),p=tauxA(M_PRE,x);
+    const depuis=[d.date,r.date,p.date].sort().pop();
+    out.innerHTML='d\u00e9p\u00f4t <b>'+nf2.format(d.v)+' %</b> \u00b7 refinancement <b>'+nf2.format(r.v)+' %</b> \u00b7 pr\u00eat marginal <b>'+nf2.format(p.v)+' %</b> \u00b7 derni\u00e8re d\u00e9cision le '+dFR(depuis);
+  }
+  if(majTauxPin)majTauxPin();
+}
+
+/* ============ panneau change ============ */
+const FX_NOMS={USD:'dollar am\u00e9ricain',CNY:'yuan',GBP:'livre sterling',JPY:'yen',CHF:'franc suisse',AUD:'dollar australien',BRL:'real',CAD:'dollar canadien',INR:'roupie indienne',KRW:'won',MXN:'peso mexicain',NOK:'couronne norv\u00e9gienne',PLN:'zloty',RUB:'rouble',SEK:'couronne su\u00e9doise',TRY:'livre turque'};
+const FX_ORDRE=['USD','CNY','GBP','JPY','CHF','INR','BRL','TRY','CAD','AUD','KRW','MXN','SEK','NOK','PLN','RUB'];
+function rendreFxChips(){
+  const c=$('fxChips');c.innerHTML='';
+  for(const code of FX_ORDRE){
+    if(!FX[code])continue;
+    const b=document.createElement('button');b.type='button';b.textContent=code;b.title=FX_NOMS[code]||code;
+    if(code===fxSel)b.classList.add('actif');
+    b.addEventListener('click',()=>{fxSel=code;rendreFx();});
+    c.appendChild(b);
+  }
+}
+function rendreFx(){
+  rendreFxChips();
+  const svg=$('svgFx');svg.innerHTML='';
+  const W=960,H=290,gL=70,gR=16,gT=16,gB=30;
+  const s=FX[fxSel];
+  const spot=FX_SPOT[fxSel];
+  const x0=1999;
+  const x1=Math.max(s[s.length-1].an+1.2, spot?anneeFrac(spot.periode)+0.35:0);
+  const X=x=>gL+(x-x0)*(W-gL-gR)/(x1-x0);
+  const vals=s.map(p=>p.v).concat(spot?[spot.v]:[]);
+  let mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals);
+  const pad=(mx-mn)*0.08||mx*0.02;const y0=Math.max(0,mn-pad),y1=mx+pad;
+  const Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
+  const et=y1-y0;let pas=0.05;
+  for(const p of [0.02,0.05,0.1,0.2,0.5,1,2,5,10,20,50,100,200,500]) if(et/p<=7){pas=p;break;}
+  for(let v=Math.ceil(y0/pas)*pas;v<=y1+1e-9;v+=pas){
+    svg.appendChild(el('line',{x1:gL,x2:W-gR,y1:Y(v),y2:Y(v),stroke:'var(--ligne2)','stroke-width':1}));
+    const t=el('text',{x:gL-8,y:Y(v)+4,'text-anchor':'end','font-size':11,fill:'var(--muet)','font-family':'IBM Plex Mono'});
+    t.textContent=nf2.format(v);svg.appendChild(t);
+  }
+  grilleX(svg,x0,Math.floor(x1),X,H,gB);
+  degrade(svg,'gradFx','#2A4BD7');
+  let d='';
+  s.forEach((p,i)=>{d+=(i?'L':'M')+X(p.an).toFixed(1)+' '+Y(p.v).toFixed(1);});
+  const aire=d+'L'+X(s[s.length-1].an).toFixed(1)+' '+Y(y0).toFixed(1)+'L'+X(s[0].an).toFixed(1)+' '+Y(y0).toFixed(1)+'Z';
+  svg.appendChild(el('path',{d:aire,fill:'url(#gradFx)',stroke:'none'}));
+  svg.appendChild(el('path',{d,fill:'none',stroke:'var(--accent)','stroke-width':2.1,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  const der=s[s.length-1];
+  svg.appendChild(el('circle',{cx:X(der.an),cy:Y(der.v),r:3.4,fill:'var(--accent)'}));
+  if(spot){
+    svg.appendChild(el('circle',{cx:X(anneeFrac(spot.periode)),cy:Y(spot.v),r:4.2,fill:'#B45309',stroke:'#fff','stroke-width':1.5}));
+  }
+  etiquetteFin(svg,X(der.an),Y(der.v),nf4.format(der.v),'var(--accent)');
+  fxMarqueur=el('circle',{r:4,fill:'#fff',stroke:'var(--accent)','stroke-width':2,visibility:'hidden'});
+  svg.appendChild(fxMarqueur);
+  const pinL=el('line',{y1:gT,y2:H-gB,stroke:'var(--accent)','stroke-width':1.4,opacity:.45});
+  svg.appendChild(pinL);
+  const pinC=el('circle',{r:4.2,fill:'var(--accent)',stroke:'#fff','stroke-width':1.6});
+  svg.appendChild(pinC);
+  majFxPin=function(){const x=X(fxAnnee);pinL.setAttribute('x1',x);pinL.setAttribute('x2',x);
+    const p=s.find(q=>q.an===fxAnnee);
+    if(p){pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(p.v));pinC.setAttribute('visibility','visible');}
+    else pinC.setAttribute('visibility','hidden');};
+  majFxPin();
+  const nomD=FX_NOMS[fxSel]||fxSel;
+  $('fxNote').textContent=nomD.charAt(0).toUpperCase()+nomD.slice(1)+' : moyenne '+der.an+' \u00e0 '+nf4.format(der.v)+' '+fxSel+' pour un euro. '+(spot?('Dernier cours au d\u00e9p\u00f4t : '+nf4.format(spot.v)+' le '+dFR(spot.periode)+' (point dor\u00e9).'):'Pas de point r\u00e9cent au d\u00e9p\u00f4t pour cette devise : la s\u00e9rie s\u2019arr\u00eate \u00e0 la derni\u00e8re moyenne annuelle.')+(fxSel==='RUB'?' La s\u00e9rie du rouble s\u2019arr\u00eate en 2021 chez le producteur.':'');
+  survol('boxFx',svg,gL,gT,W,gR,H,gB,X,x0,x1,x=>{
+    if(x==null){if(fxMarqueur)fxMarqueur.setAttribute('visibility','hidden');return null;}
+    const an=Math.round(Math.min(x,s[s.length-1].an));
+    const p=s.find(q=>q.an===an);
+    if(!p)return null;
+    fxMarqueur.setAttribute('cx',X(an));fxMarqueur.setAttribute('cy',Y(p.v));fxMarqueur.setAttribute('visibility','visible');
+    return '<div class="t">'+an+' \u00b7 moyenne annuelle</div>'+ligneTip('var(--accent)',fxSel,nf4.format(p.v)+' pour 1 \u20ac');
+  });
+  majFxExp();
+}
+function majFxExp(){
+  $('fxAn').textContent=fxAnnee;
+  const p=FX[fxSel].find(q=>q.an===fxAnnee);
+  const nomD=FX_NOMS[fxSel]||fxSel;
+  $('fxExp').innerHTML=p?('<b>'+nf4.format(p.v)+' '+fxSel+'</b> pour un euro, moyenne '+fxAnnee+' \u00b7 '+nomD):('pas de moyenne '+fxAnnee+' pour le '+nomD+' au d\u00e9p\u00f4t');
+  if(majFxPin)majFxPin();
+}
+
+/* ============ tableau des decisions ============ */
+function rendreDecisions(){
+  const dates=[...new Set(DEC.map(d=>d.date))].sort();
+  const etatCourant={},photos=[];
+  for(const dt of dates){
+    for(const d of DEC.filter(x=>x.date===dt)) etatCourant[d.g]=d.v;
+    photos.push({date:dt,dep:etatCourant['taux_facilite_depot'],ref:etatCourant['taux_refinancement_principal'],pre:etatCourant['taux_facilite_pret_marginal']});
+  }
+  const rec12=photos.slice(-12).reverse();
+  const fl=(a,b)=>{if(a==null||b==null||a===b)return '';return '<span class="fl">'+(b>a?'\u25b2':'\u25bc')+'</span>';};
+  let h='<table><thead><tr><th>Date d\u2019effet</th><th>Facilit\u00e9 de d\u00e9p\u00f4t</th><th>Refinancement</th><th>Pr\u00eat marginal</th></tr></thead><tbody>';
+  for(let i=0;i<rec12.length;i++){
+    const p=rec12[i],av=photos[photos.length-1-i-1]||{};
+    h+='<tr><td class="d">'+dFR(p.date)+'</td>'+
+       '<td>'+nf2.format(p.dep)+' %'+fl(av.dep,p.dep)+'</td>'+
+       '<td>'+nf2.format(p.ref)+' %'+fl(av.ref,p.ref)+'</td>'+
+       '<td>'+nf2.format(p.pre)+' %'+fl(av.pre,p.pre)+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  $('tabDecisions').innerHTML=h;
+}
+
+/* ============ en-tetes, reserves, pied, heures ============ */
+function rendreEntetes(){
+  $('entPib').textContent=entete(CSVs.PIB);
+  $('entTaux').textContent=entete(CSVs.ESC)+'\n\n'+entete(CSVs.BCE);
+  $('entFx').textContent=entete(CSVs.FXA);
+}
+function rendreReserves(){
+  const notes=[
+    'Les mill\u00e9simes peuvent diff\u00e9rer d\u2019une grandeur \u00e0 l\u2019autre : chaque carte porte le sien, et les tiroirs \u00ab Source et contr\u00f4le \u00bb donnent l\u2019en-t\u00eate complet du fichier, pour ne pas fabriquer une fausse simultan\u00e9it\u00e9.',
+    'Escompte 1800\u20131990, avertissement du producteur repris mot pour mot : donn\u00e9es reconstitu\u00e9es des archives papier de la Banque de France, publi\u00e9es \u00e0 titre d\u2019information ; elles ne sauraient constituer une r\u00e9f\u00e9rence officielle.',
+    'Escompte, taux directeur au sens de la BRI et taux de la BCE sont trois d\u00e9finitions diff\u00e9rentes : la frise les juxtapose, elle ne les raccorde jamais.',
+    'L\u2019inflation et l\u2019emprunt d\u2019\u00c9tat \u00e0 dix ans n\u2019ont pas encore de s\u00e9rie longue au d\u00e9p\u00f4t : les cartes affichent les points r\u00e9cents du fichier M1_TAUX_CHANGE_2026-07, comme son en-t\u00eate le pr\u00e9voit.',
+    'La s\u00e9rie du rouble s\u2019arr\u00eate en 2021 chez le producteur : les ann\u00e9es absentes ne sont pas des z\u00e9ros.',
+    'La s\u00e9rie mensuelle des taux BCE (M1_TAUX_BCE_MENSUEL_1999-2026.csv) n\u2019est pas lue par cette page : la frise reconstruit les m\u00eames niveaux \u00e0 partir de la table des d\u00e9cisions, sans perte d\u2019information.',
+    'Les \u00e9carts affich\u00e9s dans les pastilles sont de simples diff\u00e9rences entre deux valeurs du d\u00e9p\u00f4t, toujours \u00e9tiquet\u00e9es.'
+  ];
+  for(const e of ESC.ecartees){
+    notes.push('Ligne \u00e9cart\u00e9e du trac\u00e9 de l\u2019escompte : date invalide \u00ab '+e.date+' \u00bb (taux '+nf2.format(e.taux)+' %) dans M1_TAUX_ESCOMPTE_1800-1990.csv \u2014 anomalie \u00e0 corriger \u00e0 la source au d\u00e9p\u00f4t.');
+  }
+  $('listeReserves').innerHTML=notes.map(n=>'<li>'+n+'</li>').join('');
+  $('piedInfos').textContent='Lecture directe du d\u00e9p\u00f4t priv\u00e9 GuillaumePoignet/DEPOT-AGENT-ECO \u00b7 5 fichiers \u00b7 chaque chiffre garde sa source, sa date et son mill\u00e9sime';
+}
+function majHeures(){
+  let t='Grav\u00e9 au d\u00e9p\u00f4t : '+(heureGravure?(dfPlein.format(heureGravure)+' \u00e0 '+fHM(heureGravure)):'\u2014');
+  t+=' \u00b7 page relue \u00e0 '+(heureLecture?fHM(heureLecture):'\u2014');
+  t+=' \u00b7 relecture automatique toutes les 30 min';
+  if(echecLecture) t+=' \u00b7 la derni\u00e8re relecture a \u00e9chou\u00e9, nouvel essai dans 30 min';
+  $('heures').textContent=t;
+}
+
+/* ============ bornes des selecteurs et rendu global ============ */
+function bornesSelecteurs(){
+  const sp=$('pibSlider'),a0=PIB[0].an,a1=PIB[PIB.length-1].an;
+  sp.min=a0;sp.max=a1;
+  if(pibAnnee==null||pibAnnee<a0||pibAnnee>a1)pibAnnee=a1;
+  sp.value=pibAnnee;
+  const sf=$('fxSlider');
+  let f0=Infinity,f1=-Infinity;
+  for(const c in FX){f0=Math.min(f0,FX[c][0].an);f1=Math.max(f1,FX[c][FX[c].length-1].an);}
+  sf.min=f0;sf.max=f1;
+  if(fxAnnee==null||fxAnnee<f0||fxAnnee>f1)fxAnnee=f1;
+  sf.value=fxAnnee;
+  const td=$('tauxDate');
+  td.max=AUJ;
+  if(!tauxDatePin)tauxDatePin=AUJ;
+  td.value=tauxDatePin;
+}
+function toutRendre(){
+  rendreCartesEtat();
+  bornesSelecteurs();
+  rendrePib();
+  rendreTaux();
+  rendreFx();
+  rendreDecisions();
+  rendreEntetes();
+  rendreReserves();
+  majHeures();
+}
+
+/* ============ demarrage ============ */
+async function demarrer(){
+  $('auth').hidden=true;$('app').hidden=true;
+  try{
+    await chargerTout();
+    toutRendre();
+    $('app').hidden=false;
+    if(!mnt)mnt=setInterval(rafraichir,1800000);
+  }catch(e){
+    $('auth').hidden=false;
+    const err=$('erreurAuth');err.hidden=false;
+    if(e.message==='AUTH') err.textContent='Cl\u00e9 refus\u00e9e par GitHub. V\u00e9rifie qu\u2019elle peut lire le d\u00e9p\u00f4t priv\u00e9 DEPOT-AGENT-ECO.';
+    else if(String(e.message).indexOf('ABSENT:')===0) err.textContent='Fichier introuvable au d\u00e9p\u00f4t : '+e.message.slice(7);
+    else err.textContent='Lecture impossible : '+e.message;
+  }
+}
+async function rafraichir(){
+  try{await chargerTout();toutRendre();}
+  catch(e){echecLecture=true;majHeures();}
+}
+
+$('voirCle').addEventListener('click',()=>{const c=$('cle');const p=c.type==='password';c.type=p?'text':'password';$('voirCle').textContent=p?'masquer':'afficher';});
+$('formAuth').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const v=$('cle').value.trim();
+  if(!v) return;
+  ($('garder').checked?localStorage:sessionStorage).setItem('se_cle',v);
+  const b=$('btnLire');b.disabled=true;b.textContent='Lecture du d\u00e9p\u00f4t en cours';
+  await demarrer();
+  b.disabled=false;b.textContent='Lire le d\u00e9p\u00f4t';
+});
+$('btnRecharger').addEventListener('click',demarrer);
+$('btnCle').addEventListener('click',()=>{
+  localStorage.removeItem('se_cle');sessionStorage.removeItem('se_cle');
+  $('app').hidden=true;$('auth').hidden=false;$('cle').value='';$('erreurAuth').hidden=true;
+});
+$('pibSlider').addEventListener('input',e=>{pibAnnee=+e.target.value;majPibExp();});
+$('fxSlider').addEventListener('input',e=>{fxAnnee=+e.target.value;majFxExp();});
+const majDateTaux=e=>{if(e.target.value){tauxDatePin=e.target.value;majTauxExp();}};
+$('tauxDate').addEventListener('input',majDateTaux);
+$('tauxDate').addEventListener('change',majDateTaux);
+
+if(cleActuelle()) demarrer();
+else $('auth').hidden=false;
+</script>
+</body>
+</html>

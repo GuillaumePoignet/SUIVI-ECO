@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Rubriques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#F6F7FB;--carte:#FFFFFF;--encre:#0F172A;--texte:#475467;--muet:#98A2B3;--ligne:#E7EAF0;--ligne2:#EEF1F6;--accent:#2A4BD7;--accent2:#7C9BFF;--vertfonce:#0B7A55}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--fond);color:var(--encre);font:400 14.5px/1.6 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1{font-family:"Space Grotesk",sans-serif;margin:0}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:10px}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+.haut{position:sticky;top:0;z-index:30;background:rgba(246,247,251,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+.haut-in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:22px}
+.marque{display:flex;align-items:center;gap:9px;font:600 14px "Space Grotesk",sans-serif;color:inherit;text-decoration:none}
+.marque .pastille{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block}
+.cadre{max-width:1180px;margin:0 auto;padding:30px 24px 64px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin:0 0 8px}
+.hero h1{font-size:clamp(28px,3.6vw,38px);font-weight:700;letter-spacing:-.015em}
+.hero .sous{color:var(--texte);margin:8px 0 0;font-size:14px;max-width:76ch}
+.rubs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:24px}
+.rub{display:block;background:var(--carte);border:1px solid var(--ligne);border-radius:16px;padding:16px 17px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04);color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s;animation:pop .45s ease both}
+.rubs .rub:nth-child(2){animation-delay:.03s}.rubs .rub:nth-child(3){animation-delay:.06s}.rubs .rub:nth-child(4){animation-delay:.09s}
+.rubs .rub:nth-child(5){animation-delay:.12s}.rubs .rub:nth-child(6){animation-delay:.15s}.rubs .rub:nth-child(7){animation-delay:.18s}.rubs .rub:nth-child(8){animation-delay:.21s}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}}
+a.rub:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.08);border-color:var(--accent2)}
+.rub h2{font:600 16.5px "Space Grotesk",sans-serif;margin:0 0 5px;letter-spacing:-.01em}
+.rub p{color:var(--texte);font-size:12.5px;margin:0 0 12px;line-height:1.55}
+.chip{font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;background:#F2F4F7;color:var(--muet)}
+.chip.vert{background:rgba(14,159,110,.12);color:var(--vertfonce)}
+.rub.off{opacity:.72}
+footer{margin-top:34px}
+.petit{font-size:11.5px;color:var(--muet);text-align:center;font-family:"IBM Plex Mono",monospace;line-height:1.7}
+@media (max-width:720px){.cadre{padding:20px 14px 48px}.haut-in{padding:10px 14px}}
+</style>
+</head>
+<body>
+<header class="haut"><div class="haut-in">
+  <a class="marque" href="index.html"><span class="pastille"></span>&Eacute;conomie fran&ccedil;aise</a>
+</div></header>
+<div class="cadre">
+  <section class="hero">
+    <p class="eyebrow">SUIVI ECO &middot; LECTURE DIRECTE DU D&Eacute;P&Ocirc;T PRIV&Eacute;</p>
+    <h1>L&rsquo;&eacute;conomie fran&ccedil;aise</h1>
+    <p class="sous">Huit rubriques pour lire le socle de donn&eacute;es : ce qui est en ligne s&rsquo;ouvre, le reste arrive rubrique par rubrique. Les donn&eacute;es restent dans le d&eacute;p&ocirc;t priv&eacute; ; il faut une cl&eacute; de lecture pour les afficher.</p>
+  </section>
+  <section class="rubs">
+    <a class="rub" href="vue-densemble.html">
+      <h2>Vue d&rsquo;ensemble</h2>
+      <p>La richesse produite, le loyer de l&rsquo;argent, l&rsquo;inflation et la valeur de l&rsquo;euro, de 1800 &agrave; aujourd&rsquo;hui.</p>
+      <span class="chip vert">en ligne</span>
+    </a>
+    <div class="rub off"><h2>Production par branche</h2><p>Qui produit quoi : production, valeur ajout&eacute;e, emplois et salaires, branche par branche depuis 1949.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>Population &amp; territoire</h2><p>Habitants, communes, entreprises et march&eacute; du travail : les structures du pays.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>M&eacute;nages</h2><p>Les revenus, la consommation et l&rsquo;&eacute;pargne des m&eacute;nages.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>Commerce ext&eacute;rieur</h2><p>Les &eacute;changes de la France, pays par pays et produit par produit.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>Finances publiques</h2><p>Recettes, d&eacute;penses, d&eacute;ficit et dette des administrations.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>Capital &amp; patrimoine</h2><p>L&rsquo;investissement, le financement et le patrimoine.</p><span class="chip">&agrave; venir</span></div>
+    <div class="rub off"><h2>Monde &amp; d&eacute;pendances</h2><p>La conjoncture de tous les pays et les d&eacute;pendances de la France.</p><span class="chip">&agrave; venir</span></div>
+  </section>
+  <footer>
+    <p class="petit">Ce d&eacute;p&ocirc;t public ne contient que le code des pages.<br>Les donn&eacute;es vivent dans le d&eacute;p&ocirc;t priv&eacute; DEPOT-AGENT-ECO et n&rsquo;apparaissent qu&rsquo;avec une cl&eacute; de lecture.</p>
+  </footer>
+</div>
+</body>
+</html>
