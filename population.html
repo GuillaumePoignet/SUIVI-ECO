@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>&Eacute;conomie fran&ccedil;aise &mdash; Population &amp; territoire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/commun.css">
+</head>
+<body>
+<noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
+<script src="assets/commun.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/carte.js"></script>
+<script src="assets/fonds/fr-departements.js"></script>
+<script src="assets/fonds/fr-regions.js"></script>
+<script>
+pageRubrique({
+  id:'population',
+  titre:'Population & territoire',
+  sous:'Combien nous sommes, o\u00f9 nous vivons, qui travaille et quelles entreprises tiennent le pays \u2014 des cartes color\u00e9es par les fichiers du socle, joints par les codes officiels des territoires.',
+  fichiers:{
+    axes:'ECO/series/M3_TERRITOIRES.csv',
+    popNat:'ECO/series/M3_POPULATION_1901-2026.csv',
+    popDep:'ECO/series/M3_POPULATION_DEPARTEMENTS_1975-2026.csv',
+    popReg:'ECO/series/M3_POPULATION_REGIONS_1975-2026.csv',
+    ages:'ECO/series/M3_POPULATION_AGES_1946-2026.csv',
+    chomLoc:'ECO/series/M3_CHOMAGE_LOCALISE_1982-2026.csv',
+    travail:'ECO/series/M3_MARCHE_TRAVAIL_1975-2025.csv',
+    regions:'ECO/series/M3_COMPTES_REGIONAUX_1990-2024.csv',
+    parc:'ECO/series/M3_PARC_ENTREPRISES_A21_2014-2024.csv',
+    creations:'ECO/series/M3_CREATIONS_ENTREPRISES_2012-2026.csv'
+  },
+  axes:{popDep:'axes',popReg:'axes',chomLoc:'axes',regions:'axes'},
+  panneaux:[
+    {type:'cartes',prefs:[
+      {fichier:'popNat',motif:'population_1er_janvier',code:'FR',et:'Population'},
+      {fichier:'travail',motif:'taux_chomage',et:'Taux de ch\u00f4mage'},
+      {fichier:'travail',motif:'emploi',et:'Emploi'},
+      {fichier:'parc',motif:'unites_legales',et:'Unit\u00e9s l\u00e9gales'}
+    ]},
+    {type:'carte',fichier:'popDep',fond:'FOND_FR_DEP',cle:'c',prefMotif:'population',
+     titre:'La population, d\u00e9partement par d\u00e9partement',
+     quoi:'Population au 1er janvier depuis 1975. Fais glisser le curseur pour remonter le temps ; l\u2019outre-mer est en cartouches \u00e0 gauche.'},
+    {type:'carte',fichier:'chomLoc',fond:'FOND_FR_DEP',cle:'c',prefMotif:'chomage',
+     titre:'Le ch\u00f4mage, trimestre par trimestre',
+     quoi:'Taux de ch\u00f4mage localis\u00e9 depuis 1982. Choisis le niveau g\u00e9ographique : au niveau r\u00e9gion ou national, les contours d\u00e9partementaux restent gris.'},
+    {type:'carte',fichier:'regions',fond:'FOND_FR_REG',cle:'c',prefMotif:'produit_interieur',
+     titre:'La richesse produite par r\u00e9gion',
+     quoi:'Produit int\u00e9rieur brut, emploi et heures travaill\u00e9es par r\u00e9gion, de 1990 \u00e0 2024.'},
+    {type:'classement',fichier:'popDep',prefMotif:'population',
+     titre:'Les d\u00e9partements par population',
+     quoi:'Le classement complet \u00e0 l\u2019ann\u00e9e choisie. La part rapporte chaque d\u00e9partement \u00e0 la somme des d\u00e9partements affich\u00e9s.'},
+    {type:'explorer',fichier:'popNat',prefMotif:'population_1er_janvier',
+     titre:'Un si\u00e8cle de d\u00e9mographie',
+     quoi:'Population, naissances, d\u00e9c\u00e8s et solde migratoire depuis 1901 : choisis la grandeur et le champ national.'},
+    {type:'explorer',fichier:'travail',prefMotif:'taux_chomage',
+     titre:'Le march\u00e9 du travail',
+     quoi:'Population active, emploi, ch\u00f4mage, halo et sous-emploi, par sexe et par \u00e2ge, depuis 1975.'},
+    {type:'explorer',fichier:'creations',prefMotif:'',
+     titre:'Les cr\u00e9ations d\u2019entreprises',
+     quoi:'Cr\u00e9ations trimestrielles depuis 2012, par forme d\u2019entreprise, en donn\u00e9es brutes ou corrig\u00e9es.'},
+    {type:'explorer',fichier:'parc',prefMotif:'unites_legales',
+     titre:'Le parc d\u2019entreprises',
+     quoi:'Unit\u00e9s l\u00e9gales et \u00e9tablissements au 31 d\u00e9cembre, par section d\u2019activit\u00e9 et par taille.'}
+  ],
+  reserves:[
+    'Les contours viennent du projet france-geojson et l\u2019outre-mer de ses fichiers r\u00e9gionaux ; les cinq r\u00e9gions d\u2019outre-mer prennent le contour de leur d\u00e9partement unique, le rattachement \u00e9tant lu dans la table des territoires du d\u00e9p\u00f4t. Les 101 d\u00e9partements et les 18 r\u00e9gions du socle ont tous un contour.',
+    'Les cartouches d\u2019outre-mer ne sont pas \u00e0 l\u2019\u00e9chelle de la m\u00e9tropole : chacun a la sienne, pour rester lisible.',
+    'Les couleurs r\u00e9partissent les territoires en cinq classes de m\u00eame effectif, pas en tranches r\u00e9guli\u00e8res : une carte plus fonc\u00e9e ne dit pas \u00ab deux fois plus \u00bb.',
+    'Trois champs nationaux coexistent \u2014 France, France hors Mayotte, France m\u00e9tropolitaine \u2014 et aucune somme n\u2019est licite entre eux.',
+    'Sur les fichiers \u00e0 plusieurs axes, comme la population par sexe et par \u00e2ge, les axes secondaires apparaissent sous leur code brut : la page ne joint qu\u2019une table de libell\u00e9s par fichier.'
+  ]
+});
+</script>
+</body>
+</html>
