@@ -178,7 +178,7 @@ function pClassement(zone,cfg,D){
   const filt=document.createElement('div');filt.className='filtres';sh.corps.appendChild(filt);
   for(const f of s.facettes){
     if(f==='code')continue;
-    const sel=selecteur(filt,pretty(f),s.vals[f],v=>pretty(v),choix[f]);
+    const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majPeriodes();});
   }
   const bas=document.createElement('div');
@@ -248,7 +248,7 @@ function pExplorer(zone,cfg,D){
     cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),meta:st.ecartes?(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.'):''});
   }
   for(const f of s.facettes){
-    const sel=selecteur(filt,pretty(f),s.vals[f],v=>f==='code'?(libCode(s,axe,v)+' \u2014 '+v):pretty(v),choix[f]);
+    const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
   }
   majTout();
@@ -292,7 +292,8 @@ function rendreSources(config,D){
   const cles=Object.keys(config.fichiers);
   $('srcList').innerHTML=cles.map(function(k){
     const F=D[k];
-    const tete=F&&F.txt?entete(F.txt):'';
+    const md=/\.md$/i.test(config.fichiers[k]);
+    const tete=(F&&F.txt&&!md)?entete(F.txt):(md?'Document du d\u00e9p\u00f4t, affich\u00e9 en entier dans la page.':'');
     return '<details class="src"><summary>'+ech(config.fichiers[k])+'</summary><pre>'+ech(tete||'(pas d\u2019en-t\u00eate dans ce fichier)')+'</pre></details>';
   }).join('');
 }
@@ -319,7 +320,10 @@ function pageRubrique(config){
   const D={};
   D.axeFor=function(cle){
     const a=config.axes&&config.axes[cle];
-    return a&&D[a]?D[a].axeMap:null;
+    if(!a)return null;
+    if(typeof a==='string')return D[a]?D[a].axeMap:null;
+    const jeu={};for(const champ in a){if(D[a[champ]])jeu[champ]=D[a[champ]].axeMap;}
+    return jeu;
   };
   async function charger(){
     const cles=Object.keys(config.fichiers);
@@ -341,6 +345,8 @@ function pageRubrique(config){
       else if(p.type==='classement')pClassement(zone,p,D);
       else if(p.type==='explorer')pExplorer(zone,p,D);
       else if(p.type==='carte'&&typeof pCarte==='function')pCarte(zone,p,D);
+      else if(p.type==='tableau'&&typeof pTable==='function')pTable(zone,p,D);
+      else if(p.type==='document'&&typeof pDoc==='function')pDoc(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
