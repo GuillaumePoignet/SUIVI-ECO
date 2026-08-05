@@ -27,7 +27,8 @@ pageRubrique({
     credit:'ECO/series/M7_CREDIT_ENCOURS_MENSUEL_1997-2026.csv',
     capfi:'ECO/series/M7_CAPACITE_FINANCEMENT_1949-2024.csv',
     financiers:'ECO/series/M7_COMPTES_FINANCIERS_1996-2025.csv',
-    bce:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv'
+    bce:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv',
+    stocks:'ECO/series/M7_STOCKS_1949-2025.csv'
   },
   axes:{fbcf:'axesA21'},
   panneaux:[
@@ -49,6 +50,9 @@ pageRubrique({
     {type:'explorer',fichier:'credit',prefMotif:'credits_menages',
      titre:'Les cr\u00e9dits, mois par mois',
      quoi:'Les encours de cr\u00e9dit du fichier mensuel, depuis 1997 : m\u00e9nages, habitat, entreprises, administrations.'},
+    {type:'explorer',fichier:'stocks',prefMotif:'variation_stocks',
+     titre:'Les variations de stocks',
+     quoi:'Ce que les entreprises mettent en stock ou y puisent chaque ann\u00e9e, depuis 1949, et les acquisitions d\u2019objets de valeur. Une valeur n\u00e9gative n\u2019est pas une anomalie : elle dit qu\u2019on a puis\u00e9 dans les stocks.'},
     {type:'explorer',fichier:'financiers',prefMotif:'',
      titre:'Les comptes financiers',
      quoi:'Encours d\u2019actifs et de passifs, flux et patrimoine financier net, par secteur et par instrument, de 1996 \u00e0 2025.'},
@@ -60,6 +64,7 @@ pageRubrique({
      quoi:'Qui pr\u00eate et qui emprunte, secteur par secteur, depuis 1949, tel que le fichier le porte.'}
   ],
   reserves:[
+    'Les variations de stocks bouclent l\u2019\u00e9quilibre du produit int\u00e9rieur brut \u00e0 0,004 % pr\u00e8s sur 76 ann\u00e9es, une fois les objets de valeur comptés avec elles. Leur d\u00e9tail par branche n\u2019est pas grav\u00e9 : la grille de la source ne s\u2019agr\u00e8ge pas vers les branches du d\u00e9p\u00f4t.',
     'Les codes de secteur du patrimoine et de la dette sont emboît\u00e9s : S13 contient S1311, qui contient lui-m\u00eame S13111. Les additionner compterait plusieurs fois les m\u00eames euros \u2014 les cartes retiennent donc un seul poste et le nomment.',
     'Le point 2025 de la dette est absent du fichier : la source publiait une baisse de 210 milliards en un an, invraisemblable et non expliqu\u00e9e, et le d\u00e9p\u00f4t a pr\u00e9f\u00e9r\u00e9 ne pas la graver.',
     'La d\u00e9coupe en branches de l\u2019investissement suit la table A21 du d\u00e9p\u00f4t, qui appartient au module des branches : elle est r\u00e9f\u00e9renc\u00e9e ici sans duplication.'
