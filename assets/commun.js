@@ -12,12 +12,12 @@ const AUJ=new Date().toISOString().slice(0,10);
 const NAV=[
   ['vue-densemble','Vue d\u2019ensemble','vue-densemble.html'],
   ['branches','Production par branche','branches.html'],
-  ['population','Population & territoire',null],
+  ['population','Population & territoire','population.html'],
   ['menages','M\u00e9nages','menages.html'],
-  ['commerce','Commerce ext\u00e9rieur',null],
+  ['commerce','Commerce ext\u00e9rieur','commerce.html'],
   ['finances','Finances publiques','finances-publiques.html'],
   ['capital','Capital & patrimoine','capital.html'],
-  ['monde','Monde & d\u00e9pendances',null]
+  ['monde','Monde & d\u00e9pendances','monde.html']
 ];
 
 /* ---------- outils ---------- */
