@@ -340,6 +340,7 @@ function pageRubrique(config){
       if(p.type==='cartes')pCartes(zone,p,D);
       else if(p.type==='classement')pClassement(zone,p,D);
       else if(p.type==='explorer')pExplorer(zone,p,D);
+      else if(p.type==='carte'&&typeof pCarte==='function')pCarte(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
