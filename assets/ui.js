@@ -140,6 +140,23 @@ function composantCourbe(host){
 }
 
 /* ---------- petits constructeurs ---------- */
+
+/* Choisir une grandeur doit se faire d'un geste : des boutons, pas un menu
+   deroulant qui cache les autres choix. */
+function boutons(parent,titre,valeurs,libFn,courant,onChoix){
+  const bar=document.createElement('div');bar.className='choix';
+  const t=document.createElement('span');t.textContent=titre;bar.appendChild(t);
+  const faits=[];
+  valeurs.forEach(function(v){
+    const b=document.createElement('button');b.type='button';b.textContent=libFn?libFn(v):v;
+    if(v===courant)b.className='on';
+    b.addEventListener('click',function(){
+      faits.forEach(x=>x.className='');b.className='on';onChoix(v);
+    });
+    faits.push(b);bar.appendChild(b);
+  });
+  parent.appendChild(bar);return bar;
+}
 function selecteur(parent,labelTxt,values,labFn,val){
   const lab=document.createElement('label');
   lab.appendChild(document.createTextNode(labelTxt));
@@ -269,25 +286,12 @@ function pExplorer(zone,cfg,D){
     cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),meta:st.ecartes?(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.'):''});
   }
   for(const f of s.facettes){
+    if(f==='grandeur'&&s.vals[f].length<=6){
+      boutons(sh.corps,'Grandeur',s.vals[f],v=>pretty(v),choix[f],v=>{choix[f]=v;majTout();});
+      continue;
+    }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
-  }
-  if(cfg.plages!==false){
-    const an=new Date().getFullYear();
-    const opts=[['10 ans',an-10],['20 ans',an-20],['1990',1990],['1950',1950],['Tout',null]];
-    const bar=document.createElement('div');bar.className='plages';
-    bar.innerHTML='<span>Afficher depuis</span>';
-    opts.forEach(function(o){
-      const b=document.createElement('button');b.type='button';b.textContent=o[0];
-      if(o[1]===depuis)b.className='on';
-      b.addEventListener('click',function(){
-        depuis=o[1];
-        bar.querySelectorAll('button').forEach(x=>x.className='');
-        b.className='on';majTout();
-      });
-      bar.appendChild(b);
-    });
-    if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);else sh.corps.appendChild(bar);
   }
   majTout();
 }
@@ -445,8 +449,8 @@ function pageRubrique(config){
    sans definitions se lit mal, et les definitions valent d'etre ecrites une
    fois pour toutes plutot que devinees. */
 function pTexte(zone,cfg,D){
-  const sec=document.createElement('section');sec.className='panneau explic';
-  let h='<div class="pan-tete"><div><h2>'+ech(cfg.titre)+'</h2></div></div>';
+  const sec=document.createElement('details');sec.className='panneau explic';
+  let h='<summary><span class="lib">'+ech(cfg.titre)+'</span></summary>';
   if(cfg.chapeau)h+='<p class="note" style="font-size:15px;max-width:74ch">'+ech(cfg.chapeau)+'</p>';
   if(cfg.definitions&&cfg.definitions.length){
     h+='<dl style="margin:14px 0 0;max-width:74ch">';
@@ -485,20 +489,6 @@ function pColonne(zone,cfg,D){
     if(depuis)pts=pts.filter(p=>p.x>=depuis);
     cc.maj(pts,{u:d.unite||'',lib:d.lib,uniteY:d.uniteY||d.unite||'',meta:d.note||''});
   }
-  const sel=selecteur(filt,'Grandeur affich\u00e9e',cols.map((x,i)=>i),i=>cols[i].lib,0);
-  sel.addEventListener('change',()=>{choix=+sel.value;maj();});
-  const an=new Date().getFullYear();
-  const opts=[['10 ans',an-10],['20 ans',an-20],['1990',1990],['1950',1950],['Tout',null]];
-  const bar=document.createElement('div');bar.className='plages';
-  bar.innerHTML='<span>Afficher depuis</span>';
-  opts.forEach(function(o){
-    const b=document.createElement('button');b.type='button';b.textContent=o[0];
-    if(o[1]===depuis)b.className='on';
-    b.addEventListener('click',function(){
-      depuis=o[1];bar.querySelectorAll('button').forEach(x=>x.className='');b.className='on';maj();
-    });
-    bar.appendChild(b);
-  });
-  if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);else sh.corps.appendChild(bar);
+  boutons(sh.corps,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
   maj();
 }
