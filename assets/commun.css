@@ -85,7 +85,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .tip .r b{color:#fff;font-weight:500}
 .tip .d{width:7px;height:7px;border-radius:3px;display:inline-block;flex:none}
 .note{color:var(--texte);font-size:12.5px;margin:12px 2px 0}
-.explore{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px;padding:14px 16px;background:#F7F8FB;border:1px solid var(--ligne2);border-radius:4px}
+.explore{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:12px 14px;background:#F7F8FB;border:1px solid var(--ligne2);border-radius:4px}
 .explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
 .explore input[type=range]{flex:1 1 auto;min-width:120px;accent-color:var(--accent);height:22px}
 /* Largeur figee : sans cela, « aout 2017 » et « decembre 2020 » n ont pas la
@@ -152,7 +152,7 @@ footer{margin-top:30px}
 @media (max-width:760px){}
 
 .choix{margin:16px 0 4px}
-.legende{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 2px 0;font-size:14px;color:var(--texte)}
+.legende{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0;font-size:14px;color:var(--texte)}
 .legende span{display:inline-flex;align-items:center;gap:8px}
 .legende i{width:14px;height:3px;border-radius:2px;display:inline-block}
 .legende b{font-weight:700;color:var(--encre);font-variant-numeric:tabular-nums}
@@ -205,12 +205,11 @@ details.explic[open] summary{padding-bottom:2px}
 .exp-val{font-size:14px;color:var(--texte)}
 @media (max-width:640px){}
 /* Chiffre de la periode choisie : un cadre a gauche de la ligne du curseur. */
-.valSel{background:var(--carte);border:1px solid var(--ligne);border-radius:6px;
-  padding:9px 16px;text-align:center;flex:none;min-width:132px}
+.valSel{background:var(--carte);border:1px solid var(--ligne);border-radius:6px;padding:9px 16px;text-align:center;flex:none}
 .valSel .p{display:block;font-size:12.5px;font-weight:600;color:var(--muet);letter-spacing:.02em}
 .valSel .v{display:block;font:700 24px "Public Sans",sans-serif;color:var(--accent);
   font-variant-numeric:tabular-nums;line-height:1.25}
-.curseur{display:flex;align-items:center;gap:14px;flex:1 1 320px;min-width:260px}
+.curseur{display:flex;align-items:center;gap:12px;flex:1 1 300px;min-width:240px}
 .curseur label{font-size:12.5px;font-weight:600;color:var(--texte);white-space:nowrap}
 .valSel .l{display:block;font-size:12.5px;color:var(--texte);margin-top:4px}
 .valSel.multi{text-align:left;min-width:250px;padding:10px 16px}
