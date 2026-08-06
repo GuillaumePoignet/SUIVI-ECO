@@ -68,7 +68,7 @@ function composantCourbe(host){
        superposait aux graduations. */
     const u=String(ctx.u||'').toLowerCase();
     let uy=ctx.uniteY||(/pct|%/.test(u)?'en %':(/meur|millions d/.test(u)?'en milliards d\u2019euros':
-      (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u||'')))));
+      (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u?pretty(ctx.u):'')))));
     if(/millions d\u2019euros/.test(uy))uy=uy.replace('millions','milliards');
     if(uy){
       const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});
@@ -290,8 +290,8 @@ function pExplorer(zone,cfg,D){
     cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),meta:st.ecartes?(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.'):''});
   }
   for(const f of s.facettes){
-    if(f==='grandeur'&&s.vals[f].length<=6){
-      boutons(sh.corps,'Grandeur',s.vals[f],v=>pretty(v),choix[f],v=>{choix[f]=v;majTout();});
+    if(s.vals[f].length<=20){
+      boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majTout();});
       continue;
     }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
