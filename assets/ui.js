@@ -46,11 +46,12 @@ function composantCourbe(host){
   bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div></div>'+
     '<div class="explore"><div class="valSel" hidden></div>'+
     '<div class="curseur"><label>Choisir une p\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1">'+
-    '<span class="exp-an"></span></div><div class="exp-val"></div></div>'+
+    '<span class="exp-an"></span></div></div>'+
     '<p class="metaC"></p>';
   host.appendChild(bloc);
   const box=bloc.querySelector('.chartbox'),svg=box.querySelector('svg'),tip=box.querySelector('.tip');
-  const slider=bloc.querySelector('input'),expAn=bloc.querySelector('.exp-an'),expVal=bloc.querySelector('.exp-val'),meta=bloc.querySelector('.metaC');
+  const slider=bloc.querySelector('input'),expAn=bloc.querySelector('.exp-an'),meta=bloc.querySelector('.metaC');
+  const expVal={innerHTML:'',textContent:''};
   const valSel=bloc.querySelector('.valSel');
   const W=1000,H=400,gL=104,gR=24,gT=26,gB=40;
   let pts=[],ctx={},X=null,Y=null,pinL=null,pinC=null;
