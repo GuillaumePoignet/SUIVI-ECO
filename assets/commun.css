@@ -176,3 +176,10 @@ details.explic>*:last-child{margin-bottom:26px}
 .choix button i{width:11px;height:3px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:middle}
 .choix button:not(.on){opacity:.55}
 .choix button:not(.on) i{opacity:.4}
+
+/* Un bouton de courbe actif ne doit pas avaler sa propre couleur : fond clair,
+   bordure et pastille de la teinte de la serie. */
+.choix button.courbe{border:2px solid var(--ligne);background:var(--carte);color:var(--texte)}
+.choix button.courbe.on{background:#fff;border-color:var(--c);color:var(--encre)}
+.choix button.courbe.on i{background:var(--c) !important}
+.choix button.courbe:not(.on){opacity:.5}
