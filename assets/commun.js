@@ -54,6 +54,7 @@ function periodeX(t){
 /* Les noms de grandeurs viennent des fichiers, en minuscules et sans accents :
    on les rend presentables sans jamais en changer le sens. */
 const MOTS={pib:'PIB',ipc:'IPC',tva:'TVA',apu:'APU',fbcf:'FBCF',etp:'ETP',pct:'%',meur:'',eur:'euros',
+  etat:'\u00c9tat',menages:'m\u00e9nages',depot:'d\u00e9p\u00f4t',interet:'int\u00e9r\u00eat',salaries:'salari\u00e9s',reel:'r\u00e9el',reelle:'r\u00e9elle',energie:'\u00e9nergie','economie':'\u00e9conomie',societes:'soci\u00e9t\u00e9s','annee':'ann\u00e9e',
   ca:'chiffre d\u2019affaires',bce:'BCE',oat:'OAT',hs2:'HS2',iso3:'ISO3',pcs:'PCS',coicop:'COICOP'};
 
 /* Les codes de periode des fichiers - 2026-M08, 2026-T2 - sont faits pour les
@@ -75,7 +76,8 @@ function libPeriode(t){
   return t;
 }
 function pretty(g){
-  let s=String(g==null?'':g).replace(/_/g,' ').trim();
+  /* « 10ans » se lit mal : on separe le nombre de son unite. */
+  let s=String(g==null?'':g).replace(/_/g,' ').replace(/(\d)(ans|mois|an)\b/gi,'$1 $2').trim();
   s=s.split(' ').map(m=>MOTS[m.toLowerCase()]!==undefined?MOTS[m.toLowerCase()]:m).filter(Boolean).join(' ');
   return s?s.charAt(0).toUpperCase()+s.slice(1):s;
 }
