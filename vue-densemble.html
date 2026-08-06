@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807j">
+<link rel="stylesheet" href="assets/commun.css?v=20260807k">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807j"></script>
-<script src="assets/ui.js?v=20260807j"></script>
-<script src="assets/tableau.js?v=20260807j"></script>
+<script src="assets/commun.js?v=20260807k"></script>
+<script src="assets/ui.js?v=20260807k"></script>
+<script src="assets/tableau.js?v=20260807k"></script>
 <script>
 pageRubrique({
   id:'vue-densemble',
@@ -26,7 +26,7 @@ pageRubrique({
     bceMensuel:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv',
     tauxFrance:'ECO/series/M1_TAUX_FRANCE_MENSUEL_1986-2026.csv',
     courbe:'ECO/series/M1_COURBE_TAUX_ZONE_EURO.csv',
-    change:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv',
+    change:'ECO/series/M1_TAUX_CHANGE_MENSUEL_1999-2026.csv',
     devises:'ECO/series/M1_DEVISES.csv'
   },
   axes:{change:'devises'},
@@ -87,9 +87,9 @@ pageRubrique({
      libelles:{taux_2ans:'2 ans',taux_5ans:'5 ans',taux_10ans:'10 ans',taux_20ans:'20 ans',taux_30ans:'30 ans'},
      titre:'La courbe des taux de la zone euro, 2 \u00e0 30 ans',
      quoi:'Ce que co\u00fbte l\u2019emprunt selon sa dur\u00e9e. Quand les taux courts d\u00e9passent les longs, la courbe est invers\u00e9e, ce que les march\u00e9s lisent comme l\u2019annonce d\u2019un ralentissement. P\u00e9rim\u00e8tre zone euro not\u00e9e AAA, pas la France : la BCE ne publie pas de courbe par maturit\u00e9 pour la France seule.'},
-    {type:'explorer',fichier:'change',prefMotif:'',debut:1999,
+    {type:'explorer',fichier:'change',prefMotif:'',debut:1999,granularite:true,
      inverse:{libDirect:'Devises pour 1 euro',libInverse:'Euros pour 1 devise',unite:'euros',uniteY:'en euros pour une unit\u00e9 de la devise'},
-     titre:'Taux de change de l\u2019euro, 16 monnaies',
+     titre:'Taux de change de l\u2019euro, 16 monnaies, au mois',
      quoi:'Choisis la monnaie et le sens de lecture : la courbe donne combien d\u2019unit\u00e9s de cette monnaie s\u2019\u00e9changent contre un euro, en moyenne sur l\u2019ann\u00e9e. Quand la courbe monte, l\u2019euro se renforce. Les seize monnaies sont celles que la Banque centrale europ\u00e9enne publie en r\u00e9f\u00e9rence quotidienne \u2014 le d\u00e9p\u00f4t n\u2019en a choisi aucune.'},
     ],
   reserves:[
