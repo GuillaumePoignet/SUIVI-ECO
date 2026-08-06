@@ -127,7 +127,16 @@ function axeDe(parsed){
   const head=parsed.head,rows=parsed.rows||[];
   let iC=head.indexOf('code');if(iC<0)iC=0;
   let iL=head.indexOf('libelle');if(iL<0)iL=head.length>1?1:0;
-  const m={};for(const r of rows)m[r[iC]]=r[iL];return m;
+  /* Quand la table nomme aussi un pays ou une zone, on l'accroche au libelle :
+     « Yuan renminbi, Chine » se comprend, « CNY » non. */
+  const iZ=head.indexOf('zone')>=0?head.indexOf('zone'):head.indexOf('pays');
+  const m={};
+  for(const r of rows){
+    let lib=r[iL];
+    if(iZ>=0&&r[iZ]&&r[iZ]!==lib)lib=lib+', '+r[iZ];
+    m[r[iC]]=lib;
+  }
+  return m;
 }
 function estTotal(code,lib){return /^(TOT|TOTAL|ENS|_T)$/i.test(String(code))||/total|ensemble/i.test(String(lib||''));}
 /* Un axe peut etre une table unique (champ code) ou un jeu de tables, une par
@@ -144,7 +153,7 @@ function libCode(s,axe,code,champ){
 function libFacette(s,axe,champ,v){
   if(!/^code\d*$/.test(champ))return pretty(v);
   const l=libCode(s,axe,v,champ);
-  return l===v?String(v):(l+' \u2014 '+v);
+  return l===v?String(v):(l+' ('+v+')');
 }
 function filtrer(s,choix){
   return s.obs.filter(o=>{for(const k in choix){const v=choix[k];if(v==null)continue;if(o.c[k]!==v)return false;}return true;});
