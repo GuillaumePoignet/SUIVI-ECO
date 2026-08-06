@@ -40,7 +40,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .onglets{display:flex;gap:2px 4px;flex-wrap:wrap;row-gap:4px}
 .haut-in{flex-wrap:wrap}
 .onglets::-webkit-scrollbar{display:none}
-.onglets a,.onglets span{opacity:.55;font-size:14px;font-weight:500;color:var(--muet);padding:6px 11px;border-radius:999px;white-space:nowrap;text-decoration:none}
+.onglets a,.onglets span{font-size:14px;font-weight:600;padding:7px 12px;border-radius:999px;white-space:nowrap;text-decoration:none}
 .onglets .actif{background:var(--encre);color:#fff;font-weight:600}
 .outilsH{margin-left:auto;display:flex;gap:12px;align-items:center}
 .btnH{border:1px solid var(--ligne);background:#fff;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--texte)}
@@ -132,7 +132,10 @@ footer{margin-top:30px}
 .haut{background:var(--accent);border-bottom:none;box-shadow:0 1px 0 rgba(0,0,0,.12)}
 .haut .marque{color:#fff}
 .haut .marque .pastille{background:#fff}
-.onglets a,.onglets span{opacity:.55;color:#E8ECF7;font-weight:600}
+/* Sur le bandeau sombre, les onglets doivent rester franchement lisibles ;
+   seules les rubriques non encore ouvertes sont attenuees. */
+.onglets a{color:#EDF0F9}
+.onglets span{color:#EDF0F9;opacity:.45}
 .onglets a:hover{color:#fff;background:rgba(255,255,255,.16)}
 .onglets .actif{background:#fff;color:var(--accent)}
 .btnH{border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;font-weight:600}
