@@ -536,7 +536,8 @@ function pMulti(zone,cfg,D){
   barre.innerHTML='<span>Courbes</span>';
   const btns={};
   toutes.forEach(function(t){
-    const b=document.createElement('button');b.type='button';b.className='on';
+    const b=document.createElement('button');b.type='button';b.className='on courbe';
+    b.setAttribute('style','--c:'+t.couleur);
     b.innerHTML='<i style="background:'+t.couleur+'"></i>'+ech(t.lib);
     b.addEventListener('click',function(){
       const n=Object.keys(actives).filter(k=>actives[k]).length;
