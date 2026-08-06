@@ -452,18 +452,23 @@ function pageRubrique(config){
 function pTexte(zone,cfg,D){
   const sec=document.createElement('details');sec.className='panneau explic';
   let h='<summary><span class="lib">'+ech(cfg.titre)+'</span></summary>';
-  if(cfg.chapeau)h+='<p class="note" style="font-size:15px;max-width:74ch">'+ech(cfg.chapeau)+'</p>';
+  if(cfg.chapeau)h+='<p class="chapeau">'+ech(cfg.chapeau)+'</p>';
   if(cfg.definitions&&cfg.definitions.length){
-    h+='<dl style="margin:14px 0 0;max-width:74ch">';
+    /* Chaque definition est un bloc entier dans une grille : avec des colonnes
+       CSS, le titre d'une definition se retrouvait separe de son texte. */
+    h+='<div class="defs">';
     for(const d of cfg.definitions)
-      h+='<dt style="font-weight:700;color:var(--accent);margin-top:14px;font-size:15px">'+ech(d[0])+'</dt>'+
-         '<dd style="margin:4px 0 0;color:var(--texte);font-size:15px;line-height:1.6">'+ech(d[1])+'</dd>';
-    h+='</dl>';
+      h+='<div class="def"><h3>'+ech(d[0])+'</h3><p>'+ech(d[1])+'</p></div>';
+    h+='</div>';
   }
-  if(cfg.paragraphes)for(const p of cfg.paragraphes)
-    h+='<p style="margin:14px 0 0;color:var(--texte);font-size:15px;line-height:1.65;max-width:74ch">'+ech(p)+'</p>';
+  if(cfg.paragraphes){
+    h+='<div class="paras">';
+    for(const p of cfg.paragraphes)h+='<p>'+ech(p)+'</p>';
+    h+='</div>';
+  }
   sec.innerHTML=h;zone.appendChild(sec);
 }
+
 
 /* Certains fichiers du socle sont larges - une colonne par grandeur - au lieu
    du format long : le PIB en est un. Ce panneau trace la colonne choisie. */
