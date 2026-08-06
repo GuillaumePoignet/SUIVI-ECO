@@ -333,7 +333,7 @@ function pExplorer(zone,cfg,D){
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
   }
-  if(estInfraAnnuel(serieTemps(filtrer(s,choix)).pts)){
+  if(cfg.granularite&&estInfraAnnuel(serieTemps(filtrer(s,choix)).pts)){
     const g=[['Par an',('an')],['Par mois, derni\u00e8re ann\u00e9e','mois']];
     const barG=boutons(sh.corps,'D\u00e9tail',g.map(x=>x[1]),v=>g.find(x=>x[1]===v)[0],'an',
       v=>{grain=v;majTout();});
