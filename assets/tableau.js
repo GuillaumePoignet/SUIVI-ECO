@@ -25,7 +25,18 @@ function pTable(zone,cfg,D){
       const iSrc=head.indexOf(j.colonne);
       const P=D[j.table];
       if(iSrc<0||!P)continue;
-      const map=P.axeMap||axeDe(P.serie);
+      /* On peut ramener le libelle du parent, ou n'importe quelle autre de ses
+         colonnes - son propre parent par exemple. Deux jointures en cascade
+         suffisent alors a remonter toute la chaine des nomenclatures. */
+      let map;
+      if(j.champ){
+        const tp=P.serie.type==='table'?P.serie:parseLong(P.txt);
+        const hc=tp.head, iC=hc.indexOf('code')>=0?hc.indexOf('code'):0, iX=hc.indexOf(j.champ);
+        map={};
+        if(iX>=0)for(const r of (tp.rows||[]))map[r[iC]]=r[iX];
+      }else{
+        map=P.axeMap||axeDe(P.serie);
+      }
       head=head.concat([j.titre||('libelle_'+j.colonne)]);
       rows=rows.map(r=>r.concat([map[r[iSrc]]||'']));
     }
