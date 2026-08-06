@@ -136,12 +136,12 @@ footer{margin-top:30px}
 .outilsH .lienbtn:hover{color:#fff}
 
 /* Choix de la plage : des boutons, plus directs qu un menu deroulant. */
-.plages{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0}
-.plages span{font-size:11.5px;font-weight:600;color:var(--muet);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
-.plages button{border:1px solid var(--ligne);background:var(--carte);color:var(--texte);
+.choix{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.choix span{font-size:11.5px;font-weight:600;color:var(--muet);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.choix button{border:1px solid var(--ligne);background:var(--carte);color:var(--texte);
   border-radius:999px;padding:5px 14px;font:600 13px "Public Sans",sans-serif}
-.plages button:hover{border-color:var(--accent2);color:var(--accent)}
-.plages button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.choix button:hover{border-color:var(--accent2);color:var(--accent)}
+.choix button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 
 /* Encarts de definitions : denses, pour ne pas manger la page. */
 .explic{padding:20px 22px 18px;background:#F8F9FC}
@@ -150,3 +150,17 @@ footer{margin-top:30px}
 .explic dt{break-after:avoid}
 .explic dd{break-inside:avoid;margin-bottom:10px !important}
 @media (max-width:760px){.explic dl{columns:1}}
+
+.choix{margin:16px 0 4px}
+.legende{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 2px 0;font-size:14px;color:var(--texte)}
+.legende span{display:inline-flex;align-items:center;gap:8px}
+.legende i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.legende b{font-weight:700;color:var(--encre);font-variant-numeric:tabular-nums}
+.legende small{color:var(--muet);font-size:12.5px}
+details.explic{padding:0;background:#F8F9FC}
+details.explic summary{cursor:pointer;list-style:none;padding:16px 22px;font:700 17px "Public Sans",sans-serif;color:var(--accent)}
+details.explic summary::-webkit-details-marker{display:none}
+details.explic summary::before{content:"+";display:inline-block;width:20px;font-weight:700}
+details.explic[open] summary::before{content:"\2212"}
+details.explic>*:not(summary){margin-left:22px;margin-right:22px}
+details.explic>*:last-child{margin-bottom:18px}
