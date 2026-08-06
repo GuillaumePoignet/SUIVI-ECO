@@ -244,6 +244,12 @@ function pClassement(zone,cfg,D){
   const filt=document.createElement('div');filt.className='filtres';sh.corps.appendChild(filt);
   for(const f of s.facettes){
     if(f==='code')continue;
+    /* Des boutons tant qu'ils restent lisibles : on voit tous les choix d'un
+       coup, un menu deroulant les cache. */
+    if(s.vals[f].length<=20){
+      boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majPeriodes();});
+      continue;
+    }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majPeriodes();});
   }
