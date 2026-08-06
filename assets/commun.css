@@ -87,15 +87,14 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .note{color:var(--texte);font-size:12.5px;margin:12px 2px 0}
 /* Le fond gris encadre la ligne du curseur ; son rembourrage est juste ce
    qu il faut pour que le cadre blanc s y aligne sans flotter. */
-.explore{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px;
-  padding:10px 12px;background:#F5F6FA;border:1px solid var(--ligne2);border-radius:6px}
+.explore{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;background:#F5F6FA;border:1px solid var(--ligne2);border-radius:6px}
 .explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
 .explore input[type=range]{flex:1 1 auto;min-width:120px;accent-color:var(--accent);height:22px}
 /* Largeur figee : sans cela, « aout 2017 » et « decembre 2020 » n ont pas la
    meme largeur, le curseur se redimensionne sous le doigt et la poignee saute. */
 .exp-an{flex:none;width:150px;box-sizing:border-box;font:700 15px "Public Sans",sans-serif;color:#fff;background:var(--accent);border-radius:999px;padding:5px 10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
-.exp-val{font-size:15px;color:var(--encre);line-height:1.7;width:100%;font-variant-numeric:tabular-nums}
-.exp-val b{color:var(--accent);font-weight:700;font-size:17px}
+
+
 .metaC{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:11px;color:var(--muet);margin:8px 2px 0}
 
 .cls{margin-top:12px}
@@ -201,13 +200,13 @@ details.explic[open] summary{padding-bottom:2px}
 .explic .paras{margin:22px 30px 26px;padding-left:20px;max-width:78ch}
 .explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
 .explic .paras p:last-child{margin-bottom:0}
-.exp-val .an{font-weight:700;color:var(--encre);margin-right:6px}
+
 .chip.rouge{background:rgba(168,35,27,.10);color:var(--rouge)}
 .chip.vert{background:rgba(17,107,74,.12);color:var(--vertfonce)}
 
 .valSel .p{display:block;font-size:12.5px;font-weight:600;color:var(--muet);letter-spacing:.02em;line-height:1.3}
 .valSel .v{display:block;font:700 24px "Public Sans",sans-serif;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.2;white-space:nowrap;margin:1px 0}
-.exp-val{font-size:14px;color:var(--texte)}
+
 @media (max-width:640px){}
 /* Chiffre de la periode choisie : un cadre a gauche de la ligne du curseur. */
 /* Le cadre epouse son contenu et ne le coupe jamais : sans nowrap, un chiffre
@@ -216,7 +215,9 @@ details.explic[open] summary{padding-bottom:2px}
 .valSel .p{display:block;font-size:12.5px;font-weight:600;color:var(--muet);letter-spacing:.02em}
 .valSel .v{display:block;font:700 24px "Public Sans",sans-serif;color:var(--accent);
   font-variant-numeric:tabular-nums;line-height:1.25}
-.curseur{display:flex;align-items:center;gap:12px;flex:1 1 300px;min-width:240px}
+/* Le curseur occupe sa propre ligne : sinon la largeur du cadre de gauche,
+   qui change avec le contenu, decale la barre sous le doigt. */
+.curseur{display:flex;align-items:center;gap:12px;flex:1 1 100%;min-width:0}
 .curseur label{font-size:12.5px;font-weight:600;color:var(--texte);white-space:nowrap}
 .valSel .l{display:block;font-size:12.5px;color:var(--texte);margin-top:2px;line-height:1.3;white-space:normal}
 .valSel.multi{text-align:left;padding:8px 18px 9px}
