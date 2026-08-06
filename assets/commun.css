@@ -144,8 +144,6 @@ footer{margin-top:30px}
 .choix button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 
 /* Encarts de definitions : denses, pour ne pas manger la page. */
-.explic{padding:20px 22px 18px;background:#F8F9FC}
-.explic .pan-tete h2{font-size:18px}
 
 
 
@@ -157,21 +155,7 @@ footer{margin-top:30px}
 .legende i{width:14px;height:3px;border-radius:2px;display:inline-block}
 .legende b{font-weight:700;color:var(--encre);font-variant-numeric:tabular-nums}
 .legende small{color:var(--muet);font-size:12.5px}
-details.explic{padding:0;background:#F8F9FC}
-details.explic summary{cursor:pointer;list-style:none;padding:18px 28px 10px;font:700 17px "Public Sans",sans-serif;color:var(--accent)}
-details.explic summary::-webkit-details-marker{display:none}
-details.explic summary::before{content:"+";display:inline-block;width:18px;font-weight:700}
-details.explic[open] summary::before{content:"\2212"}
-details.explic>*:not(summary){margin-left:28px;margin-right:28px}
-details.explic>*:last-child{margin-bottom:26px}
 
-.explic .chapeau{font-size:15.5px;color:var(--texte);margin-top:0;margin-bottom:6px;max-width:76ch;line-height:1.6}
-.explic .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px 44px;margin-top:18px;align-items:start}
-.explic .def{border-left:2px solid var(--ligne);padding-left:15px;padding-right:8px}
-.explic .def h3{font:700 15px "Public Sans",sans-serif;color:var(--accent);margin-top:0;margin-bottom:5px;line-height:1.35}
-.explic .def p{margin:0;color:var(--texte);font-size:14.5px;line-height:1.6}
-.explic .paras{margin-top:20px;max-width:78ch}
-.explic .paras p{margin-top:0;margin-bottom:12px;color:var(--texte);font-size:14.5px;line-height:1.65}
 
 .choix button i{width:11px;height:3px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:middle}
 
@@ -184,3 +168,25 @@ details.explic>*:last-child{margin-bottom:26px}
 .choix button.courbe.on i{background:var(--c) !important}
 .choix button.courbe:not(.on){background:#EDEFF6;color:var(--texte);border-color:#C6CDE0}
 .choix button.courbe:not(.on) i{opacity:.45}
+
+/* Encart de definitions. UNE SEULE ABSCISSE pour tout le contenu : le titre, le
+   chapeau, le texte des definitions et les paragraphes commencent au meme
+   endroit. Le filet vertical des definitions deborde vers la gauche plutot que
+   de decaler leur texte, sinon rien ne s aligne. */
+details.explic{padding:0;background:#F8F9FC;border-radius:6px}
+details.explic summary{cursor:pointer;list-style:none;padding:18px 30px 2px 30px;
+  font:700 17px "Public Sans",sans-serif;color:var(--accent)}
+details.explic summary::-webkit-details-marker{display:none}
+details.explic summary::before{content:"+";display:inline-block;width:20px;font-weight:700}
+details.explic[open] summary::before{content:"\2212"}
+.explic .chapeau{margin:14px 30px 0;padding-left:20px;max-width:76ch;
+  font-size:15.5px;color:var(--texte);line-height:1.6}
+.explic .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  gap:22px 46px;margin:20px 30px 0;padding-left:20px;align-items:start}
+.explic .def{position:relative;padding-left:15px}
+.explic .def::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:2px;background:var(--ligne)}
+.explic .def h3{margin:0 0 5px;font:700 15px "Public Sans",sans-serif;color:var(--accent);line-height:1.35}
+.explic .def p{margin:0;color:var(--texte);font-size:14.5px;line-height:1.6}
+.explic .paras{margin:22px 30px 26px;padding-left:20px;max-width:78ch}
+.explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
+.explic .paras p:last-child{margin-bottom:0}
