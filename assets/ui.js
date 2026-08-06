@@ -591,14 +591,23 @@ function pMulti(zone,cfg,D){
     const t=dates[Math.min(+curseur.value,dates.length-1)];
     pastille.textContent=libPeriodeMaj(t);
     let h='<span class="p">'+ech(libPeriodeMaj(t))+'</span><span class="lignes">';
+    const xRef=(dates.length?vusX[t]:0);
     for(const se of series){
-      const p=se.pts.find(x=>x.t===t);
+      let p=se.pts.find(x=>x.t===t),vieux=false;
+      if(!p){
+        /* Pas de point a cette date : on donne le dernier connu AVANT elle,
+           en le datant. Faire disparaitre la courbe laisserait croire qu'elle
+           n'existe pas, alors que c'est la source qui a un trou. */
+        for(const x of se.pts){ if(x.x<=xRef&&(!p||x.x>p.x))p=x; }
+        vieux=true;
+      }
       if(p)h+='<span class="l1"><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+
-        ' <b>'+ech(fmtU(p.v,unite).court)+'</b></span>';
+        ' <b>'+ech(fmtU(p.v,unite).court)+'</b>'+
+        (vieux?'<small> au '+ech(libPeriode(p.t))+'</small>':'')+'</span>';
     }
     cadre.innerHTML=h+'</span>';cadre.hidden=false;
   }
-  let dates=[];
+  let dates=[],vusX={};
   function dessiner(){
     svg.innerHTML='';tip.hidden=true;
     const series=toutes.filter(t=>actives[t.cle]);
@@ -652,10 +661,10 @@ function pMulti(zone,cfg,D){
     zone2.addEventListener('touchmove',montrer,{passive:true});
     zone2.addEventListener('mouseleave',function(){regle.setAttribute('visibility','hidden');tip.hidden=true;});
     svg.appendChild(zone2);
-    const vus={};dates=[];
+    const vus={};dates=[];vusX={};
     for(const se of series)for(const p of se.pts){
       if(cfg.debut&&p.x<cfg.debut)continue;
-      if(!vus[p.t]){vus[p.t]=p.x;dates.push(p.t);}
+      if(!vus[p.t]){vus[p.t]=p.x;vusX[p.t]=p.x;dates.push(p.t);}
     }
     dates.sort((a,b)=>vus[a]-vus[b]);
     curseur.max=Math.max(0,dates.length-1);curseur.value=dates.length-1;
