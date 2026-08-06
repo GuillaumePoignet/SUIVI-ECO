@@ -190,3 +190,4 @@ details.explic[open] summary::before{content:"\2212"}
 .explic .paras{margin:22px 30px 26px;padding-left:20px;max-width:78ch}
 .explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
 .explic .paras p:last-child{margin-bottom:0}
+.exp-val .an{font-weight:700;color:var(--encre);margin-right:6px}
