@@ -155,7 +155,11 @@ function boutons(parent,titre,valeurs,libFn,courant,onChoix){
     const b=document.createElement('button');b.type='button';b.textContent=libFn?libFn(v):v;
     if(v===courant)b.className='on';
     b.addEventListener('click',function(){
-      faits.forEach(x=>x.className='');b.className='on';onChoix(v);
+      /* On bascule la seule classe d'etat : ecraser className ferait perdre
+         les classes de style posees ailleurs. */
+      faits.forEach(x=>x.classList?x.classList.remove('on'):(x.className=''));
+      if(b.classList)b.classList.add('on');else b.className='on';
+      onChoix(v);
     });
     faits.push(b);bar.appendChild(b);
   });
@@ -545,7 +549,7 @@ function pMulti(zone,cfg,D){
       const n=Object.keys(actives).filter(k=>actives[k]).length;
       if(actives[t.cle]&&n<=1)return;
       actives[t.cle]=!actives[t.cle];
-      b.className=actives[t.cle]?'on':'';
+      b.className=actives[t.cle]?'on courbe':'courbe';
       dessiner();
     });
     btns[t.cle]=b;barre.appendChild(b);
