@@ -87,8 +87,10 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,s
 .note{color:var(--texte);font-size:12.5px;margin:12px 2px 0}
 .explore{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:14px 16px;background:#F7F8FB;border:1px solid var(--ligne2);border-radius:4px}
 .explore label{font-size:12px;font-weight:600;color:var(--texte);white-space:nowrap}
-.explore input[type=range]{flex:1;min-width:150px;accent-color:var(--accent);height:22px}
-.exp-an{font:700 15px "Public Sans",sans-serif;color:#fff;background:var(--accent);border-radius:999px;padding:5px 14px;min-width:auto;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.explore input[type=range]{flex:1 1 auto;min-width:120px;accent-color:var(--accent);height:22px}
+/* Largeur figee : sans cela, « aout 2017 » et « decembre 2020 » n ont pas la
+   meme largeur, le curseur se redimensionne sous le doigt et la poignee saute. */
+.exp-an{flex:none;width:150px;box-sizing:border-box;font:700 15px "Public Sans",sans-serif;color:#fff;background:var(--accent);border-radius:999px;padding:5px 10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
 .exp-val{font-size:15px;color:var(--encre);line-height:1.7;width:100%;font-variant-numeric:tabular-nums}
 .exp-val b{color:var(--accent);font-weight:700;font-size:17px}
 .metaC{font-family:"Public Sans",sans-serif;font-variant-numeric:tabular-nums;font-size:11px;color:var(--muet);margin:8px 2px 0}
