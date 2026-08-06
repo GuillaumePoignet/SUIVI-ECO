@@ -51,13 +51,23 @@ function periodeX(t){
   if(DATE_OK.test(t))return anneeFrac(t);
   return NaN;
 }
-function pretty(g){return String(g==null?'':g).replace(/_/g,' ');}
+/* Les noms de grandeurs viennent des fichiers, en minuscules et sans accents :
+   on les rend presentables sans jamais en changer le sens. */
+const MOTS={pib:'PIB',ipc:'IPC',tva:'TVA',apu:'APU',fbcf:'FBCF',etp:'ETP',pct:'%',meur:'',eur:'euros',
+  ca:'chiffre d\u2019affaires',bce:'BCE',oat:'OAT',hs2:'HS2',iso3:'ISO3',pcs:'PCS',coicop:'COICOP'};
+function pretty(g){
+  let s=String(g==null?'':g).replace(/_/g,' ').trim();
+  s=s.split(' ').map(m=>MOTS[m.toLowerCase()]!==undefined?MOTS[m.toLowerCase()]:m).filter(Boolean).join(' ');
+  return s?s.charAt(0).toUpperCase()+s.slice(1):s;
+}
 function fmtU(v,u){
   if(v==null)return {court:'\u2014',exact:null};
   const ul=String(u||'').toLowerCase();
   if(/meur|millions d/.test(ul)){
-    if(Math.abs(v)>=100000)return {court:nf1.format(v/1000)+' Md\u20ac',exact:nf0.format(Math.round(v))+' M\u20ac'};
-    return {court:nf0.format(Math.round(v))+' M\u20ac',exact:null};
+    /* Tout en milliards : deux unites pour une meme grandeur font hesiter le
+       lecteur sans rien lui apprendre. */
+    if(Math.abs(v)>=1000)return {court:nf1.format(v/1000)+' Md\u20ac',exact:null};
+    return {court:nf2.format(v/1000)+' Md\u20ac',exact:null};
   }
   if(/pct|%/.test(ul))return {court:(Math.abs(v)<10?nf2:nf1).format(v)+' %',exact:null};
   if(/millier/.test(ul))return {court:nf0.format(Math.round(v))+' milliers',exact:null};
