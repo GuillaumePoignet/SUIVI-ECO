@@ -571,9 +571,29 @@ function pMulti(zone,cfg,D){
   const box=document.createElement('div');box.className='chartbox';
   box.innerHTML='<svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div>';
   sh.corps.appendChild(box);
+  const zoneC=document.createElement('div');zoneC.className='explore';
+  zoneC.innerHTML='<div class="valSel multi" hidden></div>'+
+    '<div class="curseur"><label>Choisir une p\u00e9riode</label>'+
+    '<input type="range" min="0" max="0" value="0" step="1"><span class="exp-an"></span></div>';
+  sh.corps.appendChild(zoneC);
   const leg=document.createElement('div');leg.className='legende';sh.corps.appendChild(leg);
+  const curseur=zoneC.querySelector('input'),pastille=zoneC.querySelector('.exp-an'),cadre=zoneC.querySelector('.valSel');
   const svg=box.querySelector('svg'),tip=box.querySelector('.tip');
   const W=1000,H=400,gL=104,gR=24,gT=26,gB=34;
+  function majCadre(){
+    const series=toutes.filter(t=>actives[t.cle]);
+    if(!series.length||!dates.length)return;
+    const t=dates[Math.min(+curseur.value,dates.length-1)];
+    pastille.textContent=libPeriodeMaj(t);
+    let h='<span class="p">'+ech(libPeriodeMaj(t))+'</span><span class="lignes">';
+    for(const se of series){
+      const p=se.pts.find(x=>x.t===t);
+      if(p)h+='<span class="l1"><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+
+        ' <b>'+ech(fmtU(p.v,unite).court)+'</b></span>';
+    }
+    cadre.innerHTML=h+'</span>';cadre.hidden=false;
+  }
+  let dates=[];
   function dessiner(){
     svg.innerHTML='';tip.hidden=true;
     const series=toutes.filter(t=>actives[t.cle]);
@@ -627,11 +647,20 @@ function pMulti(zone,cfg,D){
     zone2.addEventListener('touchmove',montrer,{passive:true});
     zone2.addEventListener('mouseleave',function(){regle.setAttribute('visibility','hidden');tip.hidden=true;});
     svg.appendChild(zone2);
+    const vus={};dates=[];
+    for(const se of series)for(const p of se.pts){
+      if(cfg.debut&&p.x<cfg.debut)continue;
+      if(!vus[p.t]){vus[p.t]=p.x;dates.push(p.t);}
+    }
+    dates.sort((a,b)=>vus[a]-vus[b]);
+    curseur.max=Math.max(0,dates.length-1);curseur.value=dates.length-1;
+    majCadre();
     leg.innerHTML=series.map(function(se){
       const der=se.pts[se.pts.length-1];
       return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(libPeriodeMaj(der.t))+'</small></span>';
     }).join('');
   }
+  curseur.addEventListener('input',majCadre);
   dessiner();
 }
 
