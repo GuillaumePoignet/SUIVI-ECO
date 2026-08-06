@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807s">
+<link rel="stylesheet" href="assets/commun.css?v=20260807t">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807s"></script>
-<script src="assets/ui.js?v=20260807s"></script>
-<script src="assets/ratios.js?v=20260807s"></script>
+<script src="assets/commun.js?v=20260807t"></script>
+<script src="assets/ui.js?v=20260807t"></script>
+<script src="assets/ratios.js?v=20260807t"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -51,12 +51,12 @@ pageRubrique({
        ['Production','La valeur totale de ce qui a \u00e9t\u00e9 fabriqu\u00e9 ou fourni dans l\u2019ann\u00e9e, avant d\u00e9duction de quoi que ce soit. Elle compte donc plusieurs fois la m\u00eame mati\u00e8re quand elle traverse plusieurs secteurs : le bl\u00e9, puis la farine, puis le pain.'],
        ['Consommations interm\u00e9diaires','Ce que le secteur a d\u00fb acheter \u00e0 d\u2019autres pour produire : mati\u00e8res, \u00e9nergie, services. Sur l\u2019ensemble de l\u2019\u00e9conomie fran\u00e7aise, elles repr\u00e9sentent 51 % de la production \u2014 plus de la moiti\u00e9 du prix final est de l\u2019achat \u00e0 d\u2019autres.'],
        ['Valeur ajout\u00e9e','La production moins ces achats : la richesse r\u00e9ellement cr\u00e9\u00e9e par le secteur. C\u2019est elle qu\u2019on additionne pour obtenir le produit int\u00e9rieur brut, et elle seule \u2014 additionner les productions compterait plusieurs fois la m\u00eame chose.'],
-       ['Exc\u00e9dent brut d\u2019exploitation','Ce qui reste de la valeur ajout\u00e9e une fois pay\u00e9s les salaires, les cotisations et les imp\u00f4ts sur la production. Pour les ind\u00e9pendants, il se m\u00eale au revenu de leur travail : la comptabilit\u00e9 nationale ne sait pas les s\u00e9parer et parle alors de revenu mixte.'],
+       ['Exc\u00e9dent brut d\u2019exploitation','Ce qui reste de la valeur ajout\u00e9e une fois pay\u00e9s les salaires, les cotisations et les IMP\u00d4TS SUR LA PRODUCTION \u2014 ceux qu\u2019on doit qu\u2019on gagne de l\u2019argent ou non : taxe fonci\u00e8re, cotisation fonci\u00e8re, versement mobilit\u00e9. Il reste en revanche \u00e0 en tirer l\u2019imp\u00f4t sur les b\u00e9n\u00e9fices, les int\u00e9r\u00eats, les dividendes et le remplacement des machines : le mot \u00ab brut \u00bb dit justement que l\u2019amortissement n\u2019est pas d\u00e9duit. Pour les ind\u00e9pendants, il se m\u00eale au revenu de leur travail : la comptabilit\u00e9 nationale ne sait pas les s\u00e9parer et parle alors de revenu mixte.'],
        ['Valeur ajout\u00e9e et produit int\u00e9rieur brut','Ils ne sont pas \u00e9gaux, et l\u2019\u00e9cart n\u2019est pas une erreur. La somme des valeurs ajout\u00e9es de toutes les branches valait 2 624,9 milliards d\u2019euros en 2024, le PIB 2 935,2 : il manque 310,3 milliards, soit les IMP\u00d4TS SUR LES PRODUITS nets des subventions \u2014 328,8 milliards de TVA, taxes sur les carburants, droits de douane et accises, moins 18,4 milliards de subventions. Le PIB les compte parce qu\u2019il mesure ce que les acheteurs paient ; la valeur ajout\u00e9e ne les compte pas parce qu\u2019elle mesure ce que les producteurs re\u00e7oivent. Ces imp\u00f4ts p\u00e8sent 10,6 % du PIB, et le contr\u00f4le ferme \u00e0 l\u2019euro.'],
        ['Les trois vues','En VALEUR, aux prix de l\u2019ann\u00e9e. En VOLUME, en retirant l\u2019effet des prix pour ne garder que les quantit\u00e9s. En PRIX, l\u2019\u00e9volution des prix seule. Les volumes ne s\u2019additionnent pas entre secteurs : la somme des branches ne fait pas le total, et l\u2019\u00e9cart atteint 58 milliards d\u2019euros.']
      ]},
     {type:'ratio',titre:'Taux de marge, ensemble des branches, 1949-2024',
-     quoi:'Exc\u00e9dent brut d\u2019exploitation rapport\u00e9 \u00e0 la valeur ajout\u00e9e : la part de la richesse cr\u00e9\u00e9e qui reste aux entreprises apr\u00e8s salaires, cotisations et imp\u00f4ts sur la production. Calcul\u00e9 \u00e0 la lecture, non grav\u00e9 au d\u00e9p\u00f4t.',
+     quoi:'Exc\u00e9dent brut d\u2019exploitation rapport\u00e9 \u00e0 la valeur ajout\u00e9e. Il se mesure APR\u00c8S les salaires, les cotisations et les imp\u00f4ts sur la production \u2014 taxe fonci\u00e8re, cotisation fonci\u00e8re des entreprises, versement mobilit\u00e9, 129,9 milliards d\u2019euros en 2024 \u2014 mais AVANT l\u2019imp\u00f4t sur les b\u00e9n\u00e9fices, les int\u00e9r\u00eats d\u2019emprunt, les dividendes et l\u2019amortissement des machines. C\u2019est donc ce qui reste pour payer tout cela et investir. Calcul\u00e9 \u00e0 la lecture, non grav\u00e9 au d\u00e9p\u00f4t.',
      num:{fichier:'tes',grandeur:'excedent_brut'},den:{fichier:'tes',grandeur:'valeur_ajoutee'},
      libelle:'Taux de marge, ensemble des branches'},
     {type:'classement',fichier:'comptes',prefMotif:'valeur_ajout',
