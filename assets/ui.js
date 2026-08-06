@@ -287,7 +287,7 @@ function pExplorer(zone,cfg,D){
       });
       bar.appendChild(b);
     });
-    sh.corps.insertBefore(bar,sh.corps.querySelector('.explore'));
+    if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);else sh.corps.appendChild(bar);
   }
   majTout();
 }
@@ -499,6 +499,6 @@ function pColonne(zone,cfg,D){
     });
     bar.appendChild(b);
   });
-  sh.corps.insertBefore(bar,sh.corps.querySelector('.explore'));
+  if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);else sh.corps.appendChild(bar);
   maj();
 }
