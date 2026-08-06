@@ -8,15 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807p">
+<link rel="stylesheet" href="assets/commun.css?v=20260807s">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807p"></script>
-<script src="assets/ui.js?v=20260807p"></script>
-<script src="assets/ratios.js?v=20260807p"></script>
-<script src="assets/carte.js?v=20260807p"></script>
-<script src="assets/fonds/monde.js?v=20260807p"></script>
+<script src="assets/commun.js?v=20260807s"></script>
+<script src="assets/ui.js?v=20260807s"></script>
+<script src="assets/ratios.js?v=20260807s"></script>
+<script src="assets/carte.js?v=20260807s"></script>
+<script src="assets/fonds/monde.js?v=20260807s"></script>
 <script>
 pageRubrique({
   id:'commerce',
@@ -40,48 +40,48 @@ pageRubrique({
       {fichier:'services',motif:'services_solde',code:'WRL_REST',et:'Solde des services'}
     ]},
     {type:'carte',fichier:'echanges',fond:'FOND_MONDE',cle:'a2',prefMotif:'exportations',
-     titre:'La carte des partenaires',
+     titre:'\u00c9changes de marchandises par pays, 1988-2025',
      quoi:'Exportations ou importations de marchandises par pays, depuis 1988. Les agr\u00e9gats \u2014 monde, Union europ\u00e9enne, zones \u2014 n\u2019ont pas de contour et sont list\u00e9s sous la carte.'},
     {type:'carte',fichier:'services',fond:'FOND_MONDE',cle:'a2',prefMotif:'services_solde',
-     titre:'Les services, pays par pays',
+     titre:'\u00c9changes de services par pays, 2010-2025',
      quoi:'Services export\u00e9s, import\u00e9s et solde depuis 2010. Sur le solde, l\u2019\u00e9chelle est centr\u00e9e sur z\u00e9ro : le rouge marque un d\u00e9ficit.'},
-    {type:'ratio',titre:'Le taux de couverture',
+    {type:'ratio',titre:'Taux de couverture des marchandises, 1988-2025',
      quoi:'Les exportations rapport\u00e9es aux importations de marchandises. Au-dessus de 100 %, la France vend plus qu\u2019elle n\u2019ach\u00e8te. Rapport calcul\u00e9 par la page, jamais grav\u00e9.',
      num:{fichier:'echanges',grandeur:'exportations',code:'WORLD'},
      den:{fichier:'echanges',grandeur:'importations',code:'WORLD'},
      libelle:'Exportations / importations, marchandises'},
-    {type:'ratio',titre:'Ce que les exportations p\u00e8sent dans la richesse produite',
+    {type:'ratio',titre:'Exportations rapport\u00e9es au PIB, 1949-2025',
      quoi:'Exportations de biens et services rapport\u00e9es au produit int\u00e9rieur brut. C\u2019est le rapport que la demande d\u2019origine r\u00e9clamait ; il n\u2019est pas grav\u00e9 au d\u00e9p\u00f4t, la page le calcule \u00e0 partir de deux fichiers.',
      num:{fichier:'comptes',grandeur:'exportations'},
      den:{fichier:'pib',colonne:'pib_courant_MEUR'},
      formule:'exportations des comptes nationaux \u00f7 PIB courant de M1',
      libelle:'Exportations rapport\u00e9es au PIB'},
-    {type:'ratio',titre:'Ce que les importations p\u00e8sent dans la richesse produite',
+    {type:'ratio',titre:'Importations rapport\u00e9es au PIB, 1949-2025',
      quoi:'M\u00eame lecture pour les importations.',
      num:{fichier:'comptes',grandeur:'importations'},
      den:{fichier:'pib',colonne:'pib_courant_MEUR'},
      formule:'importations des comptes nationaux \u00f7 PIB courant de M1',
      libelle:'Importations rapport\u00e9es au PIB'},
-    {type:'ratio',titre:'Le solde ext\u00e9rieur rapport\u00e9 au PIB',
+    {type:'ratio',titre:'Solde ext\u00e9rieur en points de PIB, 1949-2025',
      quoi:'Exportations moins importations, rapport\u00e9es au produit int\u00e9rieur brut : la balance en points de PIB. N\u00e9gative depuis le d\u00e9but des ann\u00e9es 2000.',
      num:{fichier:'comptes',grandeur:'exportations'},num2:{fichier:'comptes',grandeur:'importations'},operation:'moins',
      den:{fichier:'pib',colonne:'pib_courant_MEUR'},
      formule:'(exportations moins importations) \u00f7 PIB courant de M1',
      libelle:'Balance en points de PIB'},
     {type:'classement',fichier:'echanges',prefMotif:'exportations',
-     titre:'Les grands partenaires',
+     titre:'Classement des partenaires commerciaux',
      quoi:'Les pays class\u00e9s pour le flux choisi, \u00e0 l\u2019ann\u00e9e choisie. Attention : la liste m\u00eale pays et agr\u00e9gats, dont le total monde, et la part additionne donc des p\u00e9rim\u00e8tres qui se recouvrent.'},
     {type:'classement',fichier:'produits',prefMotif:'exportations',
-     titre:'Les grands produits',
+     titre:'Classement des produits \u00e9chang\u00e9s, 97 chapitres',
      quoi:'Les 97 chapitres du syst\u00e8me harmonis\u00e9, class\u00e9s \u00e0 l\u2019ann\u00e9e choisie.'},
     {type:'explorer',fichier:'echanges',prefMotif:'exportations',
-     titre:'Trajectoire d\u2019un partenaire',
+     titre:'\u00c9changes avec un pays, 1988-2025',
      quoi:'Choisis un pays et un flux : la courbe remonte \u00e0 1988.'},
     {type:'explorer',fichier:'services',prefMotif:'services_solde',
-     titre:'Trajectoire des services',
+     titre:'\u00c9changes de services avec un pays, 2010-2025',
      quoi:'Les m\u00eames s\u00e9ries pour les services, depuis 2010.'},
     {type:'explorer',fichier:'produits',prefMotif:'importations',
-     titre:'Trajectoire d\u2019un produit',
+     titre:'\u00c9changes d\u2019un produit, 1988-2025',
      quoi:'Exportations et importations par chapitre de produit, depuis 1988.'}
   ],
   reserves:[
