@@ -17,6 +17,12 @@ function pTable(zone,cfg,D){
   let head,rows;
   if(p.type==='table'){head=p.head.slice();rows=p.rows.map(r=>r.slice());}
   else{const c=corps(F.txt);head=c.head.slice();rows=c.rows.map(r=>r.slice());}
+  /* Filtre : une table de nomenclature melange tous les niveaux ; on ne garde
+     que celui qui interesse la vue. */
+  if(cfg.filtre){
+    const iF=head.indexOf(cfg.filtre.colonne);
+    if(iF>=0)rows=rows.filter(r=>r[iF]===cfg.filtre.valeur);
+  }
   /* Jointure de libelles : une table de nomenclature ne porte que le CODE du
      poste parent. Sans le libelle en face, « BZ appartient a DE » n'apprend
      rien. On va donc chercher le libelle dans la table parente. */
