@@ -112,13 +112,17 @@ function composantCourbe(host){
     for(const p of pts){if(p.v<mn)mn=p.v;if(p.v>mx)mx=p.v;}
     const estPct=/pct|%/.test(String(ctx.u||'').toLowerCase());
     const pad=(mx-mn)*0.03||Math.abs(mx)*0.01||1;
-    const y0=(mn<0||estPct)?mn-pad:0, y1=mx+pad;
+    /* L'axe part de zero quand la serie s'en approche - une masse comme le PIB -
+       mais pas quand elle oscille autour d'un niveau : un cours de change entre
+       1,13 et 1,15 serait ecrase tout en haut d'un axe partant de zero. */
+    const colleAZero=(mn>=0&&mn<=mx*0.35);
+    const y0=(mn<0||estPct||!colleAZero)?mn-pad:0, y1=mx+pad;
     Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
     grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(ctx.u||'').toLowerCase())?1000:1);
     grilleXc(svg,Math.floor(x0),Math.ceil(x1),X,H,gB);
     const gid='grad'+(++gradN);degrade(svg,gid,'#2A4BD7');
     let d='';pts.forEach((p,i)=>{d+=(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1);});
-    if(y0<=mn){
+    if(y0<=0&&mn>=0){
       const aire=d+'L'+X(x1).toFixed(1)+' '+Y(y0).toFixed(1)+'L'+X(x0).toFixed(1)+' '+Y(y0).toFixed(1)+'Z';
       svg.appendChild(el('path',{d:aire,fill:'url(#'+gid+')',stroke:'none'}));
     }
@@ -660,7 +664,8 @@ function pMulti(zone,cfg,D){
     if(!isFinite(x0))return;
     const estPct=/pct|%/.test(String(unite||'').toLowerCase());
     const pad=(mx-mn)*0.04||1;
-    const y0=(mn<0||estPct)?mn-pad:0,y1=mx+pad;
+    const colleAZero=(mn>=0&&mn<=mx*0.35);
+    const y0=(mn<0||estPct||!colleAZero)?mn-pad:0,y1=mx+pad;
     const X=x=>gL+(x-x0)*(W-gL-gR)/((x1-x0)||1);
     const Y=v=>gT+(y1-v)*(H-gT-gB)/((y1-y0)||1);
     grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(unite||'').toLowerCase())?1000:1);
