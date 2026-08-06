@@ -58,7 +58,7 @@ function composantCourbe(host){
     const x=X(p.x);
     pinL.setAttribute('x1',x);pinL.setAttribute('x2',x);pinL.setAttribute('visibility','visible');
     pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(p.v));pinC.setAttribute('visibility','visible');
-    expAn.textContent=p.t;
+    expAn.textContent=libPeriode(p.t);
     const f=fmtU(p.v,ctx.u);
     expVal.innerHTML='<b>'+ech(f.court)+'</b>'+(f.exact?' ('+ech(f.exact)+')':'')+(ctx.lib?' \u00b7 '+ech(ctx.lib):'');
   }
@@ -125,7 +125,7 @@ function composantCourbe(host){
       const p=pts[i],x=X(p.x);
       regle.setAttribute('x1',x);regle.setAttribute('x2',x);regle.setAttribute('visibility','visible');
       const f=fmtU(p.v,ctx.u);
-      tip.innerHTML='<div class="t">'+ech(p.t)+'</div><div class="r"><span class="d" style="background:var(--accent)"></span><b>'+ech(f.court)+'</b>'+(f.exact?' ('+ech(f.exact)+')':'')+'</div>';
+      tip.innerHTML='<div class="t">'+ech(libPeriode(p.t))+'</div><div class="r"><span class="d" style="background:var(--accent)"></span><b>'+ech(f.court)+'</b>'+(f.exact?' ('+ech(f.exact)+')':'')+'</div>';
       tip.hidden=false;
       const rb=box.getBoundingClientRect();
       let pxx=x/W*rb.width;const w=tip.offsetWidth;
@@ -193,12 +193,12 @@ function pCartes(zone,cfg,D){
     if(r.prevV!=null&&r.v!=null&&r.prevV!==0){
       const pct=/pct|%/.test(String(r.u||'').toLowerCase());
       const dtxt=pct
-        ?(((r.v-r.prevV)>=0?'+':'\u2212')+nf2.format(Math.abs(r.v-r.prevV))+' pt vs '+r.prevT)
-        :(fmtPct((r.v/r.prevV-1)*100)+' vs '+r.prevT);
+        ?(((r.v-r.prevV)>=0?'+':'\u2212')+nf2.format(Math.abs(r.v-r.prevV))+' pt vs '+libPeriode(r.prevT))
+        :(fmtPct((r.v/r.prevV-1)*100)+' vs '+libPeriode(r.prevT));
       ch='<span class="chip">'+ech(dtxt)+'</span>';
     }
     const et=r.gMatched&&pref.et?pref.et:pretty(r.g);
-    const qd=[pretty(r.g),r.t,r.codeNote,(f.exact||'')].filter(Boolean).join(' \u00b7 ');
+    const qd=[pretty(r.g),libPeriode(r.t),r.codeNote,(f.exact||'')].filter(Boolean).join(' \u00b7 ');
     out.push('<div class="stat"><div class="et">'+ech(et)+'</div>'+
       '<div class="rang"><span class="va">'+ech(f.court)+'</span>'+ch+'</div>'+
       '<div class="qd">'+ech(qd)+'</div></div>');
@@ -226,7 +226,7 @@ function pClassement(zone,cfg,D){
   let periodes=[];
   function majBarres(){
     if(!periodes.length){cls.innerHTML='<p class="note">Aucune p\u00e9riode ne porte de valeur pour cette s\u00e9lection.</p>';totEl.textContent='';expAn.textContent='';meta.textContent='';return;}
-    const per=periodes[+slider.value];expAn.textContent=per.t;
+    const per=periodes[+slider.value];expAn.textContent=libPeriode(per.t);
     const rows=filtrer(s,choix).filter(o=>o.t===per.t&&o.v!=null);
     const items=[],tots=[];
     for(const o of rows){
@@ -592,7 +592,7 @@ function pMulti(zone,cfg,D){
       for(const p of series[0].pts){const d=Math.abs(p.x-xc);if(d<dm){dm=d;ref=p;}}
       if(!ref)return;
       regle.setAttribute('x1',X(ref.x));regle.setAttribute('x2',X(ref.x));regle.setAttribute('visibility','visible');
-      let h='<div class="t">'+ech(ref.t)+'</div>';
+      let h='<div class="t">'+ech(libPeriode(ref.t))+'</div>';
       for(const se of series){
         let pr=null,d2=Infinity;
         for(const p of se.pts){const d=Math.abs(p.x-ref.x);if(d<d2){d2=d;pr=p;}}
@@ -609,7 +609,7 @@ function pMulti(zone,cfg,D){
     svg.appendChild(zone2);
     leg.innerHTML=series.map(function(se){
       const der=se.pts[se.pts.length-1];
-      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(der.t)+'</small></span>';
+      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(libPeriode(der.t))+'</small></span>';
     }).join('');
   }
   dessiner();
