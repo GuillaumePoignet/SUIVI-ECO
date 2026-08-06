@@ -138,9 +138,9 @@ footer{margin-top:30px}
 /* Choix de la plage : des boutons, plus directs qu un menu deroulant. */
 .choix{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0 0}
 .choix span{font-size:11.5px;font-weight:600;color:var(--muet);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
-.choix button{border:1px solid var(--ligne);background:var(--carte);color:var(--texte);
-  border-radius:999px;padding:5px 14px;font:600 13px "Public Sans",sans-serif}
-.choix button:hover{border-color:var(--accent2);color:var(--accent)}
+.choix button{border:1px solid #C6CDE0;background:var(--carte);color:var(--encre);
+  border-radius:999px;padding:6px 15px;font:600 13.5px "Public Sans",sans-serif}
+.choix button:hover{border-color:var(--accent);color:var(--accent);background:#F4F6FC}
 .choix button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 
 /* Encarts de definitions : denses, pour ne pas manger la page. */
@@ -174,12 +174,13 @@ details.explic>*:last-child{margin-bottom:26px}
 .explic .paras p{margin-top:0;margin-bottom:12px;color:var(--texte);font-size:14.5px;line-height:1.65}
 
 .choix button i{width:11px;height:3px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:middle}
-.choix button:not(.on){opacity:.55}
-.choix button:not(.on) i{opacity:.4}
+
+
 
 /* Un bouton de courbe actif ne doit pas avaler sa propre couleur : fond clair,
    bordure et pastille de la teinte de la serie. */
 .choix button.courbe{border:2px solid var(--ligne);background:var(--carte);color:var(--texte)}
 .choix button.courbe.on{background:#fff;border-color:var(--c);color:var(--encre)}
 .choix button.courbe.on i{background:var(--c) !important}
-.choix button.courbe:not(.on){opacity:.5}
+.choix button.courbe:not(.on){background:#EDEFF6;color:var(--texte);border-color:#C6CDE0}
+.choix button.courbe:not(.on) i{opacity:.45}
