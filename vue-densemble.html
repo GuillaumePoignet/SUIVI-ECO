@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260806g">
+<link rel="stylesheet" href="assets/commun.css?v=20260806h">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260806g"></script>
-<script src="assets/ui.js?v=20260806g"></script>
-<script src="assets/tableau.js?v=20260806g"></script>
+<script src="assets/commun.js?v=20260806h"></script>
+<script src="assets/ui.js?v=20260806h"></script>
+<script src="assets/tableau.js?v=20260806h"></script>
 <script>
 pageRubrique({
   id:'vue-densemble',
@@ -26,8 +26,10 @@ pageRubrique({
     bceMensuel:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv',
     tauxFrance:'ECO/series/M1_TAUX_FRANCE_MENSUEL_1986-2026.csv',
     courbe:'ECO/series/M1_COURBE_TAUX_ZONE_EURO.csv',
-    change:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv'
+    change:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv',
+    devises:'ECO/series/M1_DEVISES.csv'
   },
+  axes:{change:'devises'},
   panneaux:[
     {type:'cartes',prefs:[
       {fichier:'inflation',motif:'glissement',et:'Inflation, sur un an'},
