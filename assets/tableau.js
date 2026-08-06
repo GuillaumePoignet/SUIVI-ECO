@@ -15,8 +15,21 @@ function pTable(zone,cfg,D){
   if(!F){sh.corps.innerHTML='<p class="note">Fichier absent.</p>';return;}
   const p=F.serie;
   let head,rows;
-  if(p.type==='table'){head=p.head;rows=p.rows;}
-  else{const c=corps(F.txt);head=c.head;rows=c.rows;}
+  if(p.type==='table'){head=p.head.slice();rows=p.rows.map(r=>r.slice());}
+  else{const c=corps(F.txt);head=c.head.slice();rows=c.rows.map(r=>r.slice());}
+  /* Jointure de libelles : une table de nomenclature ne porte que le CODE du
+     poste parent. Sans le libelle en face, « BZ appartient a DE » n'apprend
+     rien. On va donc chercher le libelle dans la table parente. */
+  if(cfg.joindre){
+    for(const j of cfg.joindre){
+      const iSrc=head.indexOf(j.colonne);
+      const P=D[j.table];
+      if(iSrc<0||!P)continue;
+      const map=P.axeMap||axeDe(P.serie);
+      head=head.concat([j.titre||('libelle_'+j.colonne)]);
+      rows=rows.map(r=>r.concat([map[r[iSrc]]||'']));
+    }
+  }
   const cols=cfg.colonnes&&cfg.colonnes.length?cfg.colonnes.filter(c=>head.indexOf(c)>=0):head;
   const idx=cols.map(c=>head.indexOf(c));
   const num={};cols.forEach(function(c,j){
