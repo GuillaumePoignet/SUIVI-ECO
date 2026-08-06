@@ -88,7 +88,10 @@ function fmtU(v,u){
   if(/millier/.test(ul))return {court:nf0.format(Math.round(v))+' milliers',exact:null};
   if(/^euros?$|^eur$/.test(ul))return {court:nf0.format(Math.round(v))+' \u20ac',exact:null};
   const c=Math.abs(v)>=1000?nf0.format(Math.round(v)):(Math.abs(v)>=10?nf1.format(v):nf4.format(v));
-  return {court:c+(u?' '+u:''),exact:null};
+  /* Une unite venue d'un fichier s'ecrit avec des tirets bas : on ne les montre
+     jamais a l'ecran, sans majuscule puisqu'elle suit un nombre. */
+  const uu=u?String(u).replace(/_/g,' ').trim():'';
+  return {court:c+(uu?' '+uu:''),exact:null};
 }
 
 /* ---------- acces au depot ---------- */
