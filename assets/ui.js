@@ -61,13 +61,14 @@ function composantCourbe(host){
     const x=X(p.x);
     pinL.setAttribute('x1',x);pinL.setAttribute('x2',x);pinL.setAttribute('visibility','visible');
     pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(p.v));pinC.setAttribute('visibility','visible');
-    expAn.textContent=libPeriode(p.t);
+    expAn.textContent=libPeriodeMaj(p.t);
     const f=fmtU(p.v,ctx.u);
     /* La periode est rappelee dans la ligne de valeur : le curseur seul ne dit
        pas assez fort de quelle annee on parle. */
-    expVal.innerHTML=ctx.lib?ech(ctx.lib):'';
+    expVal.innerHTML='';
     if(valSel){
-      valSel.innerHTML='<span class="p">'+ech(libPeriode(p.t))+'</span><span class="v">'+ech(f.court)+'</span>';
+      valSel.innerHTML='<span class="p">'+ech(libPeriodeMaj(p.t))+'</span><span class="v">'+ech(f.court)+'</span>'+
+        (ctx.lib?'<span class="l">'+ech(ctx.lib)+'</span>':'');
       valSel.hidden=false;
     }
   }
@@ -242,7 +243,7 @@ function pClassement(zone,cfg,D){
   let periodes=[];
   function majBarres(){
     if(!periodes.length){cls.innerHTML='<p class="note">Aucune p\u00e9riode ne porte de valeur pour cette s\u00e9lection.</p>';totEl.textContent='';expAn.textContent='';meta.textContent='';return;}
-    const per=periodes[+slider.value];expAn.textContent=libPeriode(per.t);
+    const per=periodes[+slider.value];expAn.textContent=libPeriodeMaj(per.t);
     const rows=filtrer(s,choix).filter(o=>o.t===per.t&&o.v!=null);
     const items=[],tots=[];
     for(const o of rows){
@@ -307,7 +308,7 @@ function pExplorer(zone,cfg,D){
   }
   for(const f of s.facettes){
     if(s.vals[f].length<=20){
-      const bar=boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majTout();});
+      const bar=boutons(sh.corps,cfg.libelleChoix||'Afficher',s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majTout();});
       if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);
       continue;
     }
@@ -516,7 +517,7 @@ function pColonne(zone,cfg,D){
     if(depuis)pts=pts.filter(p=>p.x>=depuis);
     cc.maj(pts,{u:d.unite||'',lib:d.lib,uniteY:d.uniteY||d.unite||'',meta:d.note||''});
   }
-  const barG=boutons(sh.corps,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
+  const barG=boutons(sh.corps,cfg.libelleChoix||'Afficher',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
   if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(barG,cc.bloc);
   maj();
 }
@@ -551,7 +552,7 @@ function pMulti(zone,cfg,D){
      autres, et on ne peut pas toutes les eteindre. */
   const actives={};toutes.forEach(t=>{actives[t.cle]=true;});
   const barre=document.createElement('div');barre.className='choix';
-  barre.innerHTML='<span>Courbes</span>';
+  barre.innerHTML='<span>'+ech(cfg.libelleChoix||'Afficher')+'</span>';
   const btns={};
   toutes.forEach(function(t){
     const b=document.createElement('button');b.type='button';b.className='on courbe';
@@ -611,7 +612,7 @@ function pMulti(zone,cfg,D){
       for(const p of series[0].pts){const d=Math.abs(p.x-xc);if(d<dm){dm=d;ref=p;}}
       if(!ref)return;
       regle.setAttribute('x1',X(ref.x));regle.setAttribute('x2',X(ref.x));regle.setAttribute('visibility','visible');
-      let h='<div class="t">'+ech(libPeriode(ref.t))+'</div>';
+      let h='<div class="t">'+ech(libPeriodeMaj(ref.t))+'</div>';
       for(const se of series){
         let pr=null,d2=Infinity;
         for(const p of se.pts){const d=Math.abs(p.x-ref.x);if(d<d2){d2=d;pr=p;}}
@@ -628,7 +629,7 @@ function pMulti(zone,cfg,D){
     svg.appendChild(zone2);
     leg.innerHTML=series.map(function(se){
       const der=se.pts[se.pts.length-1];
-      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(libPeriode(der.t))+'</small></span>';
+      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(libPeriodeMaj(der.t))+'</small></span>';
     }).join('');
   }
   dessiner();
