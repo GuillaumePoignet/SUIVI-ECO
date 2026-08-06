@@ -178,7 +178,11 @@ function pCarte(zone,cfg,D){
   }
   for(const f of s.facettes){
     if(f==='code')continue;
-    const sel=selecteur(filt,pretty(f),s.vals[f],v=>pretty(v),choix[f]);
+    if(s.vals[f].length<=20&&typeof boutons==='function'){
+      boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majPeriodes();});
+      continue;
+    }
+    const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majPeriodes();});
   }
   c.slider.addEventListener('input',majCarte);
