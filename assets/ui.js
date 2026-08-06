@@ -603,7 +603,7 @@ function pMulti(zone,cfg,D){
       }
       if(p)h+='<span class="l1"><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+
         ' <b>'+ech(fmtU(p.v,unite).court)+'</b>'+
-        (vieux?'<small> au '+ech(libPeriode(p.t))+'</small>':'')+'</span>';
+        (vieux?'<small> ('+ech(libPeriode(p.t))+')</small>':'')+'</span>';
     }
     cadre.innerHTML=h+'</span>';cadre.hidden=false;
   }
