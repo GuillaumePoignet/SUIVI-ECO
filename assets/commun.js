@@ -59,6 +59,10 @@ const MOTS={pib:'PIB',ipc:'IPC',tva:'TVA',apu:'APU',fbcf:'FBCF',etp:'ETP',pct:'%
 /* Les codes de periode des fichiers - 2026-M08, 2026-T2 - sont faits pour les
    machines. On les ecrit en francais partout ou un lecteur les voit. */
 const MOIS=['janvier','f\u00e9vrier','mars','avril','mai','juin','juillet','ao\u00fbt','septembre','octobre','novembre','d\u00e9cembre'];
+/* Une etiquette isolee prend la majuscule ; dans une phrase - « vs juillet
+   2026 » - on garde la minuscule, d'ou deux fonctions. */
+function majDebut(s){s=String(s||'');return s?s.charAt(0).toUpperCase()+s.slice(1):s;}
+function libPeriodeMaj(t){return majDebut(libPeriode(t));}
 function libPeriode(t){
   t=String(t==null?'':t);
   let m=t.match(/^(\d{4})-M(\d{2})$/i);
