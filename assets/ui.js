@@ -43,18 +43,20 @@ function etiquetteFin(svg,x,y,txt,couleur){
 /* ---------- composant courbe (svg + infobulle + curseur) ---------- */
 function composantCourbe(host){
   const bloc=document.createElement('div');
-  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div></div>'+
+  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div>'+
+    '<div class="valSel" hidden></div></div>'+
     '<div class="explore"><label>Choisir une p\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1"><span class="exp-an"></span><div class="exp-val"></div></div>'+
     '<p class="metaC"></p>';
   host.appendChild(bloc);
   const box=bloc.querySelector('.chartbox'),svg=box.querySelector('svg'),tip=box.querySelector('.tip');
   const slider=bloc.querySelector('input'),expAn=bloc.querySelector('.exp-an'),expVal=bloc.querySelector('.exp-val'),meta=bloc.querySelector('.metaC');
+  const valSel=bloc.querySelector('.valSel');
   const W=1000,H=400,gL=104,gR=24,gT=26,gB=40;
   let pts=[],ctx={},X=null,Y=null,pinL=null,pinC=null;
   function majPin(){
     if(!pinL)return;
     const p=pts[+slider.value];
-    if(!p){pinL.setAttribute('visibility','hidden');pinC.setAttribute('visibility','hidden');expAn.textContent='';expVal.textContent='';return;}
+    if(!p){pinL.setAttribute('visibility','hidden');pinC.setAttribute('visibility','hidden');expAn.textContent='';expVal.textContent='';if(valSel)valSel.hidden=true;return;}
     const x=X(p.x);
     pinL.setAttribute('x1',x);pinL.setAttribute('x2',x);pinL.setAttribute('visibility','visible');
     pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(p.v));pinC.setAttribute('visibility','visible');
@@ -62,8 +64,11 @@ function composantCourbe(host){
     const f=fmtU(p.v,ctx.u);
     /* La periode est rappelee dans la ligne de valeur : le curseur seul ne dit
        pas assez fort de quelle annee on parle. */
-    expVal.innerHTML='<span class="an">'+ech(libPeriode(p.t))+'</span> <b>'+ech(f.court)+'</b>'+
-      (ctx.lib?' \u00b7 '+ech(ctx.lib):'');
+    expVal.innerHTML=ctx.lib?ech(ctx.lib):'';
+    if(valSel){
+      valSel.innerHTML='<span class="p">'+ech(libPeriode(p.t))+'</span><span class="v">'+ech(f.court)+'</span>';
+      valSel.hidden=false;
+    }
   }
   slider.addEventListener('input',majPin);
   function libelleAxes(){
