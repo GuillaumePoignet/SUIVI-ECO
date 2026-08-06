@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260806a">
+<link rel="stylesheet" href="assets/commun.css?v=20260806b">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260806a"></script>
-<script src="assets/ui.js?v=20260806a"></script>
-<script src="assets/tableau.js?v=20260806a"></script>
+<script src="assets/commun.js?v=20260806b"></script>
+<script src="assets/ui.js?v=20260806b"></script>
+<script src="assets/tableau.js?v=20260806b"></script>
 <script>
 pageRubrique({
   id:'vue-densemble',
@@ -26,7 +26,6 @@ pageRubrique({
     bceMensuel:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv',
     bceDecisions:'ECO/series/M1_TAUX_BCE_DECISIONS.csv',
     tauxFrance:'ECO/series/M1_TAUX_FRANCE_MENSUEL_1986-2026.csv',
-    escompte:'ECO/series/M1_TAUX_ESCOMPTE_1800-1990.csv',
     change:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv',
     points:'ECO/series/M1_TAUX_CHANGE_2026-07.csv'
   },
@@ -38,7 +37,7 @@ pageRubrique({
       {fichier:'tauxFrance',motif:'credit_habitat',et:'Cr\u00e9dit \u00e0 l\u2019habitat'}
     ]},
     {type:'colonne',fichier:'pib',debut:1949,
-     titre:'La richesse produite chaque ann\u00e9e',
+     titre:'Produit int\u00e9rieur brut, 1949-2025',
      quoi:'Le produit int\u00e9rieur brut sous ses cinq mesures. Choisis la grandeur et la p\u00e9riode affich\u00e9e.',
      colonnes:[
        {col:'pib_courant_MEUR',lib:'PIB aux prix courants',unite:'meur',uniteY:'en millions d\u2019euros courants'},
@@ -49,7 +48,7 @@ pageRubrique({
        {col:'indice_prix_pib',lib:'Indice de prix du PIB',unite:'',uniteY:'indice, base 100 en 2020',
         note:'C\u2019est le d\u00e9flateur : il mesure la hausse des prix de tout ce qui est produit, pas seulement de ce que les m\u00e9nages ach\u00e8tent.'}
      ]},
-    {type:'texte',titre:'Prix courants, prix cha\u00een\u00e9s : la distinction qui change tout',
+    {type:'texte',titre:'D\u00e9finitions : prix courants et prix cha\u00een\u00e9s',
      chapeau:'Deux chiffres de PIB coexistent pour la m\u00eame ann\u00e9e, et ils ne racontent pas la m\u00eame chose.',
      definitions:[
        ['Aux prix courants','La valeur telle qu\u2019elle a \u00e9t\u00e9 pay\u00e9e cette ann\u00e9e-l\u00e0. Elle m\u00e9lange deux mouvements : on a produit plus, et les prix ont mont\u00e9. C\u2019est le chiffre qui sert \u00e0 rapporter une grandeur \u00e0 une autre de la m\u00eame ann\u00e9e \u2014 la dette rapport\u00e9e au PIB, par exemple.'],
@@ -58,12 +57,12 @@ pageRubrique({
        ['Indice de prix du PIB','Le rapport entre les deux pr\u00e9c\u00e9dents. Il dit de combien les prix ont mont\u00e9 en moyenne sur tout ce que le pays produit.']
      ]},
     {type:'explorer',fichier:'inflation',prefMotif:'glissement',debut:1997,
-     titre:'L\u2019inflation, dans ses deux mesures',
+     titre:'Inflation, glissement annuel et moyenne annuelle',
      quoi:'Choisis la mesure : le glissement annuel compare un mois au m\u00eame mois un an plus t\u00f4t, la moyenne annuelle compare une ann\u00e9e enti\u00e8re \u00e0 la pr\u00e9c\u00e9dente. Un m\u00eame moment peut afficher 2,1 % en glissement quand l\u2019ann\u00e9e sera \u00e0 0,9 % en moyenne.'},
     {type:'explorer',fichier:'bceMensuel',prefMotif:'depot',debut:1999,
-     titre:'Les trois taux de la Banque centrale europ\u00e9enne',
+     titre:'Taux directeurs de la BCE, depuis 1999',
      quoi:'Le taux affich\u00e9 en haut de page est celui de la facilit\u00e9 de d\u00e9p\u00f4t. Les trois sont ici, mois par mois depuis 1999.'},
-    {type:'texte',titre:'\u00c0 quoi servent ces taux, et ce qu\u2019ils d\u00e9clenchent',
+    {type:'texte',titre:'D\u00e9finitions : les taux directeurs et leurs effets',
      chapeau:'La banque centrale ne fixe pas le taux de ton cr\u00e9dit. Elle fixe le prix de l\u2019argent pour les banques, et tout le reste en d\u00e9coule.',
      definitions:[
        ['Facilit\u00e9 de d\u00e9p\u00f4t','Ce que la BCE verse aux banques qui laissent leur argent chez elle pour la nuit. C\u2019est devenu le taux directeur de r\u00e9f\u00e9rence : comme les banques croulent sous les liquidit\u00e9s depuis 2015, c\u2019est ce plancher qui commande le march\u00e9.'],
@@ -78,25 +77,20 @@ pageRubrique({
        'Ce qui s\u2019est pass\u00e9 en 2022 : apr\u00e8s huit ans de taux n\u00e9gatifs, la BCE a relev\u00e9 ses taux d\u2019environ quatre points en un peu plus d\u2019un an, la remont\u00e9e la plus rapide de son histoire. Elle r\u00e9pondait \u00e0 une inflation qui a atteint 5,2 % en moyenne sur 2022 puis 4,9 % en 2023, nourrie par le prix de l\u2019\u00e9nergie et les tensions d\u2019approvisionnement d\u2019apr\u00e8s-pand\u00e9mie. La courbe du cr\u00e9dit \u00e0 l\u2019habitat, juste en dessous, montre ce que cela a co\u00fbt\u00e9 aux emprunteurs.'
      ]},
     {type:'explorer',fichier:'tauxFrance',prefMotif:'emprunt_etat',debut:1986,
-     titre:'Ce que paient l\u2019\u00c9tat, les entreprises et les m\u00e9nages',
+     titre:'Emprunt d\u2019\u00c9tat et taux de cr\u00e9dit, depuis 1986',
      quoi:'Trois taux fran\u00e7ais mois par mois : l\u2019emprunt d\u2019\u00c9tat \u00e0 dix ans depuis 1986, le cr\u00e9dit aux entreprises depuis 2000, le cr\u00e9dit \u00e0 l\u2019habitat depuis 2003. Ce sont des taux de NOUVEAUX contrats : une baisse ne soulage jamais ceux qui ont d\u00e9j\u00e0 emprunt\u00e9.'},
     {type:'tableau',fichier:'bceDecisions',page:25,
-     titre:'Chaque d\u00e9cision de la banque centrale',
+     titre:'D\u00e9cisions de taux de la BCE, depuis 1999',
      quoi:'Les d\u00e9cisions de taux depuis 1999, une ligne par changement. Le taux en vigueur \u00e0 une date est celui de la derni\u00e8re ligne ant\u00e9rieure. Clique une colonne pour trier, cherche une ann\u00e9e pour la retrouver.'},
     {type:'explorer',fichier:'change',prefMotif:'',debut:1999,
-     titre:'Combien vaut un euro dans chaque monnaie',
+     titre:'Taux de change de l\u2019euro, 16 monnaies',
      quoi:'Choisis la monnaie : la courbe donne combien d\u2019unit\u00e9s de cette monnaie s\u2019\u00e9changent contre un euro, en moyenne sur l\u2019ann\u00e9e. Quand la courbe monte, l\u2019euro se renforce. Les seize monnaies sont celles que la Banque centrale europ\u00e9enne publie en r\u00e9f\u00e9rence quotidienne \u2014 le d\u00e9p\u00f4t n\u2019en a choisi aucune.'},
     {type:'tableau',fichier:'points',
-     titre:'Les derniers points connus',
-     quoi:'Le relev\u00e9 le plus r\u00e9cent de chaque indicateur, avec sa source, son identifiant de s\u00e9rie et son mill\u00e9sime. Ces points sont plus frais que les s\u00e9ries ci-dessus, et parfois d\u2019une nature diff\u00e9rente : un cours du jour n\u2019est pas une moyenne annuelle.'},
-    {type:'explorer',fichier:'escompte',prefMotif:'',
-     titre:'Le loyer de l\u2019argent avant l\u2019euro, 1800-1990',
-     quoi:'Le taux d\u2019escompte de la Banque de France, un point par changement. Cette s\u00e9rie est ici pour la m\u00e9moire longue ; elle ne se raccorde pas aux taux de la BCE, qui ne mesurent pas la m\u00eame chose.'}
-  ],
+     titre:'Derniers points publi\u00e9s, par indicateur',
+     quoi:'Le relev\u00e9 le plus r\u00e9cent de chaque indicateur, avec sa source, son identifiant de s\u00e9rie et son mill\u00e9sime. Ces points sont plus frais que les s\u00e9ries ci-dessus, et parfois d\u2019une nature diff\u00e9rente : un cours du jour n\u2019est pas une moyenne annuelle.'}],
   reserves:[
     'Les cours de change sont ceux de la Banque centrale europ\u00e9enne : ils disent combien d\u2019unit\u00e9s d\u2019une monnaie valent UN euro, jamais l\u2019inverse. Pour lire dans l\u2019autre sens, il faut diviser un par la valeur affich\u00e9e.',
     'Le rouble s\u2019arr\u00eate en 2021 : la BCE a cess\u00e9 de publier sa r\u00e9f\u00e9rence quotidienne. L\u2019absence de points apr\u00e8s cette date n\u2019est pas un trou du d\u00e9p\u00f4t.',
-    'La s\u00e9rie d\u2019escompte porte une date impossible, 1898-19-20, sur une valeur de 3,0 % : elle est \u00e9cart\u00e9e du trac\u00e9 et la correction demande de relire le document de la Banque de France sans deviner le mois.',
     'Le fichier des derniers points s\u2019appelle encore M1_TAUX_CHANGE_2026-07 alors qu\u2019il porte aussi l\u2019inflation, les taux et les cr\u00e9dits : le nom ment sur le contenu, et c\u2019est signal\u00e9 en attendant d\u2019\u00eatre corrig\u00e9 \u00e0 la source.'
   ]
 });
