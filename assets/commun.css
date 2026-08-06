@@ -194,3 +194,5 @@ details.explic[open] summary{padding-bottom:2px}
 .explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
 .explic .paras p:last-child{margin-bottom:0}
 .exp-val .an{font-weight:700;color:var(--encre);margin-right:6px}
+.chip.rouge{background:rgba(168,35,27,.10);color:var(--rouge)}
+.chip.vert{background:rgba(17,107,74,.12);color:var(--vertfonce)}
