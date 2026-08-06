@@ -60,7 +60,10 @@ function composantCourbe(host){
     pinC.setAttribute('cx',x);pinC.setAttribute('cy',Y(p.v));pinC.setAttribute('visibility','visible');
     expAn.textContent=libPeriode(p.t);
     const f=fmtU(p.v,ctx.u);
-    expVal.innerHTML='<b>'+ech(f.court)+'</b>'+(f.exact?' ('+ech(f.exact)+')':'')+(ctx.lib?' \u00b7 '+ech(ctx.lib):'');
+    /* La periode est rappelee dans la ligne de valeur : le curseur seul ne dit
+       pas assez fort de quelle annee on parle. */
+    expVal.innerHTML='<span class="an">'+ech(libPeriode(p.t))+'</span> <b>'+ech(f.court)+'</b>'+
+      (ctx.lib?' \u00b7 '+ech(ctx.lib):'');
   }
   slider.addEventListener('input',majPin);
   function libelleAxes(){
