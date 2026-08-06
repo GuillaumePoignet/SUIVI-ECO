@@ -305,9 +305,11 @@ function pExplorer(zone,cfg,D){
   /* Sens de lecture : un taux se lit dans les deux sens, et l'inverse est une
      simple division - calculee ici, jamais gravee au depot. */
   let inverse=false;
+  let grain='an';
   function majTout(){
     const rows=filtrer(s,choix);
     const st=serieTemps(rows);
+    if(estInfraAnnuel(st.pts))st.pts=(grain==='an')?parAn(st.pts):derniereAnnee(st.pts);
     if(cfg.inverse&&inverse)st.pts=st.pts.filter(p=>p.v!==0).map(p=>({t:p.t,x:p.x,v:1/p.v}));
     if(depuis)st.pts=st.pts.filter(p=>p.x>=depuis);
     let u=uniteDe(rows);
@@ -319,6 +321,7 @@ function pExplorer(zone,cfg,D){
     const notes=[];
     if(st.ecartes)notes.push(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.');
     if(cfg.inverse&&inverse)notes.push('Valeur invers\u00e9e (un divis\u00e9 par le taux publi\u00e9), calcul\u00e9e par la page.');
+    if(grain==='an')notes.push('Vue annuelle : dernier point connu de chaque ann\u00e9e, sans moyenne.');
     cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),uniteY:(cfg.inverse&&inverse)?(cfg.inverse.uniteY||''):null,meta:notes.join(' ')});
   }
   for(const f of s.facettes){
@@ -329,6 +332,12 @@ function pExplorer(zone,cfg,D){
     }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
+  }
+  if(estInfraAnnuel(serieTemps(filtrer(s,choix)).pts)){
+    const g=[['Par an',('an')],['Par mois, derni\u00e8re ann\u00e9e','mois']];
+    const barG=boutons(sh.corps,'D\u00e9tail',g.map(x=>x[1]),v=>g.find(x=>x[1]===v)[0],'an',
+      v=>{grain=v;majTout();});
+    if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(barG,cc.bloc);
   }
   if(cfg.inverse){
     const o=[[cfg.inverse.libDirect||'Sens direct',false],[cfg.inverse.libInverse||'Sens inverse',true]];
@@ -492,6 +501,22 @@ function pageRubrique(config){
 /* Un panneau qui n'affiche aucune donnee : il explique. Une page de chiffres
    sans definitions se lit mal, et les definitions valent d'etre ecrites une
    fois pour toutes plutot que devinees. */
+
+/* Granularite d'une serie infra-annuelle. On ne fabrique AUCUNE moyenne :
+   « par an » retient le dernier point connu de chaque annee, « par mois »
+   montre le detail de la derniere annee. Une moyenne serait un calcul, et il
+   faudrait alors dire lequel. */
+function estInfraAnnuel(pts){return pts.some(p=>/-(M\d{2}|T[1-4]|\d{2})$/.test(String(p.t)));}
+function parAn(pts){
+  const der={};
+  for(const p of pts){const a=String(p.t).slice(0,4);if(!der[a]||p.x>der[a].x)der[a]=p;}
+  return Object.keys(der).sort().map(a=>({t:a,x:Math.floor(der[a].x),v:der[a].v,tSource:der[a].t}));
+}
+function derniereAnnee(pts){
+  if(!pts.length)return pts;
+  const a=String(pts[pts.length-1].t).slice(0,4);
+  return pts.filter(p=>String(p.t).slice(0,4)===a);
+}
 function pTexte(zone,cfg,D){
   const sec=document.createElement('details');sec.className='panneau explic';
   let h='<summary><span class="lib">'+ech(cfg.titre)+'</span></summary>';
