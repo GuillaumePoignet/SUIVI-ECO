@@ -8,18 +8,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807p">
+<link rel="stylesheet" href="assets/commun.css?v=20260807q">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807p"></script>
-<script src="assets/ui.js?v=20260807p"></script>
-<script src="assets/ratios.js?v=20260807p"></script>
+<script src="assets/commun.js?v=20260807q"></script>
+<script src="assets/ui.js?v=20260807q"></script>
+<script src="assets/ratios.js?v=20260807q"></script>
 <script>
 pageRubrique({
   id:'branches',
   titre:'Production par branche',
-  sous:'Qui produit quoi : production, valeur ajout\u00e9e, emplois et \u00e9changes, en dix-sept branches. Chaque chiffre est lu tel quel dans les fichiers du socle et garde sa source, sa date et son mill\u00e9sime.',
+  sous:'Qui produit quoi en France : la richesse cr\u00e9\u00e9e par chaque secteur d\u2019activit\u00e9, les emplois qu\u2019il fait vivre, ce qu\u2019il vend \u00e0 l\u2019\u00e9tranger. Chaque chiffre est lu tel quel dans les fichiers du socle et garde sa source, sa date et son mill\u00e9sime.',
   fichiers:{
     axes:'ECO/series/M2_BRANCHES_A17.csv',
     comptes:'ECO/series/M2_COMPTES_BRANCHES_A17_VUES_1949-2025.csv',
@@ -39,46 +39,56 @@ pageRubrique({
         tes:'axes',comptes38:'axes38',emploi38:'axes38',echanges38:'axes38',comptes88:'axes88'},
   panneaux:[
     {type:'cartes',prefs:[
-      {fichier:'comptes',motif:'valeur_ajout',et:'Valeur ajout\u00e9e'},
+      {fichier:'comptes',motif:'valeur_ajout',et:'Richesse cr\u00e9\u00e9e'},
       {fichier:'comptes',motif:'production',et:'Production'},
-      {fichier:'emploi',motif:'emploi_total',et:'Emploi total'},
-      {fichier:'capacites',motif:'taux_utilisation',et:'Capacit\u00e9s utilis\u00e9es'}
+      {fichier:'emploi',motif:'emploi_total',et:'Personnes en emploi'},
+      {fichier:'capacites',motif:'taux_utilisation',et:'Usines : taux d\u2019utilisation'}
     ]},
-    {type:'ratio',titre:'Le taux de marge des branches',
-     quoi:'L\u2019exc\u00e9dent brut d\u2019exploitation rapport\u00e9 \u00e0 la valeur ajout\u00e9e : ce qui reste \u00e0 la branche une fois les salaires et les imp\u00f4ts de production pay\u00e9s. Le d\u00e9p\u00f4t ne grave pas ce rapport \u2014 grav\u00e9, il deviendrait faux d\u00e8s la premi\u00e8re r\u00e9vision de son num\u00e9rateur \u2014 la page le calcule.',
+    {type:'texte',titre:'D\u00e9finitions : lire les comptes d\u2019un secteur',
+     chapeau:'Cinq mots reviennent partout sur cette page. Ils ont un sens pr\u00e9cis en comptabilit\u00e9 nationale, souvent diff\u00e9rent du sens courant.',
+     definitions:[
+       ['Branche, ou secteur','Un regroupement d\u2019activit\u00e9s qui produisent la m\u00eame chose : l\u2019agriculture, la construction, les transports. Une entreprise peut relever de plusieurs branches si elle exerce plusieurs m\u00e9tiers. Le d\u00e9coupage existe en 17, 38 ou 88 postes selon la finesse voulue.'],
+       ['Production','La valeur totale de ce qui a \u00e9t\u00e9 fabriqu\u00e9 ou fourni dans l\u2019ann\u00e9e, avant d\u00e9duction de quoi que ce soit. Elle compte donc plusieurs fois la m\u00eame mati\u00e8re quand elle traverse plusieurs secteurs : le bl\u00e9, puis la farine, puis le pain.'],
+       ['Consommations interm\u00e9diaires','Ce que le secteur a d\u00fb acheter \u00e0 d\u2019autres pour produire : mati\u00e8res, \u00e9nergie, services. Sur l\u2019ensemble de l\u2019\u00e9conomie fran\u00e7aise, elles repr\u00e9sentent 51 % de la production \u2014 plus de la moiti\u00e9 du prix final est de l\u2019achat \u00e0 d\u2019autres.'],
+       ['Valeur ajout\u00e9e','La production moins ces achats : la richesse r\u00e9ellement cr\u00e9\u00e9e par le secteur. C\u2019est elle qu\u2019on additionne pour obtenir le produit int\u00e9rieur brut, et elle seule \u2014 additionner les productions compterait plusieurs fois la m\u00eame chose.'],
+       ['Exc\u00e9dent brut d\u2019exploitation','Ce qui reste de la valeur ajout\u00e9e une fois pay\u00e9s les salaires, les cotisations et les imp\u00f4ts sur la production. Pour les ind\u00e9pendants, il se m\u00eale au revenu de leur travail : la comptabilit\u00e9 nationale ne sait pas les s\u00e9parer et parle alors de revenu mixte.'],
+       ['Les trois vues','En VALEUR, aux prix de l\u2019ann\u00e9e. En VOLUME, en retirant l\u2019effet des prix pour ne garder que les quantit\u00e9s. En PRIX, l\u2019\u00e9volution des prix seule. Les volumes ne s\u2019additionnent pas entre secteurs : la somme des branches ne fait pas le total, et l\u2019\u00e9cart atteint 58 milliards d\u2019euros.']
+     ]},
+    {type:'ratio',titre:'Ce qui reste aux entreprises une fois les salaires pay\u00e9s',
+     quoi:'Sur 100 euros de richesse cr\u00e9\u00e9e, combien reste-t-il aux entreprises apr\u00e8s avoir pay\u00e9 les salaires, les cotisations et les imp\u00f4ts sur la production ? C\u2019est avec cette part qu\u2019elles remboursent leurs emprunts, paient l\u2019imp\u00f4t sur les b\u00e9n\u00e9fices, versent des dividendes et surtout investissent. Quand elle s\u2019effrite durablement, l\u2019investissement suit. Le chiffre porte ici sur l\u2019ensemble de l\u2019\u00e9conomie ; il n\u2019est pas grav\u00e9 au d\u00e9p\u00f4t mais calcul\u00e9 \u00e0 la lecture, car un rapport grav\u00e9 devient faux d\u00e8s que son num\u00e9rateur est r\u00e9vis\u00e9.',
      num:{fichier:'tes',grandeur:'excedent_brut'},den:{fichier:'tes',grandeur:'valeur_ajoutee'},
      libelle:'Taux de marge, ensemble des branches'},
     {type:'classement',fichier:'comptes',prefMotif:'valeur_ajout',
-     titre:'Le poids de chaque branche',
-     quoi:'Les branches class\u00e9es pour la grandeur choisie, \u00e0 l\u2019ann\u00e9e choisie. La part est un simple rapport \u00e0 la somme des branches affich\u00e9es.'},
+     titre:'Quel secteur p\u00e8se le plus dans l\u2019\u00e9conomie',
+     quoi:'Les dix-sept secteurs class\u00e9s du plus gros au plus petit, pour l\u2019ann\u00e9e que tu choisis. La part indique ce que chacun repr\u00e9sente dans le total des secteurs affich\u00e9s.'},
     {type:'explorer',fichier:'comptes',prefMotif:'valeur_ajout',
-     titre:'Trajectoires des branches',
-     quoi:'La courbe suit le fichier des comptes de branches : choisis la grandeur, la branche et la vue.'},
+     titre:'Suivre un secteur dans le temps',
+     quoi:'Choisis un secteur et ce que tu veux voir : ce qu\u2019il produit, ce qu\u2019il ach\u00e8te pour produire, ou la richesse qu\u2019il cr\u00e9e. La courbe remonte \u00e0 1949.'},
     {type:'explorer',fichier:'emploi',prefMotif:'emploi_total',
-     titre:'L\u2019emploi par branche',
-     quoi:'Les s\u00e9ries d\u2019emploi du fichier d\u00e9di\u00e9, branche par branche.'},
+     titre:'Combien de personnes travaillent dans chaque secteur',
+     quoi:'Effectifs totaux et salari\u00e9s, en personnes ou en \u00e9quivalents temps plein, dur\u00e9e annuelle du travail et heures travaill\u00e9es. Depuis 1949.'},
     {type:'explorer',fichier:'capacites',prefMotif:'taux_utilisation',
-     titre:'Capacit\u00e9s de production utilis\u00e9es',
-     quoi:'Le taux d\u2019utilisation des capacit\u00e9s dans l\u2019industrie, au trimestre, depuis 1976.'},
+     titre:'Les usines tournent-elles \u00e0 plein ?',
+     quoi:'Part des capacit\u00e9s de production effectivement utilis\u00e9es dans l\u2019industrie, d\u2019apr\u00e8s ce que les entreprises d\u00e9clarent chaque trimestre depuis 1976. Un taux bas signale des machines \u00e0 l\u2019arr\u00eat, un taux haut des tensions et souvent un besoin d\u2019investir.'},
     {type:'explorer',fichier:'echanges',prefMotif:'export',
-     titre:'\u00c9changes par produit',
-     quoi:'Exportations, importations et solde par produit, tels que le fichier des \u00e9changes les porte.'},
+     titre:'Ce que chaque produit vend et ach\u00e8te \u00e0 l\u2019\u00e9tranger',
+     quoi:'Exportations et importations, produit par produit, depuis 1949. Attention : le classement est ici par PRODUIT \u00e9chang\u00e9, non par secteur producteur \u2014 les deux grilles ne se superposent pas.'},
     {type:'classement',fichier:'comptes38',prefMotif:'valeur_ajout',
-     titre:'Le d\u00e9tail en 38 branches',
-     quoi:'La m\u00eame lecture, trois fois plus fine : 37 postes au lieu de 17.'},
+     titre:'Le m\u00eame classement, en 38 secteurs',
+     quoi:'La d\u00e9coupe fine : 37 postes au lieu de 17. L\u2019industrie manufacturi\u00e8re s\u2019y s\u00e9pare en dix branches, les services en une quinzaine.'},
     {type:'explorer',fichier:'comptes38',prefMotif:'valeur_ajout',
-     titre:'Trajectoires en 38 branches',
-     quoi:'Production, consommations interm\u00e9diaires et valeur ajout\u00e9e au niveau interm\u00e9diaire, de 1949 \u00e0 2025.'},
+     titre:'Suivre un secteur, d\u00e9coupe fine',
+     quoi:'Production, achats interm\u00e9diaires et richesse cr\u00e9\u00e9e, en 37 secteurs, de 1949 \u00e0 2025.'},
     {type:'explorer',fichier:'comptes88',prefMotif:'valeur_ajout',
-     titre:'Trajectoires en 88 branches',
-     quoi:'Le niveau le plus fin des comptes de branche, de 1999 \u00e0 2024.'},
+     titre:'Suivre un secteur, d\u00e9coupe la plus fine',
+     quoi:'86 secteurs, le plus grand d\u00e9tail que publient les comptes nationaux. La s\u00e9rie ne remonte qu\u2019\u00e0 1999 et s\u2019arr\u00eate en 2024.'},
     {type:'explorer',fichier:'emploi38',prefMotif:'emploi_total',
-     titre:'L\u2019emploi en 38 branches',quoi:'Effectifs, dur\u00e9e du travail et heures travaill\u00e9es au niveau interm\u00e9diaire.'},
+     titre:'L\u2019emploi en 38 secteurs',quoi:'Les m\u00eames mesures d\u2019emploi, dans la d\u00e9coupe fine.'},
     {type:'explorer',fichier:'echanges38',prefMotif:'export',
-     titre:'Les \u00e9changes en 38 produits',quoi:'Exportations et importations par produit au niveau interm\u00e9diaire.'},
+     titre:'Les \u00e9changes en 38 produits',quoi:'Exportations et importations dans la d\u00e9coupe fine des produits.'},
     {type:'explorer',fichier:'tes',prefMotif:'',
-     titre:'Le compte d\u2019exploitation des branches',
-     quoi:'R\u00e9mun\u00e9rations, imp\u00f4ts, subventions et exc\u00e9dent brut, tir\u00e9s du tableau des entr\u00e9es-sorties, de 1949 \u00e0 2024.'}
+     titre:'O\u00f9 va la richesse cr\u00e9\u00e9e par chaque secteur',
+     quoi:'Le partage, secteur par secteur : ce qui part en salaires et cotisations, ce qui part en imp\u00f4ts sur la production, ce que re\u00e7oivent les entreprises en subventions, et ce qui leur reste. De 1949 \u00e0 2024.'}
   ],
   reserves:[
     'La page lit la d\u00e9coupe en 17 branches ; les fichiers en 38 et 88 branches sont au d\u00e9p\u00f4t et viendront dans une vue d\u00e9taill\u00e9e.',
