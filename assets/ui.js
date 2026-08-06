@@ -393,6 +393,7 @@ function pageRubrique(config){
       else if(p.type==='ratio'&&typeof pRatio==='function')pRatio(zone,p,D);
       else if(p.type==='texte')pTexte(zone,p,D);
       else if(p.type==='colonne')pColonne(zone,p,D);
+      else if(p.type==='multi')pMulti(zone,p,D);
     }
     rendreSources(config,D);
     rendreReserves(config);
@@ -491,4 +492,68 @@ function pColonne(zone,cfg,D){
   }
   boutons(sh.corps,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
   maj();
+}
+
+/* Plusieurs series sur un meme graphe : indispensable quand les courbes n'ont
+   de sens que compare?es - les trois taux directeurs, par exemple. */
+const COULEURS=['#26346B','#0F6B72','#A8231B','#5B3FA8','#C7891B','#5A6076'];
+function pMulti(zone,cfg,D){
+  const sh=panneauShell(zone,cfg.titre,cfg.quoi);
+  const F=D[cfg.fichier];
+  if(!F||F.serie.type!=='serie'){sh.corps.innerHTML='<p class="note">Ce fichier ne se lit pas comme une s\u00e9rie.</p>';return;}
+  const s=F.serie,axe=D.axeFor(cfg.fichier),champ=cfg.champ||'grandeur';
+  const valeurs=(cfg.valeurs||s.vals[champ]||[]).slice(0,6);
+  if(!valeurs.length){sh.corps.innerHTML='<p class="note">Rien \u00e0 superposer sur ce fichier.</p>';return;}
+  const fixe={};
+  for(const f of s.facettes){
+    if(f===champ)continue;
+    if(cfg.fixe&&cfg.fixe[f]!==undefined)fixe[f]=cfg.fixe[f];
+    else if(f==='vue')fixe[f]=s.vals[f].indexOf('brut')>=0?'brut':s.vals[f][0];
+    else fixe[f]=s.vals[f].find(cc=>estTotal(cc,libCode(s,axe,cc,f)))||s.vals[f][0];
+  }
+  const series=[];let unite='';
+  valeurs.forEach(function(v,i){
+    const ch={};for(const k in fixe)ch[k]=fixe[k];ch[champ]=v;
+    const rows=filtrer(s,ch);
+    unite=unite||uniteDe(rows);
+    const pts=serieTemps(rows).pts;
+    if(pts.length)series.push({lib:(cfg.libelles&&cfg.libelles[v])||libFacette(s,axe,champ,v),pts:pts,couleur:COULEURS[i%COULEURS.length]});
+  });
+  if(!series.length){sh.corps.innerHTML='<p class="note">Aucune valeur sur cette s\u00e9lection.</p>';return;}
+  const W=1000,H=400,gL=104,gR=24,gT=26,gB=40;
+  const box=document.createElement('div');box.className='chartbox';
+  box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img"></svg>';
+  sh.corps.appendChild(box);
+  const svg=box.querySelector('svg');
+  let x0=Infinity,x1=-Infinity,mn=Infinity,mx=-Infinity;
+  for(const se of series)for(const p of se.pts){
+    if(p.x<x0)x0=p.x;if(p.x>x1)x1=p.x;if(p.v<mn)mn=p.v;if(p.v>mx)mx=p.v;
+  }
+  if(cfg.debut&&cfg.debut>x0)x0=cfg.debut;
+  const estPct=/pct|%/.test(String(unite||'').toLowerCase());
+  const pad=(mx-mn)*0.08||1;
+  const y0=(mn<0||estPct)?mn-pad:0,y1=mx+pad;
+  const X=x=>gL+(x-x0)*(W-gL-gR)/((x1-x0)||1);
+  const Y=v=>gT+(y1-v)*(H-gT-gB)/((y1-y0)||1);
+  grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(unite||'').toLowerCase())?1000:1);
+  grilleXc(svg,Math.floor(x0),Math.ceil(x1),X,H,gB);
+  for(const se of series){
+    let d='';let n=0;
+    for(const p of se.pts){ if(p.x<x0)continue; d+=(n++?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1); }
+    if(!n)continue;
+    svg.appendChild(el('path',{d:d,fill:'none',stroke:se.couleur,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    const der=se.pts[se.pts.length-1];
+    svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:3.8,fill:se.couleur}));
+  }
+  const uy=cfg.uniteY||(estPct?'en %':(unite||''));
+  if(uy){const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});ty.textContent=uy;svg.appendChild(ty);}
+  const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12.5,fill:'var(--muet)','font-weight':600});
+  tx.textContent=cfg.uniteX||'ann\u00e9e';svg.appendChild(tx);
+  const leg=document.createElement('div');leg.className='legende';
+  leg.innerHTML=series.map(function(se){
+    const der=se.pts[se.pts.length-1];
+    return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+
+      ' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(der.t)+'</small></span>';
+  }).join('');
+  sh.corps.appendChild(leg);
 }
