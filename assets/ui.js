@@ -291,7 +291,8 @@ function pExplorer(zone,cfg,D){
   }
   for(const f of s.facettes){
     if(s.vals[f].length<=20){
-      boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majTout();});
+      const bar=boutons(sh.corps,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f],v=>{choix[f]=v;majTout();});
+      if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);
       continue;
     }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
@@ -499,7 +500,8 @@ function pColonne(zone,cfg,D){
     if(depuis)pts=pts.filter(p=>p.x>=depuis);
     cc.maj(pts,{u:d.unite||'',lib:d.lib,uniteY:d.uniteY||d.unite||'',meta:d.note||''});
   }
-  boutons(sh.corps,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
+  const barG=boutons(sh.corps,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0,i=>{choix=+i;maj();});
+  if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(barG,cc.bloc);
   maj();
 }
 
