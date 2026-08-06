@@ -92,7 +92,12 @@ function fmtU(v,u){
   }
   if(/pct|%/.test(ul))return {court:(Math.abs(v)<10?nf2:nf1).format(v)+' %',exact:null};
   if(/millier/.test(ul))return {court:nf0.format(Math.round(v))+' milliers',exact:null};
-  if(/^euros?$|^eur$/.test(ul))return {court:nf0.format(Math.round(v))+' \u20ac',exact:null};
+  if(/^euros?$|^eur$/.test(ul)){
+    /* Un cours de change inverse vaut moins qu'un euro : arrondir a l'unite
+       affichait « 1 € » sur toute la courbe. On garde les decimales sous 100. */
+    if(Math.abs(v)>=100)return {court:nf0.format(Math.round(v))+' \u20ac',exact:null};
+    return {court:(Math.abs(v)>=1?nf2:nf4).format(v)+' \u20ac',exact:null};
+  }
   const c=Math.abs(v)>=1000?nf0.format(Math.round(v)):(Math.abs(v)>=10?nf1.format(v):nf4.format(v));
   /* Une unite venue d'un fichier s'ecrit avec des tirets bas : on ne les montre
      jamais a l'ecran, sans majuscule puisqu'elle suit un nombre. */
