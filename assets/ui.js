@@ -85,6 +85,7 @@ function composantCourbe(host){
     const u=String(ctx.u||'').toLowerCase();
     let uy=ctx.uniteY||(/pct|%/.test(u)?'en %':(/meur|millions d/.test(u)?'en milliards d\u2019euros':
       (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u?pretty(ctx.u):'')))));
+    if(ctx.uniteY)uy=ctx.uniteY;
     if(/millions d\u2019euros/.test(uy))uy=uy.replace('millions','milliards');
     if(uy){
       const ty=el('text',{x:6,y:gT-6,'font-size':12.5,fill:'var(--muet)','font-weight':600});
@@ -301,16 +302,24 @@ function pExplorer(zone,cfg,D){
   /* Une serie de deux siecles ecrase les vingt dernieres annees. On ouvre donc
      sur la plage utile, en laissant le choix de tout voir. */
   let depuis=cfg.debut||null;
+  /* Sens de lecture : un taux se lit dans les deux sens, et l'inverse est une
+     simple division - calculee ici, jamais gravee au depot. */
+  let inverse=false;
   function majTout(){
     const rows=filtrer(s,choix);
     const st=serieTemps(rows);
+    if(cfg.inverse&&inverse)st.pts=st.pts.filter(p=>p.v!==0).map(p=>({t:p.t,x:p.x,v:1/p.v}));
     if(depuis)st.pts=st.pts.filter(p=>p.x>=depuis);
-    const u=uniteDe(rows);
+    let u=uniteDe(rows);
+    if(cfg.inverse&&inverse)u=cfg.inverse.unite||"";
     const bits=[];
     if(choix.grandeur)bits.push(pretty(choix.grandeur));
     if(choix.code!=null)bits.push(libCode(s,axe,choix.code));
     if(choix.vue&&s.vals.vue&&s.vals.vue.length>1)bits.push(choix.vue);
-    cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),meta:st.ecartes?(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.'):''});
+    const notes=[];
+    if(st.ecartes)notes.push(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.');
+    if(cfg.inverse&&inverse)notes.push('Valeur invers\u00e9e (un divis\u00e9 par le taux publi\u00e9), calcul\u00e9e par la page.');
+    cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),uniteY:(cfg.inverse&&inverse)?(cfg.inverse.uniteY||''):null,meta:notes.join(' ')});
   }
   for(const f of s.facettes){
     if(s.vals[f].length<=20){
@@ -320,6 +329,12 @@ function pExplorer(zone,cfg,D){
     }
     const sel=selecteur(filt,pretty(f),s.vals[f],v=>libFacette(s,axe,f,v),choix[f]);
     sel.addEventListener('change',()=>{choix[f]=sel.value;majTout();});
+  }
+  if(cfg.inverse){
+    const o=[[cfg.inverse.libDirect||'Sens direct',false],[cfg.inverse.libInverse||'Sens inverse',true]];
+    const bar=boutons(sh.corps,'Sens de lecture',o.map(x=>x[1]),v=>o.find(x=>x[1]===v)[0],false,
+      v=>{inverse=v;majTout();});
+    if(cc.bloc&&cc.bloc.parentNode)cc.bloc.parentNode.insertBefore(bar,cc.bloc);
   }
   majTout();
 }
