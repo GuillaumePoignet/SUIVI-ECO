@@ -81,7 +81,7 @@ function composantCourbe(host){
       (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u?pretty(ctx.u):'')))));
     if(/millions d\u2019euros/.test(uy))uy=uy.replace('millions','milliards');
     if(uy){
-      const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});
+      const ty=el('text',{x:6,y:gT-6,'font-size':12.5,fill:'var(--muet)','font-weight':600});
       ty.textContent=uy;svg.appendChild(ty);
     }
     /* Pas d'etiquette « annee » : l'axe horizontal d'une serie temporelle se
@@ -104,7 +104,7 @@ function composantCourbe(host){
     let mn=Infinity,mx=-Infinity;
     for(const p of pts){if(p.v<mn)mn=p.v;if(p.v>mx)mx=p.v;}
     const estPct=/pct|%/.test(String(ctx.u||'').toLowerCase());
-    const pad=(mx-mn)*0.06||Math.abs(mx)*0.02||1;
+    const pad=(mx-mn)*0.03||Math.abs(mx)*0.01||1;
     const y0=(mn<0||estPct)?mn-pad:0, y1=mx+pad;
     Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
     grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(ctx.u||'').toLowerCase())?1000:1);
@@ -579,7 +579,7 @@ function pMulti(zone,cfg,D){
   const leg=document.createElement('div');leg.className='legende';sh.corps.appendChild(leg);
   const curseur=zoneC.querySelector('input'),pastille=zoneC.querySelector('.exp-an'),cadre=zoneC.querySelector('.valSel');
   const svg=box.querySelector('svg'),tip=box.querySelector('.tip');
-  const W=1000,H=400,gL=104,gR=24,gT=26,gB=34;
+  const W=1000,H=400,gL=104,gR=24,gT=22,gB=34;
   function majCadre(){
     const series=toutes.filter(t=>actives[t.cle]);
     if(!series.length||!dates.length)return;
@@ -604,7 +604,7 @@ function pMulti(zone,cfg,D){
     }
     if(!isFinite(x0))return;
     const estPct=/pct|%/.test(String(unite||'').toLowerCase());
-    const pad=(mx-mn)*0.08||1;
+    const pad=(mx-mn)*0.04||1;
     const y0=(mn<0||estPct)?mn-pad:0,y1=mx+pad;
     const X=x=>gL+(x-x0)*(W-gL-gR)/((x1-x0)||1);
     const Y=v=>gT+(y1-v)*(H-gT-gB)/((y1-y0)||1);
@@ -619,7 +619,7 @@ function pMulti(zone,cfg,D){
       svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:3.8,fill:se.couleur}));
     }
     const uy=cfg.uniteY||(estPct?'en %':(unite||''));
-    if(uy){const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});ty.textContent=uy;svg.appendChild(ty);}
+    if(uy){const ty=el('text',{x:6,y:gT-6,'font-size':12.5,fill:'var(--muet)','font-weight':600});ty.textContent=uy;svg.appendChild(ty);}
     /* Reticule : sans lui, on voit des courbes mais jamais a quelle date. */
     const regle=el('line',{y1:gT,y2:H-gB,stroke:'#B9C2D4','stroke-width':1,'stroke-dasharray':'3 3',visibility:'hidden'});
     svg.appendChild(regle);
@@ -655,10 +655,9 @@ function pMulti(zone,cfg,D){
     dates.sort((a,b)=>vus[a]-vus[b]);
     curseur.max=Math.max(0,dates.length-1);curseur.value=dates.length-1;
     majCadre();
-    leg.innerHTML=series.map(function(se){
-      const der=se.pts[se.pts.length-1];
-      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(libPeriodeMaj(der.t))+'</small></span>';
-    }).join('');
+    /* Plus de legende separee : le cadre de gauche donne deja chaque courbe
+       avec sa couleur et sa valeur a la date choisie. */
+    leg.innerHTML='';
   }
   curseur.addEventListener('input',majCadre);
   dessiner();
