@@ -55,6 +55,21 @@ function periodeX(t){
    on les rend presentables sans jamais en changer le sens. */
 const MOTS={pib:'PIB',ipc:'IPC',tva:'TVA',apu:'APU',fbcf:'FBCF',etp:'ETP',pct:'%',meur:'',eur:'euros',
   ca:'chiffre d\u2019affaires',bce:'BCE',oat:'OAT',hs2:'HS2',iso3:'ISO3',pcs:'PCS',coicop:'COICOP'};
+
+/* Les codes de periode des fichiers - 2026-M08, 2026-T2 - sont faits pour les
+   machines. On les ecrit en francais partout ou un lecteur les voit. */
+const MOIS=['janvier','f\u00e9vrier','mars','avril','mai','juin','juillet','ao\u00fbt','septembre','octobre','novembre','d\u00e9cembre'];
+function libPeriode(t){
+  t=String(t==null?'':t);
+  let m=t.match(/^(\d{4})-M(\d{2})$/i);
+  if(m&&+m[2]>=1&&+m[2]<=12)return MOIS[+m[2]-1]+' '+m[1];
+  m=t.match(/^(\d{4})-T([1-4])$/i);
+  if(m)return (m[2]==='1'?'1er':m[2]+'e')+' trimestre '+m[1];
+  m=t.match(/^(\d{4})-(\d{2})$/);
+  if(m&&+m[2]>=1&&+m[2]<=12)return MOIS[+m[2]-1]+' '+m[1];
+  if(DATE_OK.test(t)){const p=t.split('-');return (+p[2])+' '+MOIS[+p[1]-1]+' '+p[0];}
+  return t;
+}
 function pretty(g){
   let s=String(g==null?'':g).replace(/_/g,' ').trim();
   s=s.split(' ').map(m=>MOTS[m.toLowerCase()]!==undefined?MOTS[m.toLowerCase()]:m).filter(Boolean).join(' ');
