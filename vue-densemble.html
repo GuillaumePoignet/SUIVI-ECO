@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260806e">
+<link rel="stylesheet" href="assets/commun.css?v=20260806f">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260806e"></script>
-<script src="assets/ui.js?v=20260806e"></script>
-<script src="assets/tableau.js?v=20260806e"></script>
+<script src="assets/commun.js?v=20260806f"></script>
+<script src="assets/ui.js?v=20260806f"></script>
+<script src="assets/tableau.js?v=20260806f"></script>
 <script>
 pageRubrique({
   id:'vue-densemble',
@@ -25,6 +25,7 @@ pageRubrique({
     inflation:'ECO/series/M1_INFLATION_1997-2026.csv',
     bceMensuel:'ECO/series/M1_TAUX_BCE_MENSUEL_1999-2026.csv',
     tauxFrance:'ECO/series/M1_TAUX_FRANCE_MENSUEL_1986-2026.csv',
+    courbe:'ECO/series/M1_COURBE_TAUX_ZONE_EURO.csv',
     change:'ECO/series/M1_TAUX_CHANGE_ANNUEL_1999-2025.csv'
   },
   panneaux:[
@@ -77,6 +78,9 @@ pageRubrique({
     {type:'explorer',fichier:'tauxFrance',prefMotif:'emprunt_etat',debut:1986,
      titre:'Emprunt d\u2019\u00c9tat et taux de cr\u00e9dit, depuis 1986',
      quoi:'Trois taux fran\u00e7ais mois par mois : l\u2019emprunt d\u2019\u00c9tat \u00e0 dix ans depuis 1986, le cr\u00e9dit aux entreprises depuis 2000, le cr\u00e9dit \u00e0 l\u2019habitat depuis 2003. Ce sont des taux de NOUVEAUX contrats : une baisse ne soulage jamais ceux qui ont d\u00e9j\u00e0 emprunt\u00e9.'},
+    {type:'multi',fichier:'courbe',champ:'grandeur',debut:2015,uniteY:'en %',uniteX:'mois',
+     titre:'La courbe des taux de la zone euro, 2 \u00e0 30 ans',
+     quoi:'Ce que co\u00fbte l\u2019emprunt selon sa dur\u00e9e. Quand les taux courts d\u00e9passent les longs, la courbe est invers\u00e9e, ce que les march\u00e9s lisent comme l\u2019annonce d\u2019un ralentissement. P\u00e9rim\u00e8tre zone euro not\u00e9e AAA, pas la France : la BCE ne publie pas de courbe par maturit\u00e9 pour la France seule.'},
     {type:'explorer',fichier:'change',prefMotif:'',debut:1999,
      titre:'Taux de change de l\u2019euro, 16 monnaies',
      quoi:'Choisis la monnaie : la courbe donne combien d\u2019unit\u00e9s de cette monnaie s\u2019\u00e9changent contre un euro, en moyenne sur l\u2019ann\u00e9e. Quand la courbe monte, l\u2019euro se renforce. Les seize monnaies sont celles que la Banque centrale europ\u00e9enne publie en r\u00e9f\u00e9rence quotidienne \u2014 le d\u00e9p\u00f4t n\u2019en a choisi aucune.'},
@@ -84,6 +88,8 @@ pageRubrique({
   reserves:[
     'Les cours de change sont ceux de la Banque centrale europ\u00e9enne : ils disent combien d\u2019unit\u00e9s d\u2019une monnaie valent UN euro, jamais l\u2019inverse. Pour lire dans l\u2019autre sens, il faut diviser un par la valeur affich\u00e9e.',
     'Le rouble s\u2019arr\u00eate en 2021 : la BCE a cess\u00e9 de publier sa r\u00e9f\u00e9rence quotidienne. L\u2019absence de points apr\u00e8s cette date n\u2019est pas un trou du d\u00e9p\u00f4t.',
+    'Sur les emprunts d\u2019\u00c9tat, la France n\u2019a qu\u2019une maturit\u00e9 publi\u00e9e, dix ans : les autres dur\u00e9es de la page portent sur la zone euro not\u00e9e AAA, et l\u2019\u00e9cart entre les deux est l\u2019\u00e9cart de signature fran\u00e7ais.',
+    'Le PIB par habitant n\u2019existe qu\u2019aux prix courants dans la source : en volume, il faudrait le calculer en divisant le PIB cha\u00een\u00e9 par la population, ce que la page ne fait pas sans le dire.',
     'Le tableau des d\u00e9cisions de taux et le relev\u00e9 des derniers points ne sont plus sur cette page : les paliers de la courbe des taux disent la m\u00eame chose, et les valeurs les plus fra\u00eeches sont d\u00e9j\u00e0 en haut de page.'
   ]
 });
