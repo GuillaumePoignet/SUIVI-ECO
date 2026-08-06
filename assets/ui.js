@@ -136,7 +136,7 @@ function composantCourbe(host){
     libelleAxes();
     majPin();
   }
-  return {maj(nouv,c){pts=nouv||[];ctx=c||{};slider.max=Math.max(0,pts.length-1);slider.value=slider.max;meta.textContent=ctx.meta||'';dessiner();}};
+  return {slider:slider,bloc:bloc,maj(nouv,c){pts=nouv||[];ctx=c||{};slider.max=Math.max(0,pts.length-1);slider.value=slider.max;meta.textContent=ctx.meta||'';dessiner();}};
 }
 
 /* ---------- petits constructeurs ---------- */
@@ -287,7 +287,7 @@ function pExplorer(zone,cfg,D){
       });
       bar.appendChild(b);
     });
-    sh.corps.insertBefore(bar,cc.slider.closest('.explore')||null);
+    sh.corps.insertBefore(bar,sh.corps.querySelector('.explore'));
   }
   majTout();
 }
@@ -499,6 +499,6 @@ function pColonne(zone,cfg,D){
     });
     bar.appendChild(b);
   });
-  sh.corps.insertBefore(bar,cc.slider.closest('.explore')||null);
+  sh.corps.insertBefore(bar,sh.corps.querySelector('.explore'));
   maj();
 }
