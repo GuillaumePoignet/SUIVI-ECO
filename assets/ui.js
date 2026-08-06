@@ -74,8 +74,12 @@ function composantCourbe(host){
       const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});
       ty.textContent=uy;svg.appendChild(ty);
     }
-    const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12.5,fill:'var(--muet)','font-weight':600});
-    tx.textContent=ctx.uniteX||'ann\u00e9e';svg.appendChild(tx);
+    /* Pas d'etiquette « annee » : l'axe horizontal d'une serie temporelle se
+       comprend sans qu'on l'ecrive, et le mot se cognait aux graduations. */
+    if(ctx.uniteX&&ctx.uniteX!=='ann\u00e9e'){
+      const tx=el('text',{x:W-gR,y:H-2,'text-anchor':'end','font-size':12,fill:'var(--muet)','font-weight':600});
+      tx.textContent=ctx.uniteX;svg.appendChild(tx);
+    }
   }
 
   function dessiner(){
@@ -516,49 +520,98 @@ function pMulti(zone,cfg,D){
     else if(f==='vue')fixe[f]=s.vals[f].indexOf('brut')>=0?'brut':s.vals[f][0];
     else fixe[f]=s.vals[f].find(cc=>estTotal(cc,libCode(s,axe,cc,f)))||s.vals[f][0];
   }
-  const series=[];let unite='';
+  const toutes=[];let unite='';
   valeurs.forEach(function(v,i){
     const ch={};for(const k in fixe)ch[k]=fixe[k];ch[champ]=v;
     const rows=filtrer(s,ch);
     unite=unite||uniteDe(rows);
     const pts=serieTemps(rows).pts;
-    if(pts.length)series.push({lib:(cfg.libelles&&cfg.libelles[v])||libFacette(s,axe,champ,v),pts:pts,couleur:COULEURS[i%COULEURS.length]});
+    if(pts.length)toutes.push({cle:v,lib:(cfg.libelles&&cfg.libelles[v])||libFacette(s,axe,champ,v),pts:pts,couleur:COULEURS[i%COULEURS.length]});
   });
-  if(!series.length){sh.corps.innerHTML='<p class="note">Aucune valeur sur cette s\u00e9lection.</p>';return;}
-  const W=1000,H=400,gL=104,gR=24,gT=26,gB=40;
+  if(!toutes.length){sh.corps.innerHTML='<p class="note">Aucune valeur sur cette s\u00e9lection.</p>';return;}
+  /* Les boutons sont cumulatifs : on retire ou remet une courbe sans perdre les
+     autres, et on ne peut pas toutes les eteindre. */
+  const actives={};toutes.forEach(t=>{actives[t.cle]=true;});
+  const barre=document.createElement('div');barre.className='choix';
+  barre.innerHTML='<span>Courbes</span>';
+  const btns={};
+  toutes.forEach(function(t){
+    const b=document.createElement('button');b.type='button';b.className='on';
+    b.innerHTML='<i style="background:'+t.couleur+'"></i>'+ech(t.lib);
+    b.addEventListener('click',function(){
+      const n=Object.keys(actives).filter(k=>actives[k]).length;
+      if(actives[t.cle]&&n<=1)return;
+      actives[t.cle]=!actives[t.cle];
+      b.className=actives[t.cle]?'on':'';
+      dessiner();
+    });
+    btns[t.cle]=b;barre.appendChild(b);
+  });
+  sh.corps.appendChild(barre);
   const box=document.createElement('div');box.className='chartbox';
-  box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img"></svg>';
+  box.innerHTML='<svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div>';
   sh.corps.appendChild(box);
-  const svg=box.querySelector('svg');
-  let x0=Infinity,x1=-Infinity,mn=Infinity,mx=-Infinity;
-  for(const se of series)for(const p of se.pts){
-    if(p.x<x0)x0=p.x;if(p.x>x1)x1=p.x;if(p.v<mn)mn=p.v;if(p.v>mx)mx=p.v;
+  const leg=document.createElement('div');leg.className='legende';sh.corps.appendChild(leg);
+  const svg=box.querySelector('svg'),tip=box.querySelector('.tip');
+  const W=1000,H=400,gL=104,gR=24,gT=26,gB=34;
+  function dessiner(){
+    svg.innerHTML='';tip.hidden=true;
+    const series=toutes.filter(t=>actives[t.cle]);
+    let x0=Infinity,x1=-Infinity,mn=Infinity,mx=-Infinity;
+    for(const se of series)for(const p of se.pts){
+      if(cfg.debut&&p.x<cfg.debut)continue;
+      if(p.x<x0)x0=p.x;if(p.x>x1)x1=p.x;if(p.v<mn)mn=p.v;if(p.v>mx)mx=p.v;
+    }
+    if(!isFinite(x0))return;
+    const estPct=/pct|%/.test(String(unite||'').toLowerCase());
+    const pad=(mx-mn)*0.08||1;
+    const y0=(mn<0||estPct)?mn-pad:0,y1=mx+pad;
+    const X=x=>gL+(x-x0)*(W-gL-gR)/((x1-x0)||1);
+    const Y=v=>gT+(y1-v)*(H-gT-gB)/((y1-y0)||1);
+    grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(unite||'').toLowerCase())?1000:1);
+    grilleXc(svg,Math.floor(x0),Math.ceil(x1),X,H,gB);
+    for(const se of series){
+      let d='',n=0;
+      for(const p of se.pts){if(cfg.debut&&p.x<cfg.debut)continue;d+=(n++?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1);}
+      if(!n)continue;
+      svg.appendChild(el('path',{d:d,fill:'none',stroke:se.couleur,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      const der=se.pts[se.pts.length-1];
+      svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:3.8,fill:se.couleur}));
+    }
+    const uy=cfg.uniteY||(estPct?'en %':(unite||''));
+    if(uy){const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});ty.textContent=uy;svg.appendChild(ty);}
+    /* Reticule : sans lui, on voit des courbes mais jamais a quelle date. */
+    const regle=el('line',{y1:gT,y2:H-gB,stroke:'#B9C2D4','stroke-width':1,'stroke-dasharray':'3 3',visibility:'hidden'});
+    svg.appendChild(regle);
+    const zone2=el('rect',{x:gL,y:gT,width:W-gL-gR,height:H-gT-gB,fill:'transparent'});
+    const montrer=function(e){
+      const r=svg.getBoundingClientRect();
+      const px=(e.touches&&e.touches.length)?e.touches[0].clientX:e.clientX;
+      const xc=x0+((px-r.left)*(W/r.width)-gL)*(x1-x0)/(W-gL-gR);
+      let ref=null,dm=Infinity;
+      for(const p of series[0].pts){const d=Math.abs(p.x-xc);if(d<dm){dm=d;ref=p;}}
+      if(!ref)return;
+      regle.setAttribute('x1',X(ref.x));regle.setAttribute('x2',X(ref.x));regle.setAttribute('visibility','visible');
+      let h='<div class="t">'+ech(ref.t)+'</div>';
+      for(const se of series){
+        let pr=null,d2=Infinity;
+        for(const p of se.pts){const d=Math.abs(p.x-ref.x);if(d<d2){d2=d;pr=p;}}
+        if(pr&&d2<0.5)h+='<div class="r"><span class="d" style="background:'+se.couleur+'"></span>'+ech(se.lib)+' <b>'+ech(fmtU(pr.v,unite).court)+'</b></div>';
+      }
+      tip.innerHTML=h;tip.hidden=false;
+      const rb=box.getBoundingClientRect();let pxx=X(ref.x)/W*rb.width;const w=tip.offsetWidth;
+      tip.style.left=Math.max(w/2+4,Math.min(rb.width-w/2-4,pxx))+'px';
+    };
+    zone2.addEventListener('mousemove',montrer);
+    zone2.addEventListener('touchstart',montrer,{passive:true});
+    zone2.addEventListener('touchmove',montrer,{passive:true});
+    zone2.addEventListener('mouseleave',function(){regle.setAttribute('visibility','hidden');tip.hidden=true;});
+    svg.appendChild(zone2);
+    leg.innerHTML=series.map(function(se){
+      const der=se.pts[se.pts.length-1];
+      return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(der.t)+'</small></span>';
+    }).join('');
   }
-  if(cfg.debut&&cfg.debut>x0)x0=cfg.debut;
-  const estPct=/pct|%/.test(String(unite||'').toLowerCase());
-  const pad=(mx-mn)*0.08||1;
-  const y0=(mn<0||estPct)?mn-pad:0,y1=mx+pad;
-  const X=x=>gL+(x-x0)*(W-gL-gR)/((x1-x0)||1);
-  const Y=v=>gT+(y1-v)*(H-gT-gB)/((y1-y0)||1);
-  grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(unite||'').toLowerCase())?1000:1);
-  grilleXc(svg,Math.floor(x0),Math.ceil(x1),X,H,gB);
-  for(const se of series){
-    let d='';let n=0;
-    for(const p of se.pts){ if(p.x<x0)continue; d+=(n++?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1); }
-    if(!n)continue;
-    svg.appendChild(el('path',{d:d,fill:'none',stroke:se.couleur,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
-    const der=se.pts[se.pts.length-1];
-    svg.appendChild(el('circle',{cx:X(der.x),cy:Y(der.v),r:3.8,fill:se.couleur}));
-  }
-  const uy=cfg.uniteY||(estPct?'en %':(unite||''));
-  if(uy){const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});ty.textContent=uy;svg.appendChild(ty);}
-  const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12.5,fill:'var(--muet)','font-weight':600});
-  tx.textContent=cfg.uniteX||'ann\u00e9e';svg.appendChild(tx);
-  const leg=document.createElement('div');leg.className='legende';
-  leg.innerHTML=series.map(function(se){
-    const der=se.pts[se.pts.length-1];
-    return '<span><i style="background:'+se.couleur+'"></i>'+ech(se.lib)+
-      ' <b>'+ech(fmtU(der.v,unite).court)+'</b> <small>'+ech(der.t)+'</small></span>';
-  }).join('');
-  sh.corps.appendChild(leg);
+  dessiner();
 }
+
