@@ -172,3 +172,7 @@ details.explic>*:last-child{margin-bottom:18px}
 .explic .def p{margin:0;color:var(--texte);font-size:14.5px;line-height:1.6}
 .explic .paras{margin-top:18px;max-width:78ch}
 .explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
+
+.choix button i{width:11px;height:3px;border-radius:2px;display:inline-block;margin-right:7px;vertical-align:middle}
+.choix button:not(.on){opacity:.55}
+.choix button:not(.on) i{opacity:.4}
