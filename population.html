@@ -8,15 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807p">
+<link rel="stylesheet" href="assets/commun.css?v=20260807s">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807p"></script>
-<script src="assets/ui.js?v=20260807p"></script>
-<script src="assets/carte.js?v=20260807p"></script>
-<script src="assets/fonds/fr-departements.js?v=20260807p"></script>
-<script src="assets/fonds/fr-regions.js?v=20260807p"></script>
+<script src="assets/commun.js?v=20260807s"></script>
+<script src="assets/ui.js?v=20260807s"></script>
+<script src="assets/carte.js?v=20260807s"></script>
+<script src="assets/fonds/fr-departements.js?v=20260807s"></script>
+<script src="assets/fonds/fr-regions.js?v=20260807s"></script>
 <script>
 pageRubrique({
   id:'population',
@@ -69,50 +69,50 @@ pageRubrique({
       {fichier:'parc',motif:'unites_legales',et:'Unit\u00e9s l\u00e9gales'}
     ]},
     {type:'carte',fichier:'popDep',fond:'FOND_FR_DEP',cle:'c',prefMotif:'population',
-     titre:'La population, d\u00e9partement par d\u00e9partement',
+     titre:'Population par d\u00e9partement, 1975-2026',
      quoi:'Population au 1er janvier depuis 1975. Fais glisser le curseur pour remonter le temps ; l\u2019outre-mer est en cartouches \u00e0 gauche.'},
     {type:'carte',fichier:'chomLoc',fond:'FOND_FR_DEP',cle:'c',prefMotif:'chomage',
-     titre:'Le ch\u00f4mage, trimestre par trimestre',
+     titre:'Taux de ch\u00f4mage par d\u00e9partement, 1982-2026',
      quoi:'Taux de ch\u00f4mage localis\u00e9 depuis 1982. Choisis le niveau g\u00e9ographique : au niveau r\u00e9gion ou national, les contours d\u00e9partementaux restent gris.'},
     {type:'carte',fichier:'regions',fond:'FOND_FR_REG',cle:'c',prefMotif:'produit_interieur',
-     titre:'La richesse produite par r\u00e9gion',
+     titre:'Produit int\u00e9rieur brut par r\u00e9gion, 1990-2024',
      quoi:'Produit int\u00e9rieur brut, emploi et heures travaill\u00e9es par r\u00e9gion, de 1990 \u00e0 2024.'},
     {type:'classement',fichier:'popDep',prefMotif:'population',
-     titre:'Les d\u00e9partements par population',
+     titre:'Classement des d\u00e9partements par population',
      quoi:'Le classement complet \u00e0 l\u2019ann\u00e9e choisie. La part rapporte chaque d\u00e9partement \u00e0 la somme des d\u00e9partements affich\u00e9s.'},
     {type:'explorer',fichier:'popNat',prefMotif:'population_1er_janvier',
-     titre:'Un si\u00e8cle de d\u00e9mographie',
+     titre:'Population de la France, 1901-2026',
      quoi:'Population, naissances, d\u00e9c\u00e8s et solde migratoire depuis 1901 : choisis la grandeur et le champ national.'},
     {type:'explorer',fichier:'travail',prefMotif:'taux_chomage',
-     titre:'Le march\u00e9 du travail',
+     titre:'March\u00e9 du travail, 1975-2025',
      quoi:'Population active, emploi, ch\u00f4mage, halo et sous-emploi, par sexe et par \u00e2ge, depuis 1975.'},
     {type:'explorer',fichier:'creations',prefMotif:'',
-     titre:'Les cr\u00e9ations d\u2019entreprises',
+     titre:'Cr\u00e9ations d\u2019entreprises, 2012-2026',
      quoi:'Cr\u00e9ations trimestrielles depuis 2012, par forme d\u2019entreprise, en donn\u00e9es brutes ou corrig\u00e9es.'},
     {type:'explorer',fichier:'parc',prefMotif:'unites_legales',
-     titre:'Le parc d\u2019entreprises',
+     titre:'Parc d\u2019entreprises par secteur et par taille, 2014-2024',
      quoi:'Unit\u00e9s l\u00e9gales et \u00e9tablissements au 31 d\u00e9cembre, par section d\u2019activit\u00e9 et par taille.'},
     {type:'explorer',fichier:'popReg',prefMotif:'population',
-     titre:'La population des r\u00e9gions',quoi:'Population au 1er janvier des 18 r\u00e9gions, de 1975 \u00e0 2026.'},
+     titre:'Population par r\u00e9gion, 1975-2026',quoi:'Population au 1er janvier des 18 r\u00e9gions, de 1975 \u00e0 2026.'},
     {type:'explorer',fichier:'popAges',prefMotif:'population',
-     titre:'La pyramide des \u00e2ges',
+     titre:'Population par sexe et par \u00e2ge, 1946-2026',
      quoi:'Population par sexe et par grand groupe d\u2019\u00e2ges, France depuis 1991 et m\u00e9tropole depuis 1946.'},
     {type:'explorer',fichier:'chomTrim',prefMotif:'chomage',
-     titre:'Le ch\u00f4mage au trimestre',
+     titre:'Taux de ch\u00f4mage trimestriel, 1975-2026',
      quoi:'Taux de ch\u00f4mage trimestriel corrig\u00e9 des variations saisonni\u00e8res, par sexe et par \u00e2ge, depuis 1975.'},
     {type:'explorer',fichier:'menTaille',prefMotif:'',
-     titre:'La taille des m\u00e9nages',quoi:'Neuf recensements de 1968 \u00e0 2023 : le nombre moyen d\u2019occupants et la r\u00e9partition.'},
+     titre:'Taille des m\u00e9nages, neuf recensements 1968-2023',quoi:'Neuf recensements de 1968 \u00e0 2023 : le nombre moyen d\u2019occupants et la r\u00e9partition.'},
     {type:'explorer',fichier:'nonSal',prefMotif:'',
-     titre:'Le travail ind\u00e9pendant',
+     titre:'Travailleurs non salari\u00e9s, 2008-2024',
      quoi:'Non-salari\u00e9s classiques et micro-entrepreneurs, de 2008 \u00e0 2024.'},
     {type:'explorer',fichier:'nonSalSect',prefMotif:'',
-     titre:'Les ind\u00e9pendants par secteur',
+     titre:'Travailleurs non salari\u00e9s par secteur',
      quoi:'La ventilation sectorielle du travail ind\u00e9pendant, sur la grille propre \u00e0 cette source.'},
     {type:'explorer',fichier:'etab38',prefMotif:'',
-     titre:'Les \u00e9tablissements par secteur et par taille',
+     titre:'\u00c9tablissements et effectifs salari\u00e9s, 38 secteurs, 2024',
      quoi:'Nombre d\u2019\u00e9tablissements et effectifs salari\u00e9s au 31 d\u00e9cembre 2024, en 38 secteurs.'},
     {type:'explorer',fichier:'entCat',prefMotif:'',
-     titre:'Les entreprises par cat\u00e9gorie',
+     titre:'Entreprises par cat\u00e9gorie de taille, 2023',
      quoi:'Microentreprises, PME, entreprises de taille interm\u00e9diaire et grandes entreprises, sur les deux champs de la statistique d\u2019entreprises.'}
   ],
   reserves:[
