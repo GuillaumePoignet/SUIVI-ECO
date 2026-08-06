@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807x">
+<link rel="stylesheet" href="assets/commun.css?v=20260807y">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807x"></script>
-<script src="assets/ui.js?v=20260807x"></script>
-<script src="assets/tableau.js?v=20260807x"></script>
-<script src="assets/ratios.js?v=20260807x"></script>
+<script src="assets/commun.js?v=20260807y"></script>
+<script src="assets/ui.js?v=20260807y"></script>
+<script src="assets/tableau.js?v=20260807y"></script>
+<script src="assets/ratios.js?v=20260807y"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -45,23 +45,14 @@ pageRubrique({
       {fichier:'emploi',motif:'emploi_total',et:'Personnes en emploi'},
       {fichier:'capacites',motif:'taux_utilisation',et:'Usines : taux d\u2019utilisation'}
     ]},
-    {type:'tableau',fichier:'axes',page:20,
-     colonnes:['code','libelle','sections_naf'],
-     entetes:{code:'Code',libelle:'Branche',sections_naf:'Activit\u00e9s regroup\u00e9es'},
-     titre:'Nomenclature : les 17 branches et leur contenu',
-     quoi:'Ce que recouvre chaque branche, avec les sections de la nomenclature d\u2019activit\u00e9s fran\u00e7aise qu\u2019elle regroupe. Cherche un mot pour retrouver une activit\u00e9.'},
-    {type:'tableau',fichier:'axes38',page:40,
-     joindre:[{colonne:'poste_a17',table:'axes',titre:'branche_a17'}],
-     colonnes:['code','libelle','branche_a17'],
-     entetes:{code:'Code',libelle:'Poste, d\u00e9coupe en 38',branche_a17:'Appartient \u00e0 la branche'},
-     titre:'Nomenclature : les 38 postes et leur branche de rattachement',
-     quoi:'Chaque poste interm\u00e9diaire avec la branche en 17 postes \u00e0 laquelle il appartient. Clique une colonne pour regrouper visuellement, ou cherche un mot.'},
-    {type:'tableau',fichier:'axes88',page:40,
-     joindre:[{colonne:'poste_a38',table:'axes38',titre:'poste_a38_libelle'}],
-     colonnes:['code','libelle','poste_a38_libelle'],
-     entetes:{code:'Code',libelle:'Activit\u00e9, d\u00e9coupe en 88',poste_a38_libelle:'Appartient au poste'},
-     titre:'Nomenclature : les 88 postes et leur poste de rattachement',
-     quoi:'Le niveau le plus fin, avec le poste en 38 dont il rel\u00e8ve. En remontant la cha\u00eene, on retrouve la branche en 17.'},
+    {type:'tableau',fichier:'axes88',page:30,
+     joindre:[{colonne:'poste_a38',table:'axes38',titre:'poste38'},
+              {colonne:'poste_a38',table:'axes38',champ:'poste_a17',titre:'code17'},
+              {colonne:'code17',table:'axes',titre:'branche17'}],
+     colonnes:['code','libelle','poste38','branche17'],
+     entetes:{code:'Code',libelle:'Activit\u00e9 (88 postes)',poste38:'Poste (38)',branche17:'Branche (17)'},
+     titre:'Correspondance des nomenclatures : 88, 38 et 17 postes',
+     quoi:'Une ligne par activit\u00e9 \u00e9l\u00e9mentaire, avec le poste interm\u00e9diaire et la branche auxquels elle appartient. Cherche un mot pour savoir o\u00f9 classer une activit\u00e9, ou trie par branche pour voir tout ce qu\u2019elle contient.'},
     {type:'texte',titre:'D\u00e9finitions : production, valeur ajout\u00e9e, marge',
      chapeau:'Cinq mots reviennent partout sur cette page. Ils ont un sens pr\u00e9cis en comptabilit\u00e9 nationale, souvent diff\u00e9rent du sens courant.',
      definitions:[
