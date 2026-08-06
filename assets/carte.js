@@ -146,7 +146,7 @@ function pCarte(zone,cfg,D){
   let periodes=[];
   function majCarte(){
     if(!periodes.length){c.dessiner({},'','');c.expAn.textContent='';c.expVal.textContent='';return;}
-    const per=periodes[+c.slider.value];c.expAn.textContent=per.t;
+    const per=periodes[+c.slider.value];c.expAn.textContent=libPeriode(per.t);
     const rows=filtrer(s,choix).filter(o=>o.t===per.t&&o.v!=null);
     const val={},hors=[];let unite='';
     for(const o of rows){
@@ -154,7 +154,7 @@ function pCarte(zone,cfg,D){
       if(dansFond[cd])val[cd]=o.v;
       else if(hors.indexOf(libCode(s,axe,cd))<0)hors.push(libCode(s,axe,cd));
     }
-    const lib=[choix.grandeur?pretty(choix.grandeur):'',per.t].filter(Boolean).join(' \u00b7 ');
+    const lib=[choix.grandeur?pretty(choix.grandeur):'',libPeriode(per.t)].filter(Boolean).join(' \u00b7 ');
     c.dessiner(val,unite,lib);
     const n=Object.keys(val).length;
     c.expVal.innerHTML='<b>'+n+'</b> territoires color\u00e9s'+(hors.length?' \u00b7 '+hors.length+' code(s) sans contour \u00e0 cette \u00e9chelle':'');
