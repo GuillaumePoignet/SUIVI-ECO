@@ -199,19 +199,20 @@ details.explic[open] summary{padding-bottom:2px}
 .chip.rouge{background:rgba(168,35,27,.10);color:var(--rouge)}
 .chip.vert{background:rgba(17,107,74,.12);color:var(--vertfonce)}
 
-.valSel .p{display:block;font-size:12px;font-weight:600;color:var(--muet);letter-spacing:.03em}
-.valSel .v{display:block;font:700 22px "Public Sans",sans-serif;color:var(--accent);
-  font-variant-numeric:tabular-nums;line-height:1.25}
+.valSel .p{display:block;font-size:12.5px;font-weight:600;color:var(--muet);letter-spacing:.02em;line-height:1.3}
+.valSel .v{display:block;font:700 24px "Public Sans",sans-serif;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.25;white-space:nowrap}
 .exp-val{font-size:14px;color:var(--texte)}
 @media (max-width:640px){}
 /* Chiffre de la periode choisie : un cadre a gauche de la ligne du curseur. */
-.valSel{background:var(--carte);border:1px solid var(--ligne);border-radius:6px;padding:9px 16px;text-align:center;flex:none}
+/* Le cadre epouse son contenu et ne le coupe jamais : sans nowrap, un chiffre
+   long deborde et se fait rogner par le cadre. */
+.valSel{background:var(--carte);border:1px solid var(--ligne);border-radius:6px;padding:9px 16px;text-align:center;flex:0 0 auto;white-space:nowrap;max-width:100%}
 .valSel .p{display:block;font-size:12.5px;font-weight:600;color:var(--muet);letter-spacing:.02em}
 .valSel .v{display:block;font:700 24px "Public Sans",sans-serif;color:var(--accent);
   font-variant-numeric:tabular-nums;line-height:1.25}
 .curseur{display:flex;align-items:center;gap:12px;flex:1 1 300px;min-width:240px}
 .curseur label{font-size:12.5px;font-weight:600;color:var(--texte);white-space:nowrap}
-.valSel .l{display:block;font-size:12.5px;color:var(--texte);margin-top:4px}
+.valSel .l{display:block;font-size:12.5px;color:var(--texte);margin-top:3px;white-space:normal}
 .valSel.multi{text-align:left;min-width:250px;padding:10px 16px}
 .valSel.multi .lignes{display:block;margin-top:5px}
 .valSel.multi .l1{display:block;font-size:13.5px;color:var(--texte);line-height:1.65;white-space:nowrap}
