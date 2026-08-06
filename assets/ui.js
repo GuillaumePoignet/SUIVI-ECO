@@ -43,9 +43,10 @@ function etiquetteFin(svg,x,y,txt,couleur){
 /* ---------- composant courbe (svg + infobulle + curseur) ---------- */
 function composantCourbe(host){
   const bloc=document.createElement('div');
-  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div>'+
-    '<div class="valSel" hidden></div></div>'+
-    '<div class="explore"><label>Choisir une p\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1"><span class="exp-an"></span><div class="exp-val"></div></div>'+
+  bloc.innerHTML='<div class="chartbox"><svg viewBox="0 0 1000 400" role="img"></svg><div class="tip" hidden></div></div>'+
+    '<div class="explore"><div class="valSel" hidden></div>'+
+    '<div class="curseur"><label>Choisir une p\u00e9riode</label><input type="range" min="0" max="0" value="0" step="1">'+
+    '<span class="exp-an"></span></div><div class="exp-val"></div></div>'+
     '<p class="metaC"></p>';
   host.appendChild(bloc);
   const box=bloc.querySelector('.chartbox'),svg=box.querySelector('svg'),tip=box.querySelector('.tip');
