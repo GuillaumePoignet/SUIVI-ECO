@@ -235,6 +235,12 @@ function carteValeur(s,axe,motif,codeVoulu){
   const rows=filtrer(s,ch);
   const pts=serieTemps(rows).pts;
   if(!pts.length)return null;
-  const der=pts[pts.length-1],av=pts.length>1?pts[pts.length-2]:null;
+  const der=pts[pts.length-1];
+  /* On remonte jusqu'au dernier point QUI DIFFERE : sur une serie en paliers -
+     un taux directeur - comparer a la periode precedente affiche « +0,00 » et
+     n'apprend rien ; ce qui compte est la date du dernier mouvement. */
+  let av=null;
+  for(let i=pts.length-2;i>=0;i--){ if(pts[i].v!==der.v){av=pts[i];break;} }
+  if(!av&&pts.length>1)av=pts[pts.length-2];
   return {g,gMatched,t:der.t,v:der.v,prevT:av?av.t:null,prevV:av?av.v:null,u:uniteDe(rows),codeNote:notes.join(' \u00b7 ')};
 }
