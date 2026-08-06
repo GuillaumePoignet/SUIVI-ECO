@@ -196,3 +196,13 @@ details.explic[open] summary{padding-bottom:2px}
 .exp-val .an{font-weight:700;color:var(--encre);margin-right:6px}
 .chip.rouge{background:rgba(168,35,27,.10);color:var(--rouge)}
 .chip.vert{background:rgba(17,107,74,.12);color:var(--vertfonce)}
+/* Chiffre de la periode choisie, en haut a droite du graphe : c est la que
+   l oeil revient, et l espace y est libre sur la plupart des series. */
+.valSel{position:absolute;top:6px;right:10px;background:rgba(255,255,255,.94);
+  border:1px solid var(--ligne);border-radius:6px;padding:8px 14px;text-align:right;
+  pointer-events:none;box-shadow:0 2px 8px rgba(22,26,46,.06)}
+.valSel .p{display:block;font-size:12px;font-weight:600;color:var(--muet);letter-spacing:.03em}
+.valSel .v{display:block;font:700 22px "Public Sans",sans-serif;color:var(--accent);
+  font-variant-numeric:tabular-nums;line-height:1.25}
+.exp-val{font-size:14px;color:var(--texte)}
+@media (max-width:640px){.valSel{position:static;text-align:left;margin-top:8px;box-shadow:none}}
