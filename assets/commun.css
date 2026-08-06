@@ -146,10 +146,10 @@ footer{margin-top:30px}
 /* Encarts de definitions : denses, pour ne pas manger la page. */
 .explic{padding:20px 22px 18px;background:#F8F9FC}
 .explic .pan-tete h2{font-size:18px}
-.explic dl{columns:2;column-gap:32px}
-.explic dt{break-after:avoid}
-.explic dd{break-inside:avoid;margin-bottom:10px !important}
-@media (max-width:760px){.explic dl{columns:1}}
+
+
+
+@media (max-width:760px){}
 
 .choix{margin:16px 0 4px}
 .legende{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 2px 0;font-size:14px;color:var(--texte)}
@@ -164,3 +164,11 @@ details.explic summary::before{content:"+";display:inline-block;width:20px;font-
 details.explic[open] summary::before{content:"\2212"}
 details.explic>*:not(summary){margin-left:22px;margin-right:22px}
 details.explic>*:last-child{margin-bottom:18px}
+
+.explic .chapeau{font-size:15.5px;color:var(--texte);margin:0 0 4px;max-width:76ch;line-height:1.6}
+.explic .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px 34px;margin:16px 0 0;align-items:start}
+.explic .def{border-left:2px solid var(--ligne);padding-left:14px}
+.explic .def h3{font:700 15px "Public Sans",sans-serif;color:var(--accent);margin:0 0 5px;line-height:1.35}
+.explic .def p{margin:0;color:var(--texte);font-size:14.5px;line-height:1.6}
+.explic .paras{margin-top:18px;max-width:78ch}
+.explic .paras p{margin:0 0 12px;color:var(--texte);font-size:14.5px;line-height:1.65}
