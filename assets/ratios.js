@@ -59,6 +59,6 @@ function pRatio(zone,cfg,D){
   const cc=composantCourbe(sh.corps);
   const formule=cfg.formule||((C?(A.nom+(cfg.operation==='moins'?' moins ':' plus ')+C.nom):A.nom)+' \u00f7 '+B.nom);
   cc.maj(pts,{u:(cfg.pourcent===false?'':'pct'),lib:cfg.libelle||cfg.titre,
-    meta:'Rapport calcul\u00e9 par la page, non grav\u00e9 au d\u00e9p\u00f4t : '+formule+'. '+pts.length+' p\u00e9riode(s) o\u00f9 les deux termes existent.'});
+    meta:formule+'. '+pts.length+' p\u00e9riode(s) o\u00f9 les deux termes existent.'});
   if(!pts.length)sh.corps.insertAdjacentHTML('beforeend','<p class="note">Aucune p\u00e9riode ne porte les deux termes \u00e0 la fois.</p>');
 }
