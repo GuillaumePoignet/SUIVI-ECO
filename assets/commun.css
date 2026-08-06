@@ -158,16 +158,16 @@ footer{margin-top:30px}
 .legende b{font-weight:700;color:var(--encre);font-variant-numeric:tabular-nums}
 .legende small{color:var(--muet);font-size:12.5px}
 details.explic{padding:0;background:#F8F9FC}
-details.explic summary{cursor:pointer;list-style:none;padding:16px 22px;font:700 17px "Public Sans",sans-serif;color:var(--accent)}
+details.explic summary{cursor:pointer;list-style:none;padding:18px 28px;font:700 17px "Public Sans",sans-serif;color:var(--accent)}
 details.explic summary::-webkit-details-marker{display:none}
 details.explic summary::before{content:"+";display:inline-block;width:20px;font-weight:700}
 details.explic[open] summary::before{content:"\2212"}
-details.explic>*:not(summary){margin-left:22px;margin-right:22px}
-details.explic>*:last-child{margin-bottom:18px}
+details.explic>*:not(summary){margin-left:28px;margin-right:28px}
+details.explic>*:last-child{margin-bottom:26px}
 
 .explic .chapeau{font-size:15.5px;color:var(--texte);margin:0 0 4px;max-width:76ch;line-height:1.6}
-.explic .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px 34px;margin:16px 0 0;align-items:start}
-.explic .def{border-left:2px solid var(--ligne);padding-left:14px}
+.explic .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px 44px;margin:18px 0 0;align-items:start}
+.explic .def{border-left:2px solid var(--ligne);padding-left:16px;padding-right:8px}
 .explic .def h3{font:700 15px "Public Sans",sans-serif;color:var(--accent);margin:0 0 5px;line-height:1.35}
 .explic .def p{margin:0;color:var(--texte);font-size:14.5px;line-height:1.6}
 .explic .paras{margin-top:18px;max-width:78ch}
