@@ -202,7 +202,10 @@ function pCartes(zone,cfg,D){
       const dtxt=pct
         ?(((r.v-r.prevV)>=0?'+':'\u2212')+nf2.format(Math.abs(r.v-r.prevV))+' pt vs '+libPeriode(r.prevT))
         :(fmtPct((r.v/r.prevV-1)*100)+' vs '+libPeriode(r.prevT));
-      ch='<span class="chip">'+ech(dtxt)+'</span>';
+      /* Vert pour une hausse, rouge pour une baisse : c'est le SENS de la
+         variation, pas un jugement - une inflation qui monte s'affiche en vert. */
+      const sens=(r.v-r.prevV)>0?' vert':((r.v-r.prevV)<0?' rouge':'');
+      ch='<span class="chip'+sens+'">'+ech(dtxt)+'</span>';
     }
     const et=r.gMatched&&pref.et?pref.et:pretty(r.g);
     const qd=[pretty(r.g),libPeriode(r.t),r.codeNote,(f.exact||'')].filter(Boolean).join(' \u00b7 ');
