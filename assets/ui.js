@@ -330,7 +330,7 @@ function pExplorer(zone,cfg,D){
     if(choix.vue&&s.vals.vue&&s.vals.vue.length>1)bits.push(choix.vue);
     const notes=[];
     if(st.ecartes)notes.push(st.ecartes+' point(s) \u00e9cart\u00e9(s) : p\u00e9riode illisible ou valeur vide.');
-    if(cfg.inverse&&inverse)notes.push('Valeur invers\u00e9e (un divis\u00e9 par le taux publi\u00e9), calcul\u00e9e par la page.');
+    if(cfg.inverse&&inverse)notes.push('Un divis\u00e9 par le taux publi\u00e9.');
     if(grain==='an')notes.push('Vue annuelle : dernier point connu de chaque ann\u00e9e, sans moyenne.');
     cc.maj(st.pts,{u,lib:bits.join(' \u00b7 '),uniteY:(cfg.inverse&&inverse)?(cfg.inverse.uniteY||''):null,meta:notes.join(' ')});
   }
