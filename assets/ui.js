@@ -10,14 +10,15 @@ function nfAuto(v){
   if(Math.abs(v)>=10)return Number.isInteger(v)?nf0.format(v):nf1.format(v);
   return Math.abs(v)>=1&&Number.isInteger(v)?nf0.format(v):nf2.format(v);
 }
-function grilleYc(svg,y0,y1,Y,gL,W,gR){
+function grilleYc(svg,y0,y1,Y,gL,W,gR,div){
+  div=div||1;
   const et=y1-y0;let pas=et/6;
   for(const p of [0.01,0.02,0.05,0.1,0.2,0.25,0.5,1,2,2.5,5,10,20,25,50,100,200,250,500,1000,2000,2500,5000,10000,20000,25000,50000,100000,200000,500000]){if(et/p<=7){pas=p;break;}}
   for(let v=Math.ceil(y0/pas)*pas;v<=y1+1e-9;v+=pas){
     const zero=Math.abs(v)<1e-9;
     svg.appendChild(el('line',{x1:gL,x2:W-gR,y1:Y(v),y2:Y(v),stroke:zero?'#CBD2DE':'var(--ligne2)','stroke-width':1}));
     const t=el('text',{x:gL-10,y:Y(v)+4,'text-anchor':'end','font-size':13,fill:'var(--muet)','font-family':'Public Sans'});
-    t.textContent=nfAuto(v);svg.appendChild(t);
+    t.textContent=nfAuto(v/div);svg.appendChild(t);
   }
 }
 function grilleXc(svg,x0,x1,X,H,gB){
@@ -48,7 +49,7 @@ function composantCourbe(host){
   host.appendChild(bloc);
   const box=bloc.querySelector('.chartbox'),svg=box.querySelector('svg'),tip=box.querySelector('.tip');
   const slider=bloc.querySelector('input'),expAn=bloc.querySelector('.exp-an'),expVal=bloc.querySelector('.exp-val'),meta=bloc.querySelector('.metaC');
-  const W=1000,H=400,gL=78,gR=20,gT=20,gB=38;
+  const W=1000,H=400,gL=104,gR=24,gT=26,gB=40;
   let pts=[],ctx={},X=null,Y=null,pinL=null,pinC=null;
   function majPin(){
     if(!pinL)return;
@@ -63,18 +64,20 @@ function composantCourbe(host){
   }
   slider.addEventListener('input',majPin);
   function libelleAxes(){
-    /* Un graphe sans axes nommes se lit de travers : on ecrit l'unite a gauche
-       et ce que porte l'axe du temps en bas. */
+    /* L'unite se lit horizontalement, au-dessus de l'axe : un texte tourne se
+       superposait aux graduations. */
     const u=String(ctx.u||'').toLowerCase();
-    let uy=ctx.uniteY|| (/pct|%/.test(u)?'en %':(/meur|millions d/.test(u)?'en millions d\u2019euros':
+    let uy=ctx.uniteY||(/pct|%/.test(u)?'en %':(/meur|millions d/.test(u)?'en milliards d\u2019euros':
       (/millier/.test(u)?'en milliers':(/^euros?$|^eur$/.test(u)?'en euros':(ctx.u||'')))));
+    if(/millions d\u2019euros/.test(uy))uy=uy.replace('millions','milliards');
     if(uy){
-      const ty=el('text',{x:14,y:gT+8,'font-size':12,fill:'var(--muet)','font-weight':500,transform:'rotate(-90 14 '+(gT+8)+')','text-anchor':'end'});
+      const ty=el('text',{x:6,y:14,'font-size':12.5,fill:'var(--muet)','font-weight':600});
       ty.textContent=uy;svg.appendChild(ty);
     }
-    const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12,fill:'var(--muet)','font-weight':500});
+    const tx=el('text',{x:W-gR,y:H-4,'text-anchor':'end','font-size':12.5,fill:'var(--muet)','font-weight':600});
     tx.textContent=ctx.uniteX||'ann\u00e9e';svg.appendChild(tx);
   }
+
   function dessiner(){
     svg.innerHTML='';tip.hidden=true;pinL=null;pinC=null;
     if(pts.length<2){
@@ -90,7 +93,7 @@ function composantCourbe(host){
     const pad=(mx-mn)*0.06||Math.abs(mx)*0.02||1;
     const y0=(mn<0||estPct)?mn-pad:0, y1=mx+pad;
     Y=v=>gT+(y1-v)*(H-gT-gB)/(y1-y0);
-    grilleYc(svg,y0,y1,Y,gL,W,gR);
+    grilleYc(svg,y0,y1,Y,gL,W,gR,/meur|millions d/.test(String(ctx.u||'').toLowerCase())?1000:1);
     grilleXc(svg,Math.floor(x0),Math.ceil(x1),X,H,gB);
     const gid='grad'+(++gradN);degrade(svg,gid,'#2A4BD7');
     let d='';pts.forEach((p,i)=>{d+=(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1);});
@@ -271,18 +274,20 @@ function pExplorer(zone,cfg,D){
   }
   if(cfg.plages!==false){
     const an=new Date().getFullYear();
-    const opts=[['10 derni\u00e8res ann\u00e9es',an-10],['20 derni\u00e8res ann\u00e9es',an-20],
-                ['depuis 1990',1990],['depuis 1950',1950],['tout l\u2019historique',null]];
-    const lab=document.createElement('label');
-    lab.appendChild(document.createTextNode('P\u00e9riode affich\u00e9e'));
-    const sel=document.createElement('select');
-    opts.forEach(function(o,i){
-      const e=document.createElement('option');e.value=i;e.textContent=o[0];
-      if(o[1]===depuis)e.selected=true;
-      sel.appendChild(e);
+    const opts=[['10 ans',an-10],['20 ans',an-20],['1990',1990],['1950',1950],['Tout',null]];
+    const bar=document.createElement('div');bar.className='plages';
+    bar.innerHTML='<span>Afficher depuis</span>';
+    opts.forEach(function(o){
+      const b=document.createElement('button');b.type='button';b.textContent=o[0];
+      if(o[1]===depuis)b.className='on';
+      b.addEventListener('click',function(){
+        depuis=o[1];
+        bar.querySelectorAll('button').forEach(x=>x.className='');
+        b.className='on';majTout();
+      });
+      bar.appendChild(b);
     });
-    sel.addEventListener('change',()=>{depuis=opts[+sel.value][1];majTout();});
-    lab.appendChild(sel);filt.appendChild(lab);
+    sh.corps.insertBefore(bar,cc.slider.closest('.explore')||null);
   }
   majTout();
 }
@@ -440,7 +445,7 @@ function pageRubrique(config){
    sans definitions se lit mal, et les definitions valent d'etre ecrites une
    fois pour toutes plutot que devinees. */
 function pTexte(zone,cfg,D){
-  const sec=document.createElement('section');sec.className='panneau';
+  const sec=document.createElement('section');sec.className='panneau explic';
   let h='<div class="pan-tete"><div><h2>'+ech(cfg.titre)+'</h2></div></div>';
   if(cfg.chapeau)h+='<p class="note" style="font-size:15px;max-width:74ch">'+ech(cfg.chapeau)+'</p>';
   if(cfg.definitions&&cfg.definitions.length){
@@ -480,11 +485,20 @@ function pColonne(zone,cfg,D){
     if(depuis)pts=pts.filter(p=>p.x>=depuis);
     cc.maj(pts,{u:d.unite||'',lib:d.lib,uniteY:d.uniteY||d.unite||'',meta:d.note||''});
   }
-  const sel=selecteur(filt,'Grandeur',cols.map((x,i)=>i),i=>cols[i].lib,0);
+  const sel=selecteur(filt,'Grandeur affich\u00e9e',cols.map((x,i)=>i),i=>cols[i].lib,0);
   sel.addEventListener('change',()=>{choix=+sel.value;maj();});
   const an=new Date().getFullYear();
-  const opts=[['10 derni\u00e8res ann\u00e9es',an-10],['20 derni\u00e8res ann\u00e9es',an-20],['depuis 1990',1990],['tout l\u2019historique',null]];
-  const sel2=selecteur(filt,'P\u00e9riode affich\u00e9e',opts.map((x,i)=>i),i=>opts[i][0],opts.findIndex(o=>o[1]===depuis));
-  sel2.addEventListener('change',()=>{depuis=opts[+sel2.value][1];maj();});
+  const opts=[['10 ans',an-10],['20 ans',an-20],['1990',1990],['1950',1950],['Tout',null]];
+  const bar=document.createElement('div');bar.className='plages';
+  bar.innerHTML='<span>Afficher depuis</span>';
+  opts.forEach(function(o){
+    const b=document.createElement('button');b.type='button';b.textContent=o[0];
+    if(o[1]===depuis)b.className='on';
+    b.addEventListener('click',function(){
+      depuis=o[1];bar.querySelectorAll('button').forEach(x=>x.className='');b.className='on';maj();
+    });
+    bar.appendChild(b);
+  });
+  sh.corps.insertBefore(bar,cc.slider.closest('.explore')||null);
   maj();
 }
