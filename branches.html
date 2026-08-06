@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260807y">
+<link rel="stylesheet" href="assets/commun.css?v=20260807z">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260807y"></script>
-<script src="assets/ui.js?v=20260807y"></script>
-<script src="assets/tableau.js?v=20260807y"></script>
-<script src="assets/ratios.js?v=20260807y"></script>
+<script src="assets/commun.js?v=20260807z"></script>
+<script src="assets/ui.js?v=20260807z"></script>
+<script src="assets/tableau.js?v=20260807z"></script>
+<script src="assets/ratios.js?v=20260807z"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -30,6 +30,7 @@ pageRubrique({
     axes38:'ECO/series/M2_BRANCHES_A38.csv',
     axes88:'ECO/series/M2_BRANCHES_A88.csv',
     axesBns:'ECO/series/M2_BRANCHES_BNS.csv',
+    naf:'ECO/series/M2_NAF_COMPLETE.csv',
     tes:'ECO/series/M2_COMPTES_BRANCHES_A17_1949-2024.csv',
     comptes38:'ECO/series/M2_COMPTES_BRANCHES_A38_1949-2025.csv',
     comptes88:'ECO/series/M2_COMPTES_BRANCHES_A88_1999-2024.csv',
@@ -53,6 +54,12 @@ pageRubrique({
      entetes:{code:'Code',libelle:'Activit\u00e9 (88 postes)',poste38:'Poste (38)',branche17:'Branche (17)'},
      titre:'Correspondance des nomenclatures : 88, 38 et 17 postes',
      quoi:'Une ligne par activit\u00e9 \u00e9l\u00e9mentaire, avec le poste interm\u00e9diaire et la branche auxquels elle appartient. Cherche un mot pour savoir o\u00f9 classer une activit\u00e9, ou trie par branche pour voir tout ce qu\u2019elle contient.'},
+    {type:'tableau',fichier:'naf',page:30,
+     joindre:[{colonne:'parent',table:'naf',titre:'parent_libelle'}],
+     colonnes:['code','niveau','libelle','parent','parent_libelle'],
+     entetes:{code:'Code',niveau:'Niveau',libelle:'Intitul\u00e9',parent:'Code parent',parent_libelle:'Rattach\u00e9 \u00e0'},
+     titre:'Nomenclature d\u00e9taill\u00e9e : 1 728 postes, jusqu\u2019aux sous-classes',
+     quoi:'Toute la nomenclature d\u2019activit\u00e9s : 21 sections, 88 divisions, 272 groupes, 615 classes, 732 sous-classes. Cherche une activit\u00e9 pr\u00e9cise \u2014 « boulangerie », « notaire », « ferroviaire » \u2014 et remonte sa filiation. Les divisions correspondent exactement aux 88 postes du tableau pr\u00e9c\u00e9dent, ce qui relie ce d\u00e9tail aux branches. Les comptes nationaux ne publient aucun chiffre en dessous des divisions : cette table sert \u00e0 classer et \u00e0 chercher.'},
     {type:'texte',titre:'D\u00e9finitions : production, valeur ajout\u00e9e, marge',
      chapeau:'Cinq mots reviennent partout sur cette page. Ils ont un sens pr\u00e9cis en comptabilit\u00e9 nationale, souvent diff\u00e9rent du sens courant.',
      definitions:[
