@@ -133,7 +133,7 @@ function axeDe(parsed){
   const m={};
   for(const r of rows){
     let lib=r[iL];
-    if(iZ>=0&&r[iZ]&&r[iZ]!==lib)lib=lib+', '+r[iZ];
+    if(iZ>=0&&r[iZ]&&lib.toLowerCase().indexOf(String(r[iZ]).toLowerCase())<0)lib=lib+', '+r[iZ];
     m[r[iC]]=lib;
   }
   return m;
