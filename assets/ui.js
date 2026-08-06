@@ -67,8 +67,13 @@ function composantCourbe(host){
        pas assez fort de quelle annee on parle. */
     expVal.innerHTML='';
     if(valSel){
-      valSel.innerHTML='<span class="p">'+ech(libPeriodeMaj(p.t))+'</span><span class="v">'+ech(f.court)+'</span>'+
-        (ctx.lib?'<span class="l">'+ech(ctx.lib)+'</span>':'');
+      /* Une unite bavarde - « devise par euro » - allongeait le cadre : on garde
+         le nombre en grand et on renvoie l'unite sous le chiffre. */
+      const m=String(f.court).match(/^([\d\s.,\u2212-]+)\s*(.*)$/);
+      const nb=m?m[1].trim():f.court, un=m?m[2]:'';
+      valSel.innerHTML='<span class="p">'+ech(libPeriodeMaj(p.t))+'</span>'+
+        '<span class="v">'+ech(nb)+(un&&un.length<=3?' '+ech(un):'')+'</span>'+
+        '<span class="l">'+ech([(un&&un.length>3?un:''),ctx.lib].filter(Boolean).join(' \u00b7 '))+'</span>';
       valSel.hidden=false;
     }
   }
