@@ -372,7 +372,7 @@ function gabarit(config){
     '<header class="haut"><div class="haut-in">'+
       '<a class="marque" href="index.html"><span class="pastille"></span>\u00c9conomie fran\u00e7aise</a>'+
       '<nav class="onglets" aria-label="Rubriques">'+ong+'</nav>'+
-      '<div class="outilsH"><button class="btnH" id="btnRecharger">Recharger</button><button class="lienbtn" id="btnCle">Changer de cl\u00e9</button></div>'+
+
     '</div></header>'+
     '<div class="cadre">'+
       '<section class="hero">'+
@@ -383,7 +383,8 @@ function gabarit(config){
       '<p>Chaque fichier lu par la page, avec son en-t\u00eate complet : source, mill\u00e9sime, m\u00e9thode et contr\u00f4le chiffr\u00e9.</p></div></div>'+
       '<div id="srcList"></div></section>'+
       '<footer><details class="reserves" open><summary>R\u00e9serves sur les donn\u00e9es</summary><ul id="listeReserves"></ul></details>'+
-      '<p class="petit mono" id="piedInfos"></p></footer>'+
+      '<p class="petit mono" id="piedInfos"></p>'+
+      '<p class="petit"><button class="lienbtn" id="btnCle">Changer de cl\u00e9</button></p></footer>'+
     '</div></div>';
 }
 function rendreSources(config,D){
@@ -493,7 +494,6 @@ function pageRubrique(config){
     await demarrer();
     b.disabled=false;b.textContent='Lire le d\u00e9p\u00f4t';
   });
-  $('btnRecharger').addEventListener('click',demarrer);
   $('btnCle').addEventListener('click',function(){
     localStorage.removeItem('se_cle');sessionStorage.removeItem('se_cle');
     $('app').hidden=true;$('auth').hidden=false;$('cle').value='';$('erreurAuth').hidden=true;
