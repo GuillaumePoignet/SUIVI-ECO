@@ -63,9 +63,10 @@ function pTable(zone,cfg,D){
     const r=filtrees(),vus=r.slice(0,montre);
     let h='<table style="border-collapse:collapse;width:100%;font-size:12.5px"><thead><tr>';
     cols.forEach(function(c,j){
+      const lib=(cfg.entetes&&cfg.entetes[c])||pretty(c);
       h+='<th data-j="'+j+'" style="text-align:'+(num[j]?'right':'left')+';padding:7px 10px;border-bottom:1px solid var(--ligne);'+
-         'white-space:nowrap;cursor:pointer;font:600 11px Public Sans,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muet)">'+
-         ech(pretty(c))+(tri===j?(sens>0?' \u2191':' \u2193'):'')+'</th>';
+         'cursor:pointer;font:600 11px Public Sans,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--muet)">'+
+         ech(lib)+(tri===j?(sens>0?' \u2191':' \u2193'):'')+'</th>';
     });
     h+='</tr></thead><tbody>';
     for(const x of vus){
