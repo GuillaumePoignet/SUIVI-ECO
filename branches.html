@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260808b">
+<link rel="stylesheet" href="assets/commun.css?v=20260808c">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260808b"></script>
-<script src="assets/ui.js?v=20260808b"></script>
-<script src="assets/tableau.js?v=20260808b"></script>
-<script src="assets/ratios.js?v=20260808b"></script>
+<script src="assets/commun.js?v=20260808c"></script>
+<script src="assets/ui.js?v=20260808c"></script>
+<script src="assets/tableau.js?v=20260808c"></script>
+<script src="assets/ratios.js?v=20260808c"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -46,7 +46,7 @@ pageRubrique({
       {fichier:'emploi',motif:'emploi_total',et:'Personnes en emploi'},
       {fichier:'capacites',motif:'taux_utilisation',et:'Usines : taux d\u2019utilisation'}
     ]},
-    {type:'tableau',fichier:'axes88',page:100,
+    {type:'tableau',fichier:'axes88',page:100,repliable:true,
      joindre:[{colonne:'poste_a38',table:'axes38',titre:'poste38'},
               {colonne:'poste_a38',table:'axes38',champ:'poste_a17',titre:'code17'},
               {colonne:'code17',table:'axes',titre:'branche17'}],
@@ -54,7 +54,7 @@ pageRubrique({
      entetes:{code:'Code',libelle:'Activit\u00e9 (88 postes)',poste38:'Poste (38)',branche17:'Branche (17)'},
      titre:'Correspondance des nomenclatures : 88, 38 et 17 postes',
      quoi:'Une ligne par activit\u00e9 \u00e9l\u00e9mentaire, avec le poste interm\u00e9diaire et la branche auxquels elle appartient. Cherche un mot pour savoir o\u00f9 classer une activit\u00e9, ou trie par branche pour voir tout ce qu\u2019elle contient.'},
-    {type:'tableau',fichier:'naf',page:60,
+    {type:'tableau',fichier:'naf',page:60,repliable:true,
      filtre:{colonne:'niveau',valeur:'SOUS_CLASSE'},
      joindre:[{colonne:'parent',table:'naf',champ:'parent',titre:'c_groupe'},
               {colonne:'c_groupe',table:'naf',titre:'l_groupe'},
