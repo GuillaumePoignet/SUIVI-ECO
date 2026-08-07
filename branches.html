@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/commun.css?v=20260808c">
+<link rel="stylesheet" href="assets/commun.css?v=20260808d">
 </head>
 <body>
 <noscript>Cette page a besoin de JavaScript pour lire le d&eacute;p&ocirc;t.</noscript>
-<script src="assets/commun.js?v=20260808c"></script>
-<script src="assets/ui.js?v=20260808c"></script>
-<script src="assets/tableau.js?v=20260808c"></script>
-<script src="assets/ratios.js?v=20260808c"></script>
+<script src="assets/commun.js?v=20260808d"></script>
+<script src="assets/ui.js?v=20260808d"></script>
+<script src="assets/tableau.js?v=20260808d"></script>
+<script src="assets/ratios.js?v=20260808d"></script>
 <script>
 pageRubrique({
   id:'branches',
@@ -31,6 +31,7 @@ pageRubrique({
     axes88:'ECO/series/M2_BRANCHES_A88.csv',
     axesBns:'ECO/series/M2_BRANCHES_BNS.csv',
     naf:'ECO/series/M2_NAF_COMPLETE.csv',
+    esane:'ECO/series/M2_ESANE_CA_BRANCHES_2021-2022.csv',
     tes:'ECO/series/M2_COMPTES_BRANCHES_A17_1949-2024.csv',
     comptes38:'ECO/series/M2_COMPTES_BRANCHES_A38_1949-2025.csv',
     comptes88:'ECO/series/M2_COMPTES_BRANCHES_A88_1999-2024.csv',
@@ -66,6 +67,12 @@ pageRubrique({
      entetes:{code:'Code',libelle:'Activit\u00e9 (sous-classe)',l_groupe:'Groupe',l_division:'Division (= poste 88)',l_section:'Section'},
      titre:'Correspondance d\u00e9taill\u00e9e : les 732 sous-classes et leur filiation',
      quoi:'Chaque activit\u00e9 \u00e9l\u00e9mentaire avec son groupe, sa division et sa section. La division est exactement le poste en 88 du tableau pr\u00e9c\u00e9dent, ce qui relie ce d\u00e9tail aux branches. Cherche « boulangerie », « notaire » ou « ferroviaire » pour retrouver une activit\u00e9 pr\u00e9cise. Les comptes nationaux ne descendent pas sous la division : cette table sert \u00e0 classer et \u00e0 chercher.'},
+    {type:'classement',fichier:'esane',prefMotif:'chiffre_affaires',
+     titre:'Chiffre d\u2019affaires par activit\u00e9 fine, 2021-2022',
+     quoi:'La seule mesure d\u2019activit\u00e9 disponible en dessous des 88 postes : le chiffre d\u2019affaires des branches d\u2019entreprises, jusqu\u2019\u00e0 la sous-classe. Choisis le niveau de d\u00e9tail \u2014 A272, A615 ou A732 \u2014 puis l\u2019ann\u00e9e. Il ne se raccorde pas \u00e0 la production des comptes nationaux : ce sont deux mesures diff\u00e9rentes, sur des champs diff\u00e9rents.'},
+    {type:'explorer',fichier:'esane',prefMotif:'chiffre_affaires',
+     titre:'Suivre une activit\u00e9 fine, 2021-2022',
+     quoi:'Deux points seulement : le millesime 2022 et le 2021 recalcul\u00e9 sur le m\u00eame champ. La s\u00e9rie ne remonte pas plus loin sous cette forme.'},
     {type:'texte',titre:'D\u00e9finitions : production, valeur ajout\u00e9e, marge',
      chapeau:'Cinq mots reviennent partout sur cette page. Ils ont un sens pr\u00e9cis en comptabilit\u00e9 nationale, souvent diff\u00e9rent du sens courant.',
      definitions:[
@@ -114,6 +121,8 @@ pageRubrique({
      quoi:'Branche par branche : r\u00e9mun\u00e9rations, imp\u00f4ts sur la production, subventions re\u00e7ues et exc\u00e9dent brut d\u2019exploitation. Ces quatre postes font exactement la valeur ajout\u00e9e.'}
   ],
   reserves:[
+    'Le chiffre d\u2019affaires Esane et la production des comptes nationaux ne s\u2019\u00e9galent jamais : le premier somme des comptes d\u2019entreprises sur le champ marchand non agricole et non financier, le second corrige, int\u00e8gre l\u2019\u00e9conomie non observ\u00e9e et couvre le non marchand. Aucune r\u00e9conciliation n\u2019est grav\u00e9e.',
+    '217 valeurs d\u2019Esane sont couvertes par le secret statistique, faute d\u2019assez d\u2019entreprises dans la case. Elles sont vides, jamais z\u00e9ro : sommer les sous-classes pour reconstituer un total donnerait un chiffre faux.',
     'La page lit la d\u00e9coupe en 17 branches ; les fichiers en 38 et 88 branches sont au d\u00e9p\u00f4t et viendront dans une vue d\u00e9taill\u00e9e.',
     'Le taux d\u2019utilisation des capacit\u00e9s ne couvre que l\u2019industrie manufacturi\u00e8re et ses grandes branches, comme le fichier source ; la carte en montre un seul poste, nomm\u00e9 sous le chiffre, car des taux ne s\u2019additionnent pas.',
     'Le niveau en 88 branches s\u2019arr\u00eate en 2024 et ne remonte qu\u2019\u00e0 1999 : c\u2019est la couverture de la source, pas un choix de la page.',
