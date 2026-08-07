@@ -197,6 +197,16 @@ function selecteur(parent,labelTxt,values,labFn,val){
   lab.appendChild(sel);parent.appendChild(lab);
   return sel;
 }
+/* Meme panneau, mais referme : pour les tableaux de reference qu'on consulte
+   ponctuellement sans vouloir les voir defiler a chaque visite. */
+function panneauRepliable(zone,titre,quoi,ouvert){
+  const sec=document.createElement('details');sec.className='panneau explic';
+  if(ouvert)sec.open=true;
+  sec.innerHTML='<summary><span class="lib">'+ech(titre)+'</span></summary>'+
+    (quoi?'<p class="chapeau">'+ech(quoi)+'</p>':'')+'<div class="corps"></div>';
+  zone.appendChild(sec);
+  return {sec:sec,corps:sec.querySelector('.corps')};
+}
 function panneauShell(zone,titre,quoi){
   const sec=document.createElement('section');sec.className='panneau';
   sec.innerHTML='<div class="pan-tete"><div><h2>'+ech(titre)+'</h2><p>'+ech(quoi||'')+'</p></div></div><div class="corps"></div>';
