@@ -10,7 +10,9 @@ function nombreOuTexte(x){
   return (isNaN(n)||String(x).trim()==='')?null:n;
 }
 function pTable(zone,cfg,D){
-  const sh=panneauShell(zone,cfg.titre,cfg.quoi);
+  const sh=(cfg.repliable&&typeof panneauRepliable==='function')
+    ?panneauRepliable(zone,cfg.titre,cfg.quoi,cfg.ouvert)
+    :panneauShell(zone,cfg.titre,cfg.quoi);
   const F=D[cfg.fichier];
   if(!F){sh.corps.innerHTML='<p class="note">Fichier absent.</p>';return;}
   const p=F.serie;
